@@ -1,8 +1,8 @@
 import './App.css'
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from './src/pages/HomePage.tsx';
-import {SigninPage} from "@/src/pages/auth/SigninPage.tsx";
-import {SignupPage} from "@/src/pages/auth/SignupPage.tsx";
+import {SigninPage} from "@/pages/auth/SigninPage.tsx";
+import {SignupPage} from "@/pages/auth/SignupPage.tsx";
 
 
 function App() {
