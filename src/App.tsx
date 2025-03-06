@@ -4,6 +4,7 @@ import { HomePage } from "@/pages/home/HomePage.tsx";
 import AproposPage from "@/pages/footer/AproposPage.tsx";
 import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
+import CvConstructPage from "@/pages/cv/CvConstructPage.tsx";
 
 
 
@@ -16,6 +17,7 @@ function App() {
               <Route path="/apropos" element={<AproposPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+                <Route path="/cv" element={<CvConstructPage />} />
           </Routes>
       </>
   )
