@@ -9,7 +9,7 @@
     }
   ],
   "compilerOptions": {
-    "baseUrl": "../../BalanceTonJob.io/Clon/BalanceTonJob",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
