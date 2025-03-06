@@ -1,4 +1,4 @@
-import './App.css'
+// import './App.css'
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from './src/pages/HomePage.tsx';
 import {SigninPage} from "../src/src/pages/auth/SigninPage.tsx";
