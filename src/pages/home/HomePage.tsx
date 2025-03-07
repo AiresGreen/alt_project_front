@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { NavigationBar } from "@/components/navigationBar/NavigationBar"
 import { useMediaQuery } from "@/lib/useMediaQuery"
@@ -24,7 +22,6 @@ export const HomePage = () => {
 
     // ------------------------------
     // Composant d'accordions (catégories de filtres)
-    // Réutilisé à la fois dans la sidebar desktop et dans le sheet mobile
     // ------------------------------
     const FiltersAccordion = () => (
         <Accordion type="multiple" className="space-y-2">
