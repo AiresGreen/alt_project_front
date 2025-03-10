@@ -1,99 +1,17 @@
 import {useState} from "react"
-
-//shadcn/ui
 import {Button} from "@/components/ui/button"
 import {Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter} from "@/components/ui/card"
-import {Label} from "@/components/ui/label"
-import {Checkbox} from "@/components/ui/checkbox"
 import {NavigationBarInscrit} from "@/components/navigationBar/NavigationBar.tsx"
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@radix-ui/react-accordion"
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet.tsx";
 import {Filter} from "lucide-react";
 import {useMediaQuery} from "@/lib/useMediaQuery.ts";
+import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
+import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 
 // ------------------------------
 // Composant d'accordions (catégories de filtres)
 // ------------------------------
-const FiltersAccordion = () => (
-    <Accordion type="multiple"
-               className="space-y-2">
-        {/* 1) Type de contrat */}
-        <AccordionItem value="type-contrat">
-            <AccordionTrigger>Type de contrat</AccordionTrigger>
-            <AccordionContent>
-                <div className="mt-2 space-y-2 ml-4">
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="cdi"/>
-                        <Label htmlFor="cdi">CDI</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="cdd"/>
-                        <Label htmlFor="cdd">CDD</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="autre"/>
-                        <Label htmlFor="autre">Autre</Label>
-                    </div>
-                </div>
-            </AccordionContent>
-        </AccordionItem>
 
-        {/* 2) Niveau d’expérience */}
-        <AccordionItem value="experience">
-            <AccordionTrigger>Niveau d’expérience</AccordionTrigger>
-            <AccordionContent>
-                <div className="mt-2 space-y-2 ml-4">
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="junior"/>
-                        <Label htmlFor="junior">Junior</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="intermediaire"/>
-                        <Label htmlFor="intermediaire">Intermédiaire</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="senior"/>
-                        <Label htmlFor="senior">Senior</Label>
-                    </div>
-                </div>
-            </AccordionContent>
-        </AccordionItem>
-
-        {/* 3) Temps de travail */}
-        <AccordionItem value="temps-travail">
-            <AccordionTrigger>Temps de travail</AccordionTrigger>
-            <AccordionContent>
-                <div className="mt-2 space-y-2 ml-4">
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="temps-plein"/>
-                        <Label htmlFor="temps-plein">Temps plein</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="temps-partiel"/>
-                        <Label htmlFor="temps-partiel">Temps partiel</Label>
-                    </div>
-                </div>
-            </AccordionContent>
-        </AccordionItem>
-
-        {/* 4) Mode de travail */}
-        <AccordionItem value="mode-travail">
-            <AccordionTrigger>Mode de travail</AccordionTrigger>
-            <AccordionContent>
-                <div className="mt-2 space-y-2 ml-4">
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="remote"/>
-                        <Label htmlFor="remote">Télétravail</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Checkbox id="onsite"/>
-                        <Label htmlFor="onsite">Sur site</Label>
-                    </div>
-                </div>
-            </AccordionContent>
-        </AccordionItem>
-    </Accordion>
-)
 
 // ------------------------------
 // Rendu principal
@@ -129,7 +47,7 @@ export const HomeInscritPage = () => {
                                         </Button>
                                     </SheetTrigger>
                                     <SheetContent side="right"
-                                                  className="w-[80%] sm:w-[60%]">
+                                                  className="w-[80%] sm:w-[60%] bg-green-300">
                                         <SheetHeader>
                                             <SheetTitle>Filtrer</SheetTitle>
                                             <SheetDescription>Affinez votre recherche</SheetDescription>
@@ -202,7 +120,8 @@ export const HomeInscritPage = () => {
 
                                 {/* Autres options de la sidebar, ex. bouton "Créer le CV" */}
                                 <Button variant="outline"
-                                        className="w-full mt-4">
+                                        className="w-full mt-4"
+                                onClick={() => CvConstructPage()}>
                                     Créer le CV
                                 </Button>
                             </aside>

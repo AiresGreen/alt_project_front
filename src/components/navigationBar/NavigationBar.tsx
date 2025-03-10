@@ -70,11 +70,6 @@ export function NavigationBarNonInscrit() {
                         <MenubarTrigger className=" px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
                             Connexion
                         </MenubarTrigger>
-                        <MenubarContent className="bg-white text-gray-700">
-                            <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                                Se connecter
-                            </MenubarItem>
-                        </MenubarContent>
                     </MenubarMenu>
                     <MenubarMenu>
                         <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
@@ -99,9 +94,9 @@ export function NavigationBarNonInscrit() {
 
 export function PhotoDeProfil() {
     return (
-        <Avatar>
+        <Avatar className={"flex flex-col items-center justify-center"}>
             <RxAvatar/>
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>JM FM</AvatarFallback>
         </Avatar>
     )
 }
@@ -196,7 +191,7 @@ export function NavigationBarInscrit() {
                 </MenubarMenu>
 
                 {/* --- LIENS DE NAVIGATION (DESKTOP)--- */}
-                    <MenubarMenu className="hidden md:flex items-centerspace-x-6 ml-6">
+                    <MenubarMenu>
                         <MenubarTrigger className="hidden md:flex ml-auto space-x-2">
                             {/* AVATAR + NOM */}
                             <div>

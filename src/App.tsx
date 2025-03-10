@@ -7,7 +7,12 @@ import AproposPage from "@/pages/footer/AproposPage.tsx";
 import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
 import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
+import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 
+
+function MyCvPage() {
+    return null;
+}
 
 function App() {
     return (
@@ -26,6 +31,13 @@ function App() {
                 <Route path="/apropos" element={<AproposPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+
+                {/* Page de constructeur de CV */}
+                <Route path={"/cv-builder"} element={<CvConstructPage />} />
+
+                {/* Page de mes CV */}
+                <Route path={"/cv"} element={<MyCvPage />} />
+
             </Routes>
 
     )
