@@ -18,10 +18,7 @@
   import { useForm } from "react-hook-form"
   import { z } from "zod"
   
-//Regex qui va être appelé et servira pour valider le mot de passe
-  const passwordValidation = new RegExp(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-  );
+
 
   const formSchema = z.object({
     username: z.string().min(2).max(50),
@@ -35,11 +32,7 @@
     .refine((password) => /[0-9]/.test(password), { message: "Password must contain at least one digit" })
     .refine((password) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password), { message: "Password must contain at least one special character" })
     });
-    
   
-
-
-
   export const SigninPage = () => {
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -62,14 +55,11 @@
       return (
   <>
           <img src="../public/logo.png" alt="Logo Balance ton job" className="h-50 m-auto"/>
-          <div className="bg-green-300">
-            
+          <div className="bg-green-300 m-20">
               <h1 className="font-[var(--font-nunito)] text-center text-6xl bg-gradient-to-r from-cyan-700 to-blue-950 bg-clip-text text-transparent bord "> INSCRIPTION </h1>
-
-
           </div>        
           <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-col p-20 gap-8 ">
           <FormField
             control={form.control}
             name="username"
@@ -122,9 +112,30 @@
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel> Confirmation Mot de Passe</FormLabel>
+                <FormControl>
+                  <Input type="password" placeholder="Confirmation" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           
-
-          <Button>Submit</Button>
+          <div className="flex flex-col gap-4">
+          <Button >Vers l'infini et au dela 
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+            </svg>
+          </Button>
+          <Button variant="outline" className="w-{200.1px}">Annuler 
+          </Button> 
+          </div>
+         
         </form>
       </Form>
   </>
