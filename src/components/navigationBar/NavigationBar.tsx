@@ -196,9 +196,7 @@ export function NavigationBarInscrit() {
                 </MenubarMenu>
 
                 {/* --- LIENS DE NAVIGATION (DESKTOP)--- */}
-
-                <Menubar >
-                    <MenubarMenuclassName="hidden md:flex items-centerspace-x-6 ml-6">
+                    <MenubarMenu className="hidden md:flex items-centerspace-x-6 ml-6">
                         <MenubarTrigger className="hidden md:flex ml-auto space-x-2">
                             {/* AVATAR + NOM */}
                             <div>
@@ -246,7 +244,6 @@ export function NavigationBarInscrit() {
                             </MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
-                </Menubar>
             </Menubar>
         </div>
     )
