@@ -1,5 +1,5 @@
 import {SigninPage} from "@/pages/auth/SigninPage.tsx";
-import {SignupPage} from "@/pages/auth/SignupPage.tsx";
+
 import {Routes, Route} from 'react-router-dom';
 
 import {HomeInscritPage} from "@/pages/home/HomeInscritPage.tsx";
@@ -8,6 +8,7 @@ import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
 import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
+import { LoginPage } from "./pages/auth/LoginPage";
 
 
 function MyCvPage() {
@@ -22,7 +23,7 @@ function App() {
 
                 {/* Authentification */}
                 <Route path="/signin" element={<SigninPage />} />
-                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<LoginPage />} />
 
                 {/* Page d'accueil pour INSCRIT (chemin distinct) */}
                 <Route path="/home-inscrit" element={<HomeInscritPage />} />
