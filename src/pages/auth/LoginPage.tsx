@@ -1,12 +1,8 @@
 
-  import { useState } from "react";
-  import { LoginInterface } from "@/interface/LoginInterface";
-
   import { Button } from "@/components/ui/button";
   import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -16,6 +12,7 @@
 
   import { zodResolver } from "@hookform/resolvers/zod"
   import { useForm } from "react-hook-form"
+import { NavLink } from "react-router-dom";
   import { z } from "zod"
   
 
@@ -75,6 +72,7 @@
               </FormItem>
             )}
           />
+          <NavLink to="/LoginRecoveryPage">Mot de passe Oublié</NavLink>
           <div className="flex flex-col gap-4 max-md:my-8">
           <Button>Au boulot !
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"     className="size-6 ml-6">

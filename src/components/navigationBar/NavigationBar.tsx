@@ -16,7 +16,7 @@ import {Avatar, AvatarFallback,} from "@radix-ui/react-avatar";
 
 
 /*______________________________________________________*/
-/*BARRE DE NAVIGATION POUR LA PAGE D4ACCUEIL NON-INSCRIT*/
+/*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL NON-INSCRIT*/
 
 /*______________________________________________________*/
 
