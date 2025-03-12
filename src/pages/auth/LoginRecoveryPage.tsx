@@ -20,7 +20,7 @@ const formSchema = z.object({
   email:z.string().email(),
   });
 
-export const LoginPage = () => {
+export const LoginRecoveryPage = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

@@ -10,6 +10,8 @@ import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 import { LoginPage } from "./pages/auth/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import { LoginRecoveryPage } from "./pages/auth/LoginRecoveryPage.tsx";
+import { PasswordRecoveryPage } from "./pages/auth/PasswordRecoveryPage";
 
 
 function MyCvPage() {
@@ -25,6 +27,8 @@ function App() {
                 {/* Authentification */}
                 <Route path="/signin" element={<SigninPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/LoginRecoveryPage" element={<LoginRecoveryPage/>}/>
+                <Route path="/PasswordRecoveryPage" element={<PasswordRecoveryPage/>}/>
 
                 {/* Page d'accueil pour INSCRIT (chemin distinct) */}
                 <Route path="/home-inscrit" element={<HomeInscritPage />} />

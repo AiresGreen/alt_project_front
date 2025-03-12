@@ -31,12 +31,10 @@
     .refine((password) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password), { message: "Password must contain at least one special character" }),
     passwordconfirmation: z
         .string()
-        .min(8)
-        .refine((passwordconfirmation) => /[A-Z]/.test(passwordconfirmation), { message: "Password must contain at least one uppercase letter" })
-        .refine((passwordconfirmation) => /[a-z]/.test(passwordconfirmation), { message: "Password must contain at least one lowercase letter" })
-        .refine((passwordconfirmation) => /[0-9]/.test(passwordconfirmation), { message: "Password must contain at least one digit" })
-        .refine((passwordconfirmation) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(passwordconfirmation), { message: "Password must contain at least one special character" })
-    });
+    })
+    .refine((data) => data.password === data.passwordconfirmation, {
+      message: "Les mots de passe ne correspondent pas",
+      path: ["passwordconfirmation"],});
   
   export const SigninPage = () => {
 
