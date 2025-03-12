@@ -1,6 +1,5 @@
 import { useState } from "react"
-import { NavigationBarNonInscrit} from "@/components/navigationBar/NavigationBar.tsx"
-import { useMediaQuery } from "@/lib/useMediaQuery"
+import { useMediaQuery } from "react-responsive"
 
 // shadcn/ui
 import { Button } from "@/components/ui/button"
@@ -8,26 +7,21 @@ import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescri
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Filter } from "lucide-react"
 import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
+import {Link} from "react-router-dom";
 
 export const HomeNonInscritPage = () => {
     // Détection du breakpoint mobile (max-width: 768px)
-    const isMobile = useMediaQuery("(max-width: 768px)")
+    const isMobile = useMediaQuery({query: "(max-width: 768px)"})
 
     // État local pour le Sheet (mobile)
     const [openSheet, setOpenSheet] = useState(false)
-
-    // ------------------------------
-    // Composant d'accordions (catégories de filtres)
-    // ------------------------------
-
-
 
     // ------------------------------
     // Rendu principal
     // ------------------------------
     return (
         <div>
-            <NavigationBarNonInscrit />
+
             <main>
                 {/* Container principal */}
                 <div className="container mx-auto mt-4 flex flex-col items-center md:flex-row gap-4 px-4">
@@ -174,20 +168,23 @@ export const HomeNonInscritPage = () => {
                 </div>
 
                 {/* FOOTER */}
-                <footer className="mt-8 border-t py-4 text-center text-sm text-gray-600">
+                {/*<footer className="mt-8 border-t py-4 text-center text-sm text-gray-600">
                     <div className="mb-2 space-x-4">
-                        <a href="#" className="hover:underline">
+                        <Link to="src/pages/footer/AproposPage.tsx"
+                              className="hover:underline">
                             À propos
-                        </a>
-                        <a href="#" className="hover:underline">
+                        </Link>
+                        <Link to="src/pages/footer/ContactPage.tsx"
+                              className="hover:underline">
                             Contact
-                        </a>
-                        <a href="#" className="hover:underline">
+                        </Link>
+                        <Link to="src/pages/footer/MentionsLegalePage.tsx"
+                              className="hover:underline">
                             Mentions légales
-                        </a>
+                        </Link>
                     </div>
                     <p>© 2024 BalanceTonJob – Créé par JM &amp; Vladou. Open-source sous licence.</p>
-                </footer>
+                </footer>*/}
             </main>
         </div>
     )

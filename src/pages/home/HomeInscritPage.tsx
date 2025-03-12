@@ -1,17 +1,12 @@
 import {useState} from "react"
 import {Button} from "@/components/ui/button"
 import {Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter} from "@/components/ui/card"
-import {NavigationBarInscrit} from "@/components/navigationBar/NavigationBar.tsx"
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet.tsx";
 import {Filter} from "lucide-react";
 import {useMediaQuery} from "@/lib/useMediaQuery.ts";
 import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
-
-// ------------------------------
-// Composant d'accordions (catégories de filtres)
-// ------------------------------
-
+import {Link} from "react-router-dom";
 
 // ------------------------------
 // Rendu principal
@@ -25,7 +20,7 @@ export const HomeInscritPage = () => {
 
     return (
         <div>
-            <NavigationBarInscrit/>
+
             <main>
                 {/* Container principal */}
                 <div className="container mx-auto mt-4 flex flex-col items-center md:flex-row gap-4 px-4">
@@ -177,23 +172,23 @@ export const HomeInscritPage = () => {
                 </div>
 
                 {/* FOOTER */}
-                <footer className="mt-8 border-t py-4 text-center text-sm text-gray-600">
+                {/*<footer className="mt-8 border-t py-4 text-center text-sm text-gray-600">
                     <div className="mb-2 space-x-4">
-                        <a href="#"
-                           className="hover:underline">
+                        <Link to="src/pages/footer/AproposPage.tsx"
+                              className="hover:underline">
                             À propos
-                        </a>
-                        <a href="#"
-                           className="hover:underline">
+                        </Link>
+                        <Link to="src/pages/footer/ContactPage.tsx"
+                              className="hover:underline">
                             Contact
-                        </a>
-                        <a href="#"
-                           className="hover:underline">
+                        </Link>
+                        <Link to="src/pages/footer/MentionsLegalePage.tsx"
+                              className="hover:underline">
                             Mentions légales
-                        </a>
+                        </Link>
                     </div>
                     <p>© 2024 BalanceTonJob – Créé par JM &amp; Vladou. Open-source sous licence.</p>
-                </footer>
+                </footer>*/}
             </main>
         </div>
     )
