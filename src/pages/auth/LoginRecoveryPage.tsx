@@ -18,8 +18,6 @@ import { z } from "zod"
 
 const formSchema = z.object({
   email:z.string().email(),
-  password: z
-  .string()
   });
 
 export const LoginPage = () => {
@@ -28,7 +26,6 @@ export const LoginPage = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email:"",
-      password:"",
     },
   })
   // 2. Define a submit handler.

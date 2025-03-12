@@ -9,6 +9,7 @@ import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
 import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 import { LoginPage } from "./pages/auth/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 
 function MyCvPage() {
@@ -39,6 +40,8 @@ function App() {
                 {/* Page de mes CV */}
                 <Route path={"/cv"} element={<MyCvPage />} />
 
+                {/* Route page non trouvée */}
+                <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
 
     )

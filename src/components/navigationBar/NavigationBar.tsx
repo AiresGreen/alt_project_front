@@ -17,7 +17,6 @@ import {Avatar, AvatarFallback,} from "@radix-ui/react-avatar";
 
 /*______________________________________________________*/
 /*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL NON-INSCRIT*/
-
 /*______________________________________________________*/
 
 export function NavigationBarNonInscrit() {
