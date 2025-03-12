@@ -1,7 +1,5 @@
 import {SigninPage} from "@/pages/auth/SigninPage.tsx";
-
 import {Routes, Route} from 'react-router-dom';
-
 import {HomeInscritPage} from "@/pages/home/HomeInscritPage.tsx";
 import AproposPage from "@/pages/footer/AproposPage.tsx";
 import ContactPage from "@/pages/footer/ContactPage.tsx";
@@ -9,11 +7,9 @@ import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
 import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 import { LoginPage } from "./pages/auth/LoginPage";
+import MyCvPage from "./pages/cv/MyCvPage";
 
 
-function MyCvPage() {
-    return null;
-}
 
 function App() {
     return (
