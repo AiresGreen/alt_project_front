@@ -13,6 +13,10 @@ import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
 import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
+import { LoginPage } from "./pages/auth/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import { LoginRecoveryPage } from "./pages/auth/LoginRecoveryPage.tsx";
+import { PasswordRecoveryPage } from "./pages/auth/PasswordRecoveryPage";
 import {LoginPage} from "./pages/auth/LoginPage";
 import MyCvPage from "./pages/cv/MyCvPage";
 
@@ -34,6 +38,23 @@ function App() {
     const {isAuthenticated} = useContext(AuthContext);
 
     return (
+            <Routes>
+                {/* Page d'accueil pour NON-inscrit */}
+                <Route path="/" element={<HomeNonInscritPage />} />
+
+                {/* Authentification */}
+                <Route path="/signin" element={<SigninPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/LoginRecoveryPage" element={<LoginRecoveryPage/>}/>
+                <Route path="/PasswordRecoveryPage" element={<PasswordRecoveryPage/>}/>
+
+                {/* Page d'accueil pour INSCRIT (chemin distinct) */}
+                <Route path="/home-inscrit" element={<HomeInscritPage />} />
+
+                {/* Pages de footer */}
+                <Route path="/apropos" element={<AproposPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute/>}>
@@ -54,6 +75,14 @@ function App() {
                 </Route>
             </Route>
 
+                {/* Page de mes CV */}
+                <Route path={"/cv"} element={<MyCvPage />} />
+
+                {/* Route page non trouvée */}
+                <Route path="*" element={<NotFoundPage/>}/>
+            </Routes>
+
+    )
             {/* Routes Privées */}
             {isAuthenticated && (
                 <Route element={<PrivateRoute/>}>
