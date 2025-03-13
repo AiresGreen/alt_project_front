@@ -12,11 +12,10 @@ import { LoginPage } from "./pages/auth/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { LoginRecoveryPage } from "./pages/auth/LoginRecoveryPage.tsx";
 import { PasswordRecoveryPage } from "./pages/auth/PasswordRecoveryPage";
+import MyCvPage from "./pages/cv/MyCvPage.tsx";
 
 
-function MyCvPage() {
-    return null;
-}
+
 
 function App() {
     return (
