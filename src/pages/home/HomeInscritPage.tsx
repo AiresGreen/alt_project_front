@@ -5,8 +5,7 @@ import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTri
 import {Filter} from "lucide-react";
 import {useMediaQuery} from "@/lib/useMediaQuery.ts";
 import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
-import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
-import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // ------------------------------
 // Rendu principal
@@ -17,6 +16,9 @@ export const HomeInscritPage = () => {
 
 // État local pour le Sheet (mobile)
     const [openSheet, setOpenSheet] = useState(false)
+
+    //Navigation sur la page CvConstructPage
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -116,7 +118,7 @@ export const HomeInscritPage = () => {
                                 {/* Autres options de la sidebar, ex. bouton "Créer le CV" */}
                                 <Button variant="outline"
                                         className="w-full mt-4"
-                                onClick={() => CvConstructPage()}>
+                                onClick={() => navigate("/cv-builder")}>
                                     Créer le CV
                                 </Button>
                             </aside>

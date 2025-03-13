@@ -21,11 +21,12 @@ import {PublicPcLayout} from "@/components/layouts/PublicPcLayout";
 import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
 import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
 import PublicRoute from "@/utils/PublicRoute.tsx";
+import PrivateRoute from "@/utils/PrivateRoute.tsx";
 
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
-    const isMobile = useMediaQuery({query: `(maxWidth: 767)`});
+    const isMobile = useMediaQuery({query: "(max-width: 767px)"});
     console.log(isMobile);
 
     // Récupération de l'état d'authentification depuis le contexte
@@ -54,7 +55,7 @@ function App() {
 
             {/* Routes Privées */}
             {isAuthenticated && (
-                <Route element={<PublicRoute/>}>
+                <Route element={<PrivateRoute/>}>
                     <Route element={isMobile ? <PrivateMobileLayout/> : <PrivatePcLayout/>}>
                         <Route path="/home-inscrit"
                                element={<HomeInscritPage/>}/>

@@ -25,7 +25,7 @@ export function NavigationBarNonInscrit() {
             <img
                 src="../../../public/logo.png"
                 alt="BalanceTonJob"
-                className="w-16 mr-4"  // Réduire la taille du logo
+                className="w-16 mr-4"
             />
             <Menubar className="flex items-center bg-white border-b border-gray-200 px-4 py-2 text-sm">
                 {/* BARRE DE RECHERCHE (cachée sur mobile, visible à partir de md) */}

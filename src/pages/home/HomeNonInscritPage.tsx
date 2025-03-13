@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Filter } from "lucide-react"
 import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
 import {Link} from "react-router-dom";
+import {NavigationBarNonInscrit} from "@/components/navigationBar/NavigationBar.tsx";
 
 export const HomeNonInscritPage = () => {
     // Détection du breakpoint mobile (max-width: 768px)

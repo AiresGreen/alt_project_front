@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 import App from "./App";
 import { AuthProvider } from "./hook/contexts/auth.context";
 import { BrowserRouter } from "react-router-dom";
