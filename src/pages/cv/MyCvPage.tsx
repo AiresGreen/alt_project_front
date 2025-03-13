@@ -1,6 +1,11 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button.tsx";
+import { FaRegEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-export default function MesCVPage() {
+
+
+export default function MyCvPage() {
     // Exemple d'un tableau de CV
     const cvList = [
         { id: 1, title: "CV 1" },
@@ -22,10 +27,15 @@ export default function MesCVPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
-                                {/* Placeholder image/texte */}
                                 Aperçu du CV
                             </div>
                             <p className="mt-2 text-sm text-gray-700">CV PROB DE FRANÇAIS</p>
+                            <Link to={"/cv-builder"}>
+                                <Button className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition">
+                                    <FaRegEdit />
+                                    Modifier
+                                </Button>
+                            </Link>
                         </CardContent>
                     </Card>
                 ))}

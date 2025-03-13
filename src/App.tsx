@@ -26,8 +26,6 @@ function App() {
                 {/* Authentification */}
                 <Route path="/signin" element={<SigninPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/LoginRecoveryPage" element={<LoginRecoveryPage/>}/>
-                <Route path="/PasswordRecoveryPage" element={<PasswordRecoveryPage/>}/>
 
                 {/* Page d'accueil pour INSCRIT (chemin distinct) */}
                 <Route path="/home-inscrit" element={<HomeInscritPage />} />
@@ -43,8 +41,6 @@ function App() {
                 {/* Page de mes CV */}
                 <Route path={"/cv"} element={<MyCvPage />} />
 
-                {/* Route page non trouvée */}
-                <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
 
     )
