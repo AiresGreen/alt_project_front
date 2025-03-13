@@ -7,8 +7,8 @@ import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescri
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Filter } from "lucide-react"
 import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
-import {Link} from "react-router-dom";
-import {NavigationBarNonInscrit} from "@/components/navigationBar/NavigationBar.tsx";
+//import {Link} from "react-router-dom";
+
 
 export const HomeNonInscritPage = () => {
     // Détection du breakpoint mobile (max-width: 768px)
@@ -57,7 +57,7 @@ export const HomeNonInscritPage = () => {
 
                             {/* Liste d'offres en plein écran (pas de sidebar) */}
                             <section className="w-full space-y-4">
-                                <Card>
+                                <Card className={'bg-card-custom'}>
                                     <CardHeader>
                                         <CardTitle>[Titre du poste] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -80,7 +80,7 @@ export const HomeNonInscritPage = () => {
                                     </CardFooter>
                                 </Card>
 
-                                <Card>
+                                <Card className={'bg-card-custom'}>
                                     <CardHeader>
                                         <CardTitle>[Titre du poste 2] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -143,7 +143,7 @@ export const HomeNonInscritPage = () => {
                                     </CardFooter>
                                 </Card>
 
-                                <Card>
+                                <Card >
                                     <CardHeader>
                                         <CardTitle>[Titre du poste 2] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>

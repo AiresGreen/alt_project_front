@@ -3,18 +3,20 @@ import {NavigationBarNonInscrit} from "@/components/navigationBar/NavigationBar.
 
 export const PublicPcLayout = () => {
     return (
-        <div >
-            <header>
+        <div className="bg-custom-pc flex flex-col min-h-screen">
+            <header className="bg-emerald-200 text-white p-4">
                 <NavigationBarNonInscrit/>
             </header>
 
-            <div>
-                <main >
-                    <Outlet/>
+            <div className="flex flex-1">
+
+                <main className="flex-1 p-4">
+                    <Outlet />
                 </main>
+
             </div>
 
-            <footer>
+            <footer className="bg-gray-800 text-white p-4 text-center">
                 <div className="mb-2 space-x-4">
                     <Link to="src/pages/footer/AproposPage.tsx"
                           className="hover:underline">

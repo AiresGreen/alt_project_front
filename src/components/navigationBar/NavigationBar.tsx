@@ -13,6 +13,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {CiSearch} from "react-icons/ci";
 import {TfiMenuAlt} from "react-icons/tfi";
 import {Avatar, AvatarFallback,} from "@radix-ui/react-avatar";
+import {Link} from "react-router-dom";
 
 
 /*______________________________________________________*/
@@ -35,7 +36,7 @@ export function NavigationBarNonInscrit() {
                         placeholder="Rechercher un poste..."
                         className="w-full"
                     />
-                    <Button variant="outline" className="bg-white">
+                    <Button variant="outline" className="bg-white text-gray-900">
                         <CiSearch />
                     </Button>
                 </div>
@@ -46,16 +47,27 @@ export function NavigationBarNonInscrit() {
                         <TfiMenuAlt className="h-4 w-4" />
                         <span>Menu</span>
                     </MenubarTrigger>
+
                     <MenubarContent className="bg-white text-gray-700">
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Accueil
+                            <Link to={'/login'}>Connexion</Link>
                         </MenubarItem>
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            À propos
+                            <Link to={'/signin'}>M’inscrire</Link>
+                        </MenubarItem>
+                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
+                            <Link to={'/'}>Accueil</Link>
+                        </MenubarItem>
+                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
+                            <Link to={"/apropos"}>À propos</Link>
                         </MenubarItem>
                         <MenubarSeparator />
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Contact
+                            <Link to={"/mentions-legales"}>Mentions légales</Link>
+                        </MenubarItem>
+                        <MenubarSeparator />
+                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
+                            <Link to={"/contact"}>Contact</Link>
                         </MenubarItem>
                     </MenubarContent>
                 </MenubarMenu>
@@ -64,18 +76,13 @@ export function NavigationBarNonInscrit() {
                 <div className="hidden md:flex space-x-4 ml-auto">
                     <MenubarMenu>
                         <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            Connexion
+                            <Link to={'/login'}>Connexion</Link>
                         </MenubarTrigger>
                     </MenubarMenu>
                     <MenubarMenu>
                         <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            M’inscrire
+                            <Link to={'/signin'}>M’inscrire</Link>
                         </MenubarTrigger>
-                        <MenubarContent className="bg-white text-gray-700">
-                            <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                                Créer un compte
-                            </MenubarItem>
-                        </MenubarContent>
                     </MenubarMenu>
                 </div>
             </Menubar>

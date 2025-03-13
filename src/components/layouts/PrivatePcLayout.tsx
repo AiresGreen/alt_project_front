@@ -3,7 +3,7 @@ import { NavigationBarInscrit } from "@/components/navigationBar/NavigationBar.t
 
 export const PrivatePcLayout = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="bg-custom-pc flex flex-col min-h-screen">
             <header className="bg-blue-200 text-white p-4">
                 <NavigationBarInscrit />
             </header>

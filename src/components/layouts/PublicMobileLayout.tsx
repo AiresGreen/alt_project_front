@@ -3,16 +3,20 @@ import { NavigationBarNonInscrit } from "@/components/navigationBar/NavigationBa
 
 export const PublicMobileLayout = () => {
     return (
-        <div>
-            <header>
-                <NavigationBarNonInscrit />
+        <div className="bg-custom-mobile flex flex-col min-h-screen ">
+            <header className="bg-emerald-200 text-white p-4">
+                <NavigationBarNonInscrit/>
             </header>
 
-            <main >
-                <Outlet />
-            </main>
+            <div className="flex flex-1">
 
-            <footer >
+                <main className="flex-1 p-4">
+                    <Outlet />
+                </main>
+
+            </div>
+
+            <footer className="bg-gray-800 text-white p-4 text-center">
                 <div className="mb-2 space-x-4">
                     <Link to="src/pages/footer/AproposPage.tsx"
                           className="hover:underline">

@@ -4,7 +4,7 @@ import { NavigationBarInscrit } from "@/components/navigationBar/NavigationBar.t
 
 export const PrivateMobileLayout = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="bg-custom-mobile flex flex-col min-h-screen">
             <header className="bg-blue-200 text-white p-2">
                 <NavigationBarInscrit />
             </header>

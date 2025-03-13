@@ -6,7 +6,7 @@ import {Filter} from "lucide-react";
 import {useMediaQuery} from "@/lib/useMediaQuery.ts";
 import {FiltersAccordion} from "@/components/filters/FiltersAccordion.tsx";
 import { useNavigate } from "react-router-dom";
-
+//import {Link} from "react-router-dom";
 // ------------------------------
 // Rendu principal
 // ------------------------------
@@ -60,7 +60,7 @@ export const HomeInscritPage = () => {
 
                             {/* Liste d'offres en plein écran (pas de sidebar) */}
                             <section className="w-full space-y-4">
-                                <Card>
+                                <Card className={'bg-card-custom'}>
                                     <CardHeader>
                                         <CardTitle>[Titre du poste] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -83,7 +83,7 @@ export const HomeInscritPage = () => {
                                     </CardFooter>
                                 </Card>
 
-                                <Card>
+                                <Card className={'bg-card-custom'}>
                                     <CardHeader>
                                         <CardTitle>[Titre du poste 2] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -125,7 +125,7 @@ export const HomeInscritPage = () => {
 
                             {/* LISTE D'OFFRES */}
                             <section className="md:w-3/4 w-full space-y-4">
-                                <Card>
+                                <Card className={'bg-card-custom'}>
                                     <CardHeader>
                                         <CardTitle>[Titre du poste] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -148,7 +148,7 @@ export const HomeInscritPage = () => {
                                     </CardFooter>
                                 </Card>
 
-                                <Card>
+                                <Card className={'bg-card-custom'}>
                                     <CardHeader>
                                         <CardTitle>[Titre du poste 2] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
