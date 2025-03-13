@@ -13,6 +13,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {CiSearch} from "react-icons/ci";
 import {TfiMenuAlt} from "react-icons/tfi";
 import {Avatar, AvatarFallback,} from "@radix-ui/react-avatar";
+import {Link} from "react-router-dom";
 
 
 /*______________________________________________________*/
@@ -21,17 +22,13 @@ import {Avatar, AvatarFallback,} from "@radix-ui/react-avatar";
 
 export function NavigationBarNonInscrit() {
     return (
-
-        <div className={"flex items-center content-between space-x-4"}>
+        <div className="flex items-center justify-between space-x-4">
             <img
                 src="../../../public/logo.png"
                 alt="BalanceTonJob"
-                className="w-20 mr-4"
+                className="w-16 mr-4"
             />
             <Menubar className="flex items-center bg-white border-b border-gray-200 px-4 py-2 text-sm">
-                {/* Logo toujours affiché */}
-
-
                 {/* BARRE DE RECHERCHE (cachée sur mobile, visible à partir de md) */}
                 <div className="hidden md:flex items-center space-x-2 w-1/2 mx-4">
                     <Input
@@ -39,26 +36,38 @@ export function NavigationBarNonInscrit() {
                         placeholder="Rechercher un poste..."
                         className="w-full"
                     />
-                    <Button variant="outline"
-                            className={"bg-white"}><CiSearch/></Button>
+                    <Button variant="outline" className="bg-white text-gray-900">
+                        <CiSearch />
+                    </Button>
                 </div>
 
                 {/* Burger menu uniquement sur mobile */}
                 <MenubarMenu>
                     <MenubarTrigger className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none data-[state=open]:bg-gray-100">
-                        <TfiMenuAlt className="h-4 w-4"/>
+                        <TfiMenuAlt className="h-4 w-4" />
                         <span>Menu</span>
                     </MenubarTrigger>
+
                     <MenubarContent className="bg-white text-gray-700">
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Accueil
+                            <Link to={'/login'}>Connexion</Link>
                         </MenubarItem>
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            À propos
+                            <Link to={'/signin'}>M’inscrire</Link>
                         </MenubarItem>
-                        <MenubarSeparator/>
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Contact
+                            <Link to={'/'}>Accueil</Link>
+                        </MenubarItem>
+                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
+                            <Link to={"/apropos"}>À propos</Link>
+                        </MenubarItem>
+                        <MenubarSeparator />
+                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
+                            <Link to={"/mentions-legales"}>Mentions légales</Link>
+                        </MenubarItem>
+                        <MenubarSeparator />
+                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
+                            <Link to={"/contact"}>Contact</Link>
                         </MenubarItem>
                     </MenubarContent>
                 </MenubarMenu>
@@ -66,19 +75,14 @@ export function NavigationBarNonInscrit() {
                 {/* Menus réservés à la version desktop */}
                 <div className="hidden md:flex space-x-4 ml-auto">
                     <MenubarMenu>
-                        <MenubarTrigger className=" px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            Connexion
+                        <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
+                            <Link to={'/login'}>Connexion</Link>
                         </MenubarTrigger>
                     </MenubarMenu>
                     <MenubarMenu>
                         <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            M’inscrire
+                            <Link to={'/signin'}>M’inscrire</Link>
                         </MenubarTrigger>
-                        <MenubarContent className="bg-white text-gray-700">
-                            <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                                Créer un compte
-                            </MenubarItem>
-                        </MenubarContent>
                     </MenubarMenu>
                 </div>
             </Menubar>
@@ -88,7 +92,6 @@ export function NavigationBarNonInscrit() {
 
 /*______________________________________________________*/
 /*AVATAR*/
-
 /*______________________________________________________*/
 
 export function PhotoDeProfil() {
@@ -102,7 +105,6 @@ export function PhotoDeProfil() {
 
 /*______________________________________________________*/
 /*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL INSCRIT*/
-
 /*______________________________________________________*/
 
 export function NavigationBarInscrit() {
@@ -192,13 +194,12 @@ export function NavigationBarInscrit() {
                 {/* --- LIENS DE NAVIGATION (DESKTOP)--- */}
                     <MenubarMenu>
                         <MenubarTrigger className="hidden md:flex ml-auto space-x-2">
-                            {/* AVATAR + NOM */}
                             <div>
                                 <PhotoDeProfil/>
                                 <span className="hidden md:text-sm font-semibold">Prénom NOM</span>
                             </div>
                         </MenubarTrigger>
-                        <MenubarContent className={"bg-gray-300"}>
+                        <MenubarContent className="bg-gray-300">
                             {/* “Voir/modifier profil” */}
                             <MenubarItem>
                                 <span className="cursor-pointer hover:underline flex items-center gap-2">
