@@ -6,7 +6,6 @@
 :root {
     --background: oklch(0.85 0.15 200); /* Bleu-gris doux */
     --foreground: oklch(0.1 0 0); /* Texte foncé pour bon contraste */
-
     --card-foreground: oklch(0.98 0 0); /* Texte blanc */
     --popover: oklch(0.15 0 0);
     --popover-foreground: oklch(0.98 0 0);
@@ -117,9 +116,6 @@
         @apply bg-accent text-accent-foreground shadow-lg;
     }
 
-    .input {
-        @apply bg-input text-foreground border border-border px-3 py-2 rounded-md;
-    }
 }
 
 /* Header */
@@ -127,38 +123,56 @@
     @apply flex items-center justify-between p-4 bg-transparent;
 }
 
-/* Boutons */
-.button {
-    @apply bg-primary text-primary-foreground font-bold uppercase py-3 px-6 rounded-lg transition-all;
+/* Styles pour le titre h1 */
+h1 {
+    font-family: var(--font-nunito);
+    text-align: center;
+    font-size: 1.875rem; /* 3xl */
+    background: linear-gradient(to right, #0e7490, #1e3a8a);
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
-.button:hover {
-    @apply bg-secondary;
+@media (min-width: 768px) {
+    h1 {
+        font-size: 3.75rem; /* 6xl */
+    }
+}
+
+/* Ajout de la classe bord si nécessaire */
+.bord {
+    /* Ajoute ici des styles si cette classe a une signification spécifique */
 }
 
 
+@media (max-width: 768px) {
+    img {
+        height: 25px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+}
 
-/* Titres */
-h1, h2, h3 {
-    @apply font-bold uppercase text-foreground text-xl;
+/* Styles pour les formulaires et inputs arrondis */
+input, textarea, form {
+    border-radius: 10px; /* Arrondi */
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    background-color: var(--input);
+    color: var(--foreground);
+    outline: none;
+    transition: box-shadow 0.3s ease-in-out;
 }
-.section-title {
-    @apply text-foreground bg-secondary text-lg font-bold py-2 px-4 rounded-lg;
+
+input:focus, textarea:focus {
+    box-shadow: 0 0 10px var(--ring);
 }
+
 
 /* Icônes */
 .icon {
     @apply w-6 h-6 mr-2;
 }
-
-/* Formulaires */
-.form-container {
-    @apply flex flex-col gap-4 bg-card p-6 rounded-lg shadow-lg;
-}
-input, textarea {
-    @apply bg-input text-foreground border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary;
-}
-
 
 /* Listes d'offres */
 .offer-list {
@@ -233,7 +247,8 @@ input, textarea {
 
 /* Cartes */
 .bg-card-custom {
-    background-image: url('./assets/background/bg_card_custum.webp');
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    url('./assets/background/bg_card_custum.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -243,6 +258,7 @@ input, textarea {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+
 }
 
 .bg-card-custom::before {
@@ -253,11 +269,14 @@ input, textarea {
     backdrop-filter: blur(8px); /* Effet flouté pour lisibilité */
     border-radius: inherit;
     z-index: 0;
+    opacity: 0.8;
+
 }
 
 .bg-card-custom * {
     position: relative;
     z-index: 1;
+
 }
 
 .bg-card-custom h2,
@@ -265,10 +284,12 @@ input, textarea {
 .bg-card-custom h4 {
     color: oklch(0.1 0 0); /* Texte foncé pour contraste */
     font-weight: bold;
+
 }
 
 .bg-card-custom p {
     color: oklch(0.15 0 0); /* Texte légèrement foncé pour lisibilité */
+    font-weight: inherit;
 }
 
 .bg-card-custom .button {
@@ -277,11 +298,13 @@ input, textarea {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     text-align: center;
+
 }
 
 .bg-card-custom .button:hover {
     background-color: oklch(0.45 0.2 230);
     color: oklch(0.98 0 0);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+
 }
 

@@ -37,23 +37,6 @@ function App() {
     const {isAuthenticated} = useContext(AuthContext);
 
     return (
-            <Routes>
-                {/* Page d'accueil pour NON-inscrit */}
-                <Route path="/" element={<HomeNonInscritPage />} />
-
-                {/* Authentification */}
-                <Route path="/signin" element={<SigninPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/LoginRecoveryPage" element={<LoginRecoveryPage/>}/>
-                <Route path="/PasswordRecoveryPage" element={<PasswordRecoveryPage/>}/>
-
-                {/* Page d'accueil pour INSCRIT (chemin distinct) */}
-                <Route path="/home-inscrit" element={<HomeInscritPage />} />
-
-                {/* Pages de footer */}
-                <Route path="/apropos" element={<AproposPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute/>}>
@@ -70,16 +53,11 @@ function App() {
                            element={<SigninPage/>}/>
                     <Route path="/login"
                            element={<LoginPage/>}/>
-
+                    <Route path="/LoginRecoveryPage" element={<LoginRecoveryPage/>}/>
+                    <Route path="/PasswordRecoveryPage" element={<PasswordRecoveryPage/>}/>
                 </Route>
             </Route>
 
-                {/* Page de mes CV */}
-                <Route path={"/cv"} element={<MyCvPage />} />
-
-                {/* Route page non trouvée */}
-                <Route path="*" element={<NotFoundPage/>}/>
-            </Routes>
 
     )
             {/* Routes Privées */}
@@ -101,6 +79,8 @@ function App() {
                     </Route>
                 </Route>
             )}
+            {/* Route page non trouvée */}
+            <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
     );
 }

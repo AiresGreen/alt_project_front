@@ -23,12 +23,13 @@ import {Link} from "react-router-dom";
 export function NavigationBarNonInscrit() {
     return (
         <div className="flex items-center justify-between space-x-4">
-            <img
+            <Link to={'/'}>
+                <img
                 src="../../../public/logo.png"
                 alt="BalanceTonJob"
                 className="w-16 mr-4"
-            />
-            <Menubar className="flex items-center bg-white border-b border-gray-200 px-4 py-2 text-sm">
+            /></Link>
+            <Menubar className="flex items-center  px-4 py-2 text-sm">
                 {/* BARRE DE RECHERCHE (cachée sur mobile, visible à partir de md) */}
                 <div className="hidden md:flex items-center space-x-2 w-1/2 mx-4">
                     <Input
@@ -36,7 +37,7 @@ export function NavigationBarNonInscrit() {
                         placeholder="Rechercher un poste..."
                         className="w-full"
                     />
-                    <Button variant="outline" className="bg-white text-gray-900">
+                    <Button  className="bg-white text-gray-900">
                         <CiSearch />
                     </Button>
                 </div>
@@ -76,7 +77,7 @@ export function NavigationBarNonInscrit() {
                 <div className="hidden md:flex space-x-4 ml-auto">
                     <MenubarMenu>
                         <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            <Link to={'/login'}>Connexion</Link>
+                            <Link to={'/login'} >Connexion</Link>
                         </MenubarTrigger>
                     </MenubarMenu>
                     <MenubarMenu>
@@ -112,12 +113,12 @@ export function NavigationBarInscrit() {
     return (
         <div className="w-full bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between">
             {/* LOGO */}
-            <img
-                src="../../../public/logo.png"
-                alt="BalanceTonJob"
-                className="w-20 h-auto"
-            />
-
+            <Link to={'/'}>
+                <img
+                    src="../../../public/logo.png"
+                    alt="BalanceTonJob"
+                    className="w-16 mr-4"
+                /></Link>
             {/* MENUBAR GLOBAL */}
             <Menubar className="flex items-center justify-end w-full md:ml-4">
                 {/* --- MENU BURGER (MOBILE) */}

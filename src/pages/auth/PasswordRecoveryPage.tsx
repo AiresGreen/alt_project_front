@@ -56,9 +56,9 @@ export const PasswordRecoveryPage = () => {
 
     return (
 <>
-        <img src="../public/logo.png" alt="Logo Balance ton job" className="max-md:h-25 h-50 m-auto max-md:my-8"/>
+
         <div className="bg-green-300 md:m-20 m-8">
-            <h1 className="font-[var(--font-nunito)] text-center text-3xl md:text-6xl bg-gradient-to-r from-cyan-700 to-blue-950 bg-clip-text text-transparent bord "> INSCRIPTION </h1>
+            <h1 className="font-[var(--font-nunito)] text-center text-3xl md:text-6xl bg-gradient-to-r from-cyan-700 to-blue-950 bg-clip-text text-transparent bord "> Récuperation du mot de passe </h1>
         </div>        
         <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="md:space-y-8 flex flex-col p-4 md:p-12 md:gap-12 gap-8 ">

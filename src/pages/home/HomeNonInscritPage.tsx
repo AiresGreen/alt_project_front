@@ -36,7 +36,7 @@ export const HomeNonInscritPage = () => {
                             <div className="mb-4 flex justify-end bg-blue-500">
                                 <Sheet open={openSheet} onOpenChange={setOpenSheet} >
                                     <SheetTrigger asChild>
-                                        <Button variant="outline" className="flex items-center space-x-2">
+                                        <Button variant="outline" className={"button"}>
                                             <Filter className="h-4 w-4" />
                                             <span>Filtre</span>
                                         </Button>
@@ -97,7 +97,7 @@ export const HomeNonInscritPage = () => {
                                         <p className="text-sm">Autre description de l'offre...</p>
                                     </CardContent>
                                     <CardFooter className="flex justify-end">
-                                        <Button>Voir offre</Button>
+                                        <Button className={"button"}>Voir offre</Button>
                                     </CardFooter>
                                 </Card>
                             </section>
@@ -113,14 +113,14 @@ export const HomeNonInscritPage = () => {
                                 <FiltersAccordion />
 
                                 {/* Autres options de la sidebar, ex. bouton "Créer le CV" */}
-                                <Button variant="outline" className="w-full mt-4">
+                                <Button variant="outline" className={"button"}>
                                     Créer le CV
                                 </Button>
                             </aside>
 
                             {/* LISTE D'OFFRES */}
                             <section className="md:w-3/4 w-full space-y-4">
-                                <Card>
+                                <Card className={"bg-card-custom"} >
                                     <CardHeader>
                                         <CardTitle>[Titre du poste] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -139,11 +139,11 @@ export const HomeNonInscritPage = () => {
                                         </p>
                                     </CardContent>
                                     <CardFooter className="flex justify-end">
-                                        <Button>Voir offre</Button>
+                                        <Button className={"button"}>Voir offre</Button>
                                     </CardFooter>
                                 </Card>
 
-                                <Card >
+                                <Card className={"bg-card-custom"} >
                                     <CardHeader>
                                         <CardTitle>[Titre du poste 2] – CDI / CDD / Freelance</CardTitle>
                                         <CardDescription>
@@ -160,7 +160,7 @@ export const HomeNonInscritPage = () => {
                                         <p className="text-sm">Autre description de l'offre...</p>
                                     </CardContent>
                                     <CardFooter className="flex justify-end">
-                                        <Button>Voir offre</Button>
+                                        <Button >Voir offre</Button>
                                     </CardFooter>
                                 </Card>
                             </section>
