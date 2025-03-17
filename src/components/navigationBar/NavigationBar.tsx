@@ -111,7 +111,7 @@ export function PhotoDeProfil() {
 export function NavigationBarInscrit() {
 
     return (
-        <div className="w-full bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between">
+        <div className="w-full px-4 py-2 flex items-center justify-between">
             {/* LOGO */}
             <Link to={'/'}>
                 <img
