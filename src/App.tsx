@@ -58,8 +58,6 @@ function App() {
                 </Route>
             </Route>
 
-
-    )
             {/* Routes Privées */}
             {isAuthenticated && (
                 <Route element={<PrivateRoute/>}>
@@ -72,7 +70,7 @@ function App() {
                                element={<ContactPage/>}/>
                         <Route path="/mentions-legales"
                                element={<MentionsLegalesPage/>}/>
-                        <Route path="/cv-builder"
+                        <Route path="/cv-build"
                                element={<CvConstructPage/>}/>
                         <Route path="/cv"
                                element={<MyCvPage/>}/>
