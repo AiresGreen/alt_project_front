@@ -42,7 +42,6 @@ export const CvConstructPage = () => {
         console.log("Form Data:", values);
     };
 
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}
@@ -51,7 +50,133 @@ export const CvConstructPage = () => {
                     // Version Desktop
                     <Card className="w-full">
                         <CardContent className="p-4 grid grid-cols-2 gap-4">
-                            <div>
+
+                            <FormField
+                                control={form.control}
+                                name="firstname"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>Prénom</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Votre Prénom" {...field} />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="lastname"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>NOM</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Votre NOM" {...field} />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel>Titre de votre CV</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Titre de votre CV" {...field} />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="summary"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <FormLabel></FormLabel>
+                                        <FormControl>
+                                            <Textarea placeholder="Quelques mots sur vous" {...field} />
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="languages"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Langues</FormLabel>
+                                        <Controller
+                                            control={form.control}
+                                            name="languages"
+                                            render={({ field }) => (
+                                                <Select onValueChange={field.onChange} value={field.value}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="w-[180px]">
+                                                            <SelectValue placeholder="Sélectionner votre langue(s)" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="fr">Français</SelectItem>
+                                                        <SelectItem value="en">Anglais</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />;
+
+                            <FormField
+                                control={form.control}
+                                name="skills"
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel>Compétences</FormLabel>
+                                        <Controller
+                                            control={form.control}
+                                            name="skills"
+                                            render={({field}) => (
+                                                <Select onValueChange={field.onChange}
+                                                        defaultValue={field.value}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="w-[180px]">
+                                                            <SelectValue placeholder="Sélectionner vos compétences"/>
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="comm">Communication</SelectItem>
+                                                        <SelectItem value="it">Informatique</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            )}
+                                        />
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit"
+                                    className="mt-2">
+                                Sauvegarder et générer
+                            </Button>
+                            <Button variant="outline"
+                                    className="mt-2">
+                                Postuler
+                            </Button>
+
+                        </CardContent>
+                    </Card>
+                ) : (
+                    /* Version Mobile */
+
+                    <Card className="w-full">
+                        <CardContent className="p-4">
+
                                 <FormField
                                     control={form.control}
                                     name="firstname"
@@ -104,14 +229,13 @@ export const CvConstructPage = () => {
                                         </FormItem>
                                     )}
                                 />
-                            </div>
-                            <div>
+
 
                                 {/*Select de Hook React Form*/}
                                 <FormField
                                     control={form.control}
                                     name="languages"
-                                    render={({field}) => (
+                                    render={() => (
                                         <FormItem>
                                             <FormLabel>Langues</FormLabel>
                                             <Controller
@@ -140,13 +264,13 @@ export const CvConstructPage = () => {
                                 <FormField
                                     control={form.control}
                                     name="skills"
-                                    render={({ field }) => (
+                                    render={() => (
                                         <FormItem>
                                             <FormLabel>Compétences</FormLabel>
                                             <Controller
                                                 control={form.control}
                                                 name="skills"
-                                                render={({ field }) => (
+                                                render={({field}) => (
                                                     <Select onValueChange={field.onChange}
                                                             defaultValue={field.value}>
                                                         <FormControl>
@@ -173,143 +297,10 @@ export const CvConstructPage = () => {
                                         className="mt-2">
                                     Postuler
                                 </Button>
-                            </div>
+
                         </CardContent>
-                    </Card>
-                ) : (
-                    /* Version Mobile */
-
-                    <Card className="w-full">
-                    <CardContent className="p-4">
-                    <div>
-                    <FormField
-                    control={form.control}
-                  name="firstname"
-                  render={({field}) => (
-                      <FormItem>
-                          <FormLabel>Prénom</FormLabel>
-                          <FormControl>
-                              <Input placeholder="Votre Prénom" {...field} />
-                          </FormControl>
-                          <FormMessage/>
-                      </FormItem>
-                  )}
-            />
-            <FormField
-                control={form.control}
-                name="lastname"
-                render={({field}) => (
-                    <FormItem>
-                        <FormLabel>NOM</FormLabel>
-                        <FormControl>
-                            <Input placeholder="Votre NOM" {...field} />
-                        </FormControl>
-                        <FormMessage/>
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="title"
-                render={({field}) => (
-                    <FormItem>
-                        <FormLabel>Titre de votre CV</FormLabel>
-                        <FormControl>
-                            <Input placeholder="Titre de votre CV" {...field} />
-                        </FormControl>
-                        <FormMessage/>
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="summary"
-                render={({field}) => (
-                    <FormItem>
-                        <FormLabel></FormLabel>
-                        <FormControl>
-                            <Textarea placeholder="Quelques mots sur vous" {...field} />
-                        </FormControl>
-                        <FormMessage/>
-                    </FormItem>
-                )}
-            />
-        </div>
-    <div>
-
-        {/*Select de Hook React Form*/}
-        <FormField
-            control={form.control}
-            name="languages"
-            render={({field}) => (
-                <FormItem>
-                    <FormLabel>Langues</FormLabel>
-                    <Controller
-                        control={form.control}
-                        name="languages"
-                        render={({field}) => (
-                            <Select onValueChange={field.onChange}
-                                    defaultValue={field.value}>
-                                <FormControl>
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Sélectionner votre langue(s)"/>
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    <SelectItem value="fr">Français</SelectItem>
-                                    <SelectItem value="en">Anglais</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        )}
-                    />
-                    <FormMessage/>
-                </FormItem>
-            )}
-        />
-
-        <FormField
-            control={form.control}
-            name="skills"
-            render={({field}) => (
-                <FormItem>
-                    <FormLabel>Compétences</FormLabel>
-                    <Controller
-                        control={form.control}
-                        name="skills"
-                        render={({field}) => (
-                            <Select onValueChange={field.onChange}
-                                    defaultValue={field.value}>
-                                <FormControl>
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Sélectionner vos compétences"/>
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    <SelectItem value="comm">Communication</SelectItem>
-                                    <SelectItem value="it">Informatique</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        )}
-                    />
-                    <FormMessage/>
-                </FormItem>
-            )}
-        />
-        <Button type="submit"
-                className="mt-2">
-            Sauvegarder et générer
-        </Button>
-        <Button variant="outline"
-                className="mt-2">
-            Postuler
-        </Button>
-    </div>
-</CardContent>
-</Card>
-)}
-</form>
-</Form>
-)
-    ;
-};
-
+                    </Card>)
+                }
+            </form>
+        </Form>
+); }

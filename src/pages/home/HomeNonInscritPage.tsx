@@ -36,7 +36,7 @@ export const HomeNonInscritPage = () => {
                             <div className="mb-4 flex justify-end bg-blue-500">
                                 <Sheet open={openSheet} onOpenChange={setOpenSheet} >
                                     <SheetTrigger asChild>
-                                        <Button variant="outline" className={"button"}>
+                                        <Button variant="outline">
                                             <Filter className="h-4 w-4" />
                                             <span>Filtre</span>
                                         </Button>
@@ -97,7 +97,7 @@ export const HomeNonInscritPage = () => {
                                         <p className="text-sm">Autre description de l'offre...</p>
                                     </CardContent>
                                     <CardFooter className="flex justify-end">
-                                        <Button className={"button"}>Voir offre</Button>
+                                        <Button>Voir offre</Button>
                                     </CardFooter>
                                 </Card>
                             </section>
@@ -108,12 +108,12 @@ export const HomeNonInscritPage = () => {
                         // ---------------------------
                         <>
                             {/* SIDEBAR avec accordions */}
-                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4">
+                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4 ">
                                 {/* Les sections sont repliées par défaut, s'ouvrent au clic */}
                                 <FiltersAccordion />
 
                                 {/* Autres options de la sidebar, ex. bouton "Créer le CV" */}
-                                <Button variant="outline" className={"button"}>
+                                <Button variant="outline">
                                     Créer le CV
                                 </Button>
                             </aside>
@@ -139,7 +139,7 @@ export const HomeNonInscritPage = () => {
                                         </p>
                                     </CardContent>
                                     <CardFooter className="flex justify-end">
-                                        <Button className={"button"}>Voir offre</Button>
+                                        <Button>Voir offre</Button>
                                     </CardFooter>
                                 </Card>
 

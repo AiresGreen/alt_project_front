@@ -37,8 +37,7 @@ export const HomeInscritPage = () => {
                                 <Sheet open={openSheet}
                                        onOpenChange={setOpenSheet}>
                                     <SheetTrigger asChild>
-                                        <Button variant="outline"
-                                                className="flex items-center space-x-2">
+                                        <Button variant="outline">
                                             <Filter className="h-4 w-4"/>
                                             <span>Filtre</span>
                                         </Button>
