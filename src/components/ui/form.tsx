@@ -95,7 +95,7 @@ function FormLabel({
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn("data-[error=true]:text-destructive-foreground", className)}
+      className={cn("text-destructive-foreground", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -116,6 +116,7 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
       }
       aria-invalid={!!error}
       {...props}
+      className={"text-muted-foreground"}
     />
   )
 }

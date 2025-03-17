@@ -1,14 +1,13 @@
-import {Card, CardContent} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {useMediaQuery} from "@/lib/useMediaQuery";
-import {Controller, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useMediaQuery } from "@/lib/useMediaQuery";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {FormControl, FormField, FormItem, FormLabel, FormMessage, Form} from "@/components/ui/form.tsx";
-
+import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from "@/components/ui/form.tsx";
 
 // Définition du schéma avec Zod
 const cvSchema = z.object({
@@ -35,8 +34,7 @@ export const CvConstructPage = () => {
             languages: "",
             skills: "",
         },
-    })
-
+    });
 
     const onSubmit = (values: CVFormValues) => {
         console.log("Form Data:", values);
@@ -44,263 +42,142 @@ export const CvConstructPage = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}
-                  className="p-4 gap-4">
-                {isDesktop ? (
-                    // Version Desktop
-                    <Card className="w-full">
-                        <CardContent className="p-4 grid grid-cols-2 gap-4">
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="p-4 gap-4 bg-[var(--background)] text-[var(--foreground)]"
+            >
+                <Card className="w-full shadow-md border border-[var(--border)]">
+                    <CardContent className={`p-4 ${isDesktop ? "grid grid-cols-2 gap-4" : ""}`}>
+                        {/* Prénom */}
+                        <FormField
+                            control={form.control}
+                            name="firstname"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Prénom</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Votre Prénom" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <FormField
-                                control={form.control}
-                                name="firstname"
-                                render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Prénom</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Votre Prénom" {...field} />
-                                        </FormControl>
-                                        <FormMessage/>
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="lastname"
-                                render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>NOM</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Votre NOM" {...field} />
-                                        </FormControl>
-                                        <FormMessage/>
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Titre de votre CV</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Titre de votre CV" {...field} />
-                                        </FormControl>
-                                        <FormMessage/>
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="summary"
-                                render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel></FormLabel>
-                                        <FormControl>
-                                            <Textarea placeholder="Quelques mots sur vous" {...field} />
-                                        </FormControl>
-                                        <FormMessage/>
-                                    </FormItem>
-                                )}
-                            />
+                        {/* Nom */}
+                        <FormField
+                            control={form.control}
+                            name="lastname"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>NOM</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Votre NOM" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <FormField
-                                control={form.control}
-                                name="languages"
-                                render={() => (
-                                    <FormItem>
-                                        <FormLabel>Langues</FormLabel>
-                                        <Controller
-                                            control={form.control}
-                                            name="languages"
-                                            render={({ field }) => (
-                                                <Select onValueChange={field.onChange} value={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger className="w-[180px]">
-                                                            <SelectValue placeholder="Sélectionner votre langue(s)" />
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        <SelectItem value="fr">Français</SelectItem>
-                                                        <SelectItem value="en">Anglais</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            )}
-                                        />
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />;
+                        {/* Titre */}
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Titre de votre CV</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Titre de votre CV" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
 
-                            <FormField
-                                control={form.control}
-                                name="skills"
-                                render={() => (
-                                    <FormItem>
-                                        <FormLabel>Compétences</FormLabel>
-                                        <Controller
-                                            control={form.control}
-                                            name="skills"
-                                            render={({field}) => (
-                                                <Select onValueChange={field.onChange}
-                                                        defaultValue={field.value}>
-                                                    <FormControl>
-                                                        <SelectTrigger className="w-[180px]">
-                                                            <SelectValue placeholder="Sélectionner vos compétences"/>
-                                                        </SelectTrigger>
-                                                    </FormControl>
-                                                    <SelectContent>
-                                                        <SelectItem value="comm">Communication</SelectItem>
-                                                        <SelectItem value="it">Informatique</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            )}
-                                        />
-                                        <FormMessage/>
-                                    </FormItem>
-                                )}
-                            />
-                            <Button type="submit"
-                                    className="mt-2">
+                        {/* Résumé */}
+                        <FormField
+                            control={form.control}
+                            name="summary"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Résumé</FormLabel>
+                                    <FormControl>
+                                        <Textarea placeholder="Quelques mots sur vous" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Langues */}
+                        <FormField
+                            control={form.control}
+                            name="languages"
+                            render={() => (
+                                <FormItem>
+                                    <FormLabel>Langues</FormLabel>
+                                    <Controller
+                                        control={form.control}
+                                        name="languages"
+                                        render={({ field }) => (
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Sélectionner votre langue(s)" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="fr">Français</SelectItem>
+                                                    <SelectItem value="en">Anglais</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        )}
+                                    />
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Compétences */}
+                        <FormField
+                            control={form.control}
+                            name="skills"
+                            render={() => (
+                                <FormItem>
+                                    <FormLabel>Compétences</FormLabel>
+                                    <Controller
+                                        control={form.control}
+                                        name="skills"
+                                        render={({ field }) => (
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Sélectionner vos compétences" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent >
+                                                    <SelectItem value="comm">Communication</SelectItem>
+                                                    <SelectItem value="it">Informatique</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        )}
+                                    />
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {/* Boutons */}
+                        <div className="flex flex-col gap-2 mt-4">
+                            <Button type="submit" className="bg-[var(--primary)] text-[var(--primary-foreground)]">
                                 Sauvegarder et générer
                             </Button>
-                            <Button variant="outline"
-                                    className="mt-2">
+                            <Button variant="outline" className="border-[var(--border)] text-[var(--foreground)]">
                                 Postuler
                             </Button>
-
-                        </CardContent>
-                    </Card>
-                ) : (
-                    /* Version Mobile */
-
-                    <Card className="w-full">
-                        <CardContent className="p-4">
-
-                                <FormField
-                                    control={form.control}
-                                    name="firstname"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel>Prénom</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Votre Prénom" {...field} />
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="lastname"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel>NOM</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Votre NOM" {...field} />
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="title"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel>Titre de votre CV</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Titre de votre CV" {...field} />
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="summary"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel></FormLabel>
-                                            <FormControl>
-                                                <Textarea placeholder="Quelques mots sur vous" {...field} />
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-
-
-                                {/*Select de Hook React Form*/}
-                                <FormField
-                                    control={form.control}
-                                    name="languages"
-                                    render={() => (
-                                        <FormItem>
-                                            <FormLabel>Langues</FormLabel>
-                                            <Controller
-                                                control={form.control}
-                                                name="languages"
-                                                render={({field}) => (
-                                                    <Select onValueChange={field.onChange}
-                                                            defaultValue={field.value}>
-                                                        <FormControl>
-                                                            <SelectTrigger className="w-[180px]">
-                                                                <SelectValue placeholder="Sélectionner votre langue(s)"/>
-                                                            </SelectTrigger>
-                                                        </FormControl>
-                                                        <SelectContent>
-                                                            <SelectItem value="fr">Français</SelectItem>
-                                                            <SelectItem value="en">Anglais</SelectItem>
-                                                        </SelectContent>
-                                                    </Select>
-                                                )}
-                                            />
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="skills"
-                                    render={() => (
-                                        <FormItem>
-                                            <FormLabel>Compétences</FormLabel>
-                                            <Controller
-                                                control={form.control}
-                                                name="skills"
-                                                render={({field}) => (
-                                                    <Select onValueChange={field.onChange}
-                                                            defaultValue={field.value}>
-                                                        <FormControl>
-                                                            <SelectTrigger className="w-[180px]">
-                                                                <SelectValue placeholder="Sélectionner vos compétences"/>
-                                                            </SelectTrigger>
-                                                        </FormControl>
-                                                        <SelectContent>
-                                                            <SelectItem value="comm">Communication</SelectItem>
-                                                            <SelectItem value="it">Informatique</SelectItem>
-                                                        </SelectContent>
-                                                    </Select>
-                                                )}
-                                            />
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-                                <Button type="submit"
-                                        className="mt-2">
-                                    Sauvegarder et générer
-                                </Button>
-                                <Button variant="outline"
-                                        className="mt-2">
-                                    Postuler
-                                </Button>
-
-                        </CardContent>
-                    </Card>)
-                }
+                        </div>
+                    </CardContent>
+                </Card>
             </form>
         </Form>
-); }
+    );
+};
