@@ -35,6 +35,7 @@ function App() {
 
     // Récupération de l'état d'authentification depuis le contexte
     const {isAuthenticated} = useContext(AuthContext);
+    console.log("isAuthenticated in App.tsx:", isAuthenticated);
 
     return (
         <Routes>
@@ -43,12 +44,6 @@ function App() {
                 <Route element={isMobile ? <PublicMobileLayout/> : <PublicPcLayout/>}>
                     <Route path="/"
                            element={<HomeNonInscritPage/>}/>
-                    <Route path="/apropos"
-                           element={<AproposPage/>}/>
-                    <Route path="/contact"
-                           element={<ContactPage/>}/>
-                    <Route path="/mentions-legales"
-                           element={<MentionsLegalesPage/>}/>
                     <Route path="/signin"
                            element={<SigninPage/>}/>
                     <Route path="/login"
@@ -58,25 +53,23 @@ function App() {
                 </Route>
             </Route>
 
+            {/* Routes accessibles à tous (fixe) */}
+            <Route path="/apropos" element={<AproposPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+
             {/* Routes Privées */}
             {isAuthenticated && (
-                <Route element={<PrivateRoute/>}>
-                    <Route element={isMobile ? <PrivateMobileLayout/> : <PrivatePcLayout/>}>
-                        <Route path="/home-inscrit"
-                               element={<HomeInscritPage/>}/>
-                        <Route path="/apropos"
-                               element={<AproposPage/>}/>
-                        <Route path="/contact"
-                               element={<ContactPage/>}/>
-                        <Route path="/mentions-legales"
-                               element={<MentionsLegalesPage/>}/>
-                        <Route path="/cv-build"
-                               element={<CvConstructPage/>}/>
-                        <Route path="/cv"
-                               element={<MyCvPage/>}/>
-                    </Route>
+                <Route element={<PrivateRoute />}>
+                    <Route element={isMobile ? <PrivateMobileLayout /> : <PrivatePcLayout />}>
+                        <Route path="/home-inscrit" element={<HomeInscritPage />} />
+                        <Route path="/cv-build" element={<CvConstructPage />} />
+                        <Route path="/cv" element={<MyCvPage />} />
+                    </Route> 
                 </Route>
+
             )}
+
             {/* Route page non trouvée */}
             <Route path="*" element={<NotFoundPage/>}/>
         </Routes>
