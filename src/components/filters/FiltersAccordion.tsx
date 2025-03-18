@@ -7,7 +7,7 @@ export const FiltersAccordion = () => (
     <Accordion type="multiple" className="space-y-2 ">
         {/* 1) Type de contrat */}
         <AccordionItem value="type-contrat">
-            <AccordionTrigger>Type de contrat</AccordionTrigger>
+            <AccordionTrigger className={"text-black text-xl"}>Type de contrat</AccordionTrigger>
             <AccordionContent>
                 <div className="mt-2 space-y-2 ml-4">
                     <div className="flex items-center space-x-2">
@@ -28,7 +28,7 @@ export const FiltersAccordion = () => (
 
         {/* 2) Niveau d’expérience */}
         <AccordionItem value="experience">
-            <AccordionTrigger>Niveau d’expérience</AccordionTrigger>
+            <AccordionTrigger className={"text-black text-xl"}>Niveau d’expérience</AccordionTrigger>
             <AccordionContent>
                 <div className="mt-2 space-y-2 ml-4">
                     <div className="flex items-center space-x-2">
@@ -49,7 +49,7 @@ export const FiltersAccordion = () => (
 
         {/* 3) Temps de travail */}
         <AccordionItem value="temps-travail">
-            <AccordionTrigger>Temps de travail</AccordionTrigger>
+            <AccordionTrigger className={"text-black text-xl"}>Temps de travail</AccordionTrigger>
             <AccordionContent>
                 <div className="mt-2 space-y-2 ml-4">
                     <div className="flex items-center space-x-2">
@@ -66,7 +66,7 @@ export const FiltersAccordion = () => (
 
         {/* 4) Mode de travail */}
         <AccordionItem value="mode-travail">
-            <AccordionTrigger>Mode de travail</AccordionTrigger>
+            <AccordionTrigger className={"text-black text-xl"}>Mode de travail</AccordionTrigger>
             <AccordionContent>
                 <div className="mt-2 space-y-2 ml-4">
                     <div className="flex items-center space-x-2">
