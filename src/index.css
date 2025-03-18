@@ -110,6 +110,89 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    /*Style de bg*/
+    .bg-pc-custom {
+        background-image: url('src/assets/background/background_pc.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 1rem;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+        .bg-mobile-custom {
+            background-image: url('src/assets/background/background_mobile.png');
+            /* Image optimisée pour mobile */
+            background-size: cover;
+            /* Ajuste l'image sans couper */
+            background-position: center;
+        }
+    }
+
+    .bg-card-custom {
+        background-image: url('src/assets/background/bg_card_custum.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        padding: 1rem;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .bg-card-custom::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.3); /* Ajout d’un léger voile blanc */
+        backdrop-filter: blur(8px); /* Effet flouté pour lisibilité */
+        border-radius: inherit;
+        z-index: 0;
+    }
+
+    .bg-card-custom * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .bg-card-custom h2,
+    .bg-card-custom h3,
+    .bg-card-custom h4 {
+        color: oklch(0.1 0 0); /* Texte foncé pour contraste */
+        font-weight: bold;
+    }
+
+    .bg-card-custom span {
+        color: oklch(0 0 0); /* Texte légèrement foncé pour lisibilité */
+    }
+
+    .bg-card-custom .button {
+        background-color: oklch(0.4 0.2 220);
+        color: oklch(0 0 0);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+    }
+
+    .bg-card-custom .button:hover {
+        background-color: oklch(0.45 0.2 230);
+        color: oklch(0.98 0 0);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    @media (max-width: 768px) {
+        .bg-card-custom {
+            background-image: url('src/assets/background/bg_card_custum.webp'); /* Image optimisée pour mobile */
+            background-size: auto; /* Ajuste l'image sans couper */
+            background-position: center;
+        }
+    }
+
     /* Styles pour le titre h1 */
     h1 {
         font-family: var(--font-nunito);

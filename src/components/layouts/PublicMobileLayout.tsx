@@ -3,8 +3,8 @@ import { NavigationBarNonInscrit } from "@/components/navigationBar/NavigationBa
 
 export const PublicMobileLayout = () => {
     return (
-        <div className="bg-custom-mobile flex flex-col min-h-screen ">
-            <header className="bg-emerald-200 text-white p-4">
+        <div className="bg-mobile-custom flex flex-col min-h-screen ">
+            <header className="text-black p-4">
                 <NavigationBarNonInscrit/>
             </header>
 
@@ -16,7 +16,7 @@ export const PublicMobileLayout = () => {
 
             </div>
 
-            <footer className="bg-gray-800 text-white p-4 text-center">
+            <footer className="mt-8 border-t py-4 text-center text-sm text-teal-300 ">
                 <div className="mb-2 space-x-4">
                     <Link to="src/pages/footer/AproposPage.tsx"
                           className="hover:underline">
@@ -31,7 +31,7 @@ export const PublicMobileLayout = () => {
                         Mentions légales
                     </Link>
                 </div>
-                <p>© 2024 BalanceTonJob – Créé par JM &amp; Vladou. Open-source sous licence.</p>
+                <p className={"text-teal-300"}>© 2024 BalanceTonJob – Créé par JM &amp; Vladou. Open-source sous licence.</p>
             </footer>
         </div>
     );

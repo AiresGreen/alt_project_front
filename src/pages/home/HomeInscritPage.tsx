@@ -110,7 +110,7 @@ export const HomeInscritPage = () => {
                         // ---------------------------
                         <>
                             {/* SIDEBAR avec accordions */}
-                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4">
+                            <aside className="bg-gradient-to-b from-teal-500 to-blue-700 md:w-1/4 w-full border p-4 rounded-lg space-y-4">
                                 {/* Les sections sont repliées par défaut, s'ouvrent au clic */}
                                 <FiltersAccordion/>
 
@@ -171,25 +171,6 @@ export const HomeInscritPage = () => {
                         </>
                     )}
                 </div>
-
-                {/* FOOTER */}
-                {/*<footer className="mt-8 border-t py-4 text-center text-sm text-gray-600">
-                    <div className="mb-2 space-x-4">
-                        <Link to="src/pages/footer/AproposPage.tsx"
-                              className="hover:underline">
-                            À propos
-                        </Link>
-                        <Link to="src/pages/footer/ContactPage.tsx"
-                              className="hover:underline">
-                            Contact
-                        </Link>
-                        <Link to="src/pages/footer/MentionsLegalePage.tsx"
-                              className="hover:underline">
-                            Mentions légales
-                        </Link>
-                    </div>
-                    <p>© 2024 BalanceTonJob – Créé par JM &amp; Vladou. Open-source sous licence.</p>
-                </footer>*/}
             </main>
         </div>
     )

@@ -18,6 +18,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { LoginRecoveryPage } from "./pages/auth/LoginRecoveryPage.tsx";
 import { PasswordRecoveryPage } from "./pages/auth/PasswordRecoveryPage";
 import MyCvPage from "./pages/cv/MyCvPage";
+import {CandidatePage} from "./pages/candidate/CandidatePage";
 
 // Importation de layouts
 import {PublicMobileLayout} from "@/components/layouts/PublicMobileLayout";
@@ -65,6 +66,7 @@ function App() {
                         <Route path="/home-inscrit" element={<HomeInscritPage />} />
                         <Route path="/cv-build" element={<CvConstructPage />} />
                         <Route path="/cv" element={<MyCvPage />} />
+                        <Route path="/candidate-page" element={<CandidatePage/>} />
                     </Route> 
                 </Route>
 
