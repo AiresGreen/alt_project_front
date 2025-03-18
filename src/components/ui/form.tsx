@@ -114,9 +114,13 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
           ? `${formDescriptionId}`
           : `${formDescriptionId} ${formMessageId}`
       }
+      className={cn(
+          "text-muted-foreground placeholder-gray-400", // Placeholder gris
+          "text-black", // Texte noir au focus
+          "data-[filled=true]:text-black" // Texte noir si rempli
+      )}
       aria-invalid={!!error}
       {...props}
-      className={"text-muted-foreground"}
     />
   )
 }

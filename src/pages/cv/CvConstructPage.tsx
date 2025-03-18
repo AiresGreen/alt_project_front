@@ -121,7 +121,7 @@ export const CvConstructPage = () => {
                                         render={({ field }) => (
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger>
+                                                    <SelectTrigger data-testid="select-languages">
                                                         <SelectValue placeholder="Sélectionner votre langue(s)" />
                                                     </SelectTrigger>
                                                 </FormControl>
@@ -150,7 +150,7 @@ export const CvConstructPage = () => {
                                         render={({ field }) => (
                                             <Select onValueChange={field.onChange} value={field.value}>
                                                 <FormControl>
-                                                    <SelectTrigger>
+                                                    <SelectTrigger data-testid="select-skills">
                                                         <SelectValue placeholder="Sélectionner vos compétences" />
                                                     </SelectTrigger>
                                                 </FormControl>

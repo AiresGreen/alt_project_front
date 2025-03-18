@@ -4,7 +4,6 @@ export default defineConfig({
   e2e: {
     baseUrl: "http://localhost:5173", // 🔥 Définition du localhost
     specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}", // 📝 Emplacement des tests
-    supportFile: "cypress/support/e2e.js", // 📌 Fichier support
     viewportWidth: 1280, // 📏 Taille écran (modifiable)
     viewportHeight: 720,
     defaultCommandTimeout: 8000, // ⏳ Timeout pour les commandes Cypress
