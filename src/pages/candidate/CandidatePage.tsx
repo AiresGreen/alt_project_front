@@ -10,7 +10,7 @@ export const CandidatePage = () => {
                     <h1 className="text-xl font-bold text-teal-700">MES CANDIDATURES</h1>
                     <CardContent className="flex flex-col gap-4 mt-4">
                         <Button className="w-full bg-black text-white">
-                            <Link to={"src/pages/candidate/OffersOfEmployerPage.tsx"}> VOIR LA LISTE DES EMPLOYEURS</Link>
+                            <Link to={"/offers-of-employer"}> VOIR LA LISTE DES EMPLOYEURS</Link>
                         </Button>
                         <Button className="w-full bg-white border border-gray-300 text-black">
                             <Link to={"src/pages/folow/FolowApplicationPage.tsx"}>VOIR MES CANDIDATURES</Link>

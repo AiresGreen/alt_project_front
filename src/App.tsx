@@ -19,6 +19,9 @@ import { LoginRecoveryPage } from "./pages/auth/LoginRecoveryPage.tsx";
 import { PasswordRecoveryPage } from "./pages/auth/PasswordRecoveryPage";
 import MyCvPage from "./pages/cv/MyCvPage";
 import {CandidatePage} from "./pages/candidate/CandidatePage";
+import {EmployerPage} from "@/pages/candidate/EmployerPage.tsx";
+import {OffersOfEmployerPage} from "@/pages/candidate/OffersOfEmployerPage.tsx";
+
 
 // Importation de layouts
 import {PublicMobileLayout} from "@/components/layouts/PublicMobileLayout";
@@ -27,6 +30,10 @@ import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
 import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
 import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
+import {ContactEmployeeListPage} from "@/pages/contact/ContactEmployeeListPage.tsx";
+
+
+
 
 
 function App() {
@@ -67,7 +74,10 @@ function App() {
                         <Route path="/cv-build" element={<CvConstructPage />} />
                         <Route path="/cv" element={<MyCvPage />} />
                         <Route path="/candidate-page" element={<CandidatePage/>} />
-                    </Route> 
+                        <Route path="/employer-page" element={<EmployerPage/>} />
+                        <Route path="/offers-of-employer" element={<OffersOfEmployerPage/>} />
+                        <Route path="/contact-list" element={<ContactEmployeeListPage/>} />
+                    </Route>
                 </Route>
 
             )}
