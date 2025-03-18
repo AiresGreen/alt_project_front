@@ -8,10 +8,12 @@ describe("CV Form - End-to-End Test", () => {
         cy.contains("Prénom").should("be.visible");
 
         // Remplir les champs de texte
-        cy.get('input[name="firstname"]').type("Jean");
+        cy.get('input[name="firstname"]').type("Antoine");
         cy.get('input[name="lastname"]').type("Dupont");
-        cy.get('input[name="title"]').type("Développeur Fullstack");
-        cy.get('textarea[name="summary"]').type("Passionné par le développement web et l'IA.");
+        cy.get('input[name="title"]').type("Champion du monde de Rugby");
+        cy.get('textarea[name="summary"]').type(
+            "Passionné par le sport et les douches."
+        );
 
         // Sélectionner une langue
         cy.get("[data-testid='select-languages']").click(); // Ouvre le Select
@@ -23,7 +25,6 @@ describe("CV Form - End-to-End Test", () => {
 
         // Soumettre le formulaire
         cy.get('button[type="submit"]').click();
-
     });
 
     it("Affiche des erreurs pour les champs requis vides", () => {
