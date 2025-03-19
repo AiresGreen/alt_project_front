@@ -1,49 +1,21 @@
-import { Checkbox } from "@radix-ui/react-checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@radix-ui/react-label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select"
-import {Button} from "@/components/ui/button.tsx";
-import * as React from "react";
-import {Link} from "react-router-dom";
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button.tsx"
+import { Link } from "react-router-dom"
 
-
-interface Candidature {
-    id: number
-    title: string
-    contractType: string
-    location: string
-    cvChecked: boolean
-    reponse: string
-    entretien: string
-    statut: string
-    relanceCount: number
-}
+// On importe le hook du contexte
+import { useCandidateContext } from "@/hook/contexts/candidates.context.tsx"
 
 export default function RepeatApplicationPage() {
-    // Exemple de données mock
-    const [candidatures, setCandidatures] = React.useState<Candidature[]>([
-        {
-            id: 1,
-            title: "[Titre du poste]",
-            contractType: "CDI / CDD / Freelance",
-            location: "[Ville ou Remote]",
-            cvChecked: true,
-            reponse: "recu",
-            entretien: "non",
-            statut: "en-cours",
-            relanceCount: 2,
-        },
-        {
-            id: 2,
-            title: "[Titre du poste]",
-            contractType: "CDI / CDD / Freelance",
-            location: "[Ville ou Remote]",
-            cvChecked: false,
-            reponse: "non-recu",
-            entretien: "non",
-            statut: "acceptee",
-            relanceCount: 0,
-        },
-    ])
+    // On récupère candidatures et setCandidatures depuis le contexte
+    const { candidatures, setCandidatures } = useCandidateContext()
 
     // Gestion de la checkbox CV
     const handleCheckboxChange = (id: number) => {
@@ -61,7 +33,9 @@ export default function RepeatApplicationPage() {
         value: string
     ) => {
         setCandidatures((prev) =>
-            prev.map((cand) => (cand.id === id ? { ...cand, [field]: value } : cand))
+            prev.map((cand) =>
+                cand.id === id ? { ...cand, [field]: value } : cand
+            )
         )
     }
 
@@ -75,10 +49,9 @@ export default function RepeatApplicationPage() {
             )
         )
     }
-
+    console.log(candidatures)
     return (
         <div className="min-h-screen bg-white">
-            {/* Barre supérieure (facultatif, selon la maquette) */}
             <div className="bg-blue-600 text-white p-4">
                 <h1 className="text-xl font-bold">Suivi de mes candidatures</h1>
             </div>
@@ -171,9 +144,7 @@ export default function RepeatApplicationPage() {
                             {/* Bouton de relance */}
                             <div className="mt-4 flex justify-center">
                                 <Button onClick={() => handleRelance(cand.id)}>
-                                    <Link to="/offers-of-employer">
-                                    Relancer ma candidature
-                                    </Link>
+                                    <Link to="/offers-of-employer">Relancer ma candidature</Link>
                                 </Button>
                             </div>
                         </div>
@@ -183,10 +154,8 @@ export default function RepeatApplicationPage() {
 
             {/* Bouton Retour en bas */}
             <div className="p-4">
-                <Button variant="secondary" className="w-full">
-                    <Link to="/applications">
-                    Retour
-                    </Link>
+                <Button variant="outline" className="w-full">
+                    <Link to="/applications">Retour</Link>
                 </Button>
             </div>
         </div>

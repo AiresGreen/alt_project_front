@@ -1,14 +1,7 @@
-import {
-    createContext,
-    useContext,
-    useState,
-    ReactNode,
-    Dispatch,
-    SetStateAction,
-} from "react";
+// candidates.context.tsx
+import React, { createContext, useContext, useState } from "react";
 
-// Reprend la structure de votre interface Candidature
-export interface Candidature {
+interface Candidature {
     id: number;
     title: string;
     contractType: string;
@@ -20,16 +13,13 @@ export interface Candidature {
     relanceCount: number;
 }
 
-// Définit ce que le contexte va exposer
 interface CandidateContextProps {
     candidatures: Candidature[];
-    setCandidatures: Dispatch<SetStateAction<Candidature[]>>;
+    setCandidatures: React.Dispatch<React.SetStateAction<Candidature[]>>;
 }
 
-// Crée le contexte avec une valeur par défaut (placeholder)
 const CandidateContext = createContext<CandidateContextProps | undefined>(undefined);
 
-// Hook personnalisé pour consommer facilement le contexte
 export function useCandidateContext() {
     const context = useContext(CandidateContext);
     if (!context) {
@@ -38,24 +28,35 @@ export function useCandidateContext() {
     return context;
 }
 
-// Interface pour le provider (enfants React)
-interface CandidateProviderProps {
-    children: ReactNode;
-    // Optionnel : vous pouvez prévoir une prop initiale si besoin
-    initialCandidatures?: Candidature[];
-}
+export function CandidateProvider({ children }: { children: React.ReactNode }) {
+    const [candidatures, setCandidatures] = useState<Candidature[]>([
+        {
+            id: 1,
+            title: "[Titre du poste]",
+            contractType: "CDI / CDD / Freelance",
+            location: "[Ville ou Remote]",
+            cvChecked: true,
+            reponse: "recu",
+            entretien: "non",
+            statut: "en-cours",
+            relanceCount: 2,
+        },
+        {
+            id: 2,
+            title: "Développeur Fullstack",
+            contractType: "CDI",
+            location: "Paris",
+            cvChecked: false,
+            reponse: "non-recu",
+            entretien: "non",
+            statut: "refusée",
+            relanceCount: 0,
+        },
+    ]);
 
-// Le provider qui englobe votre application (ou une partie)
-export function CandidateProvider({ children, initialCandidatures }: CandidateProviderProps) {
-    // État local stockant la liste de candidatures
-    const [candidatures, setCandidatures] = useState<Candidature[]>(
-        initialCandidatures || []
+    return (
+        <CandidateContext.Provider value={{ candidatures, setCandidatures }}>
+            {children}
+        </CandidateContext.Provider>
     );
-
-    const value: CandidateContextProps = {
-        candidatures,
-        setCandidatures,
-    };
-
-    return <CandidateContext.Provider value={value}>{children}</CandidateContext.Provider>;
 }

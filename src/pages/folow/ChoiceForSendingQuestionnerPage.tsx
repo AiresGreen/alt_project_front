@@ -1,28 +1,31 @@
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
+
 import { Label } from "@radix-ui/react-label";
 import {
     Select,
-    SelectContent,
-    SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@radix-ui/react-select";
+    SelectContent,
+    SelectItem,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button.tsx";
-import * as React from "react";
 import { Link } from "react-router-dom";
-import { useCandidateContext } from "./candidate.context";
+import { useCandidateContext } from "@/hook/contexts/candidates.context.tsx";
+
 
 export default function ChoiceForSendingQuestionnerPage() {
-    const { candidatures, setCandidatures } = useCandidateContext();
+    const { candidatures, setCandidatures } = useCandidateContext()
 
+    // Gestion de la checkbox CV
     const handleCheckboxChange = (id: number) => {
         setCandidatures((prev) =>
             prev.map((cand) =>
                 cand.id === id ? { ...cand, cvChecked: !cand.cvChecked } : cand
             )
-        );
-    };
+        )
+    }
 
+    // Gestion des selects Réponse / Entretien / Statut
     const handleSelectChange = (
         id: number,
         field: "reponse" | "entretien" | "statut",
@@ -32,14 +35,9 @@ export default function ChoiceForSendingQuestionnerPage() {
             prev.map((cand) =>
                 cand.id === id ? { ...cand, [field]: value } : cand
             )
-        );
-    };
-
-    const handleSendQuestionnaire = (id: number) => {
-        // Remplacez cette fonction par la logique d'envoi de questionnaire souhaitée.
-        console.log("Envoyer le questionnaire pour la candidature", id);
-    };
-
+        )
+    }
+    console.log(candidatures)
     return (
         <div className="min-h-screen bg-white">
             <div className="bg-blue-600 text-white p-4">
@@ -49,10 +47,12 @@ export default function ChoiceForSendingQuestionnerPage() {
             <div className="p-4 space-y-6">
                 {candidatures.map((cand) => (
                     <div key={cand.id} className="rounded-md overflow-hidden shadow">
+                        {/* Header coloré */}
                         <div className="bg-blue-600 text-white p-3 font-semibold">
                             {cand.title} - {cand.contractType} - {cand.location}
                         </div>
 
+                        {/* Contenu de la candidature */}
                         <div className="bg-white p-4">
                             <div className="grid grid-cols-4 gap-4">
                                 {/* CV */}
@@ -125,8 +125,10 @@ export default function ChoiceForSendingQuestionnerPage() {
 
                             {/* Bouton "Envoyer le questionnaire" */}
                             <div className="mt-4 flex justify-center">
-                                <Button onClick={() => handleSendQuestionnaire(cand.id)}>
+                                <Button>
+                                    <Link to={"/questionner"}>
                                     Envoyer le questionnaire
+                                    </Link>
                                 </Button>
                             </div>
                         </div>
@@ -135,7 +137,7 @@ export default function ChoiceForSendingQuestionnerPage() {
             </div>
 
             <div className="p-4">
-                <Button variant="secondary" className="w-full">
+                <Button variant="outline" className="w-full">
                     <Link to="/applications">Retour</Link>
                 </Button>
             </div>
