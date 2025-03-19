@@ -31,6 +31,7 @@ import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
 import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
 import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
+import {FolowApplicationPage} from "@/pages/folow/FolowApplicationPage.tsx";
 
 
 
@@ -80,6 +81,7 @@ function App() {
                         <Route path="/offers-of-employer" element={<OffersOfEmployerPage/>} />
                         <Route path="/contact-list" element={<ContactEmployeeListPage/>} />
                         <Route path="/cv-candidate" element={<CvCandidatePage/>} />
+                        <Route path="/applications" element={<FolowApplicationPage/>} />
                     </Route>
                 </Route>
 
