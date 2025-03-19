@@ -53,25 +53,17 @@ function App() {
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute/>}>
-                <Route
-                    element={
-                        isMobile ? <PublicMobileLayout/> : <PublicPcLayout/>
-                    }
-                >
+                <Route element={isMobile ? <PublicMobileLayout/> : <PublicPcLayout/>}>
                     <Route path="/"
                            element={<HomeNonInscritPage/>}/>
                     <Route path="/signin"
                            element={<SigninPage/>}/>
                     <Route path="/login"
                            element={<LoginPage/>}/>
-                    <Route
-                        path="/LoginRecoveryPage"
-                        element={<LoginRecoveryPage/>}
-                    />
-                    <Route
-                        path="/PasswordRecoveryPage"
-                        element={<PasswordRecoveryPage/>}
-                    />
+                    <Route path="/LoginRecoveryPage"
+                           element={<LoginRecoveryPage/>}/>
+                    <Route path="/PasswordRecoveryPage"
+                           element={<PasswordRecoveryPage/>}/>
                 </Route>
             </Route>
 
@@ -86,18 +78,9 @@ function App() {
             {/* Routes Privées */}
             {isAuthenticated && (
                 <Route element={<PrivateRoute/>}>
-                    <Route
-                        element={
-                            isMobile ? (
-                                <PrivateMobileLayout/>
-                            ) : (
-                                <PrivatePcLayout/>
-                            )
-                        }
-                    >
-                        <Route
-                            path="/home-inscrit"
-                            element={<HomeInscritPage/>}/>
+                    <Route element={isMobile ? (<PrivateMobileLayout/>) : (<PrivatePcLayout/>)}>
+                        <Route path="/home-inscrit"
+                               element={<HomeInscritPage/>}/>
                         <Route path="/cv-build"
                                element={<CvConstructPage/>}/>
                         <Route path="/cv"

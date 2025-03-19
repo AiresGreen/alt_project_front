@@ -13,7 +13,7 @@ export const CandidatePage = () => {
                             <Link to={"/employer-page"}> VOIR LA LISTE DES EMPLOYEURS</Link>
                         </Button>
                         <Button className="w-full bg-white border border-gray-300 text-black">
-                            <Link to={"src/pages/folow/FolowApplicationPage.tsx"}>VOIR MES CANDIDATURES</Link>
+                            <Link to={"/applications"}>VOIR MES CANDIDATURES</Link>
                         </Button>
                         <Button className="w-full bg-white border border-gray-300 text-black">
                             <Link to={"/home-inscrit"}> RETOUR </Link>
