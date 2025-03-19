@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Check, Edit2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const cvList = [
-    { id: 1, title: "CV PROF DE FRANÇAIS", image: "/path/to/cv-preview1.png" },
+
+const cvList: ({ id: any; title: string; image: string })[] = [
+    { id:  1, title: "CV PROF DE FRANÇAIS", image: "/path/to/cv-preview1.png" },
     { id: 2, title: "CV FORMATEUR", image: "/path/to/cv-preview2.png" },
     { id: 3, title: "CV ENSEIGNANT", image: "/path/to/cv-preview3.png" }
 ];
+
 
 export const CvCandidatePage = () => {
     const navigate = useNavigate();
