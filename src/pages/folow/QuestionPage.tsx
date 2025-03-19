@@ -18,6 +18,9 @@ export default function QuestionPage() {
     const [autreTexte, setAutreTexte] = useState("");
     const [exchangeCall, setExchangeCall] = useState("");
 
+    // État pour la fenêtre de confirmation
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const handleCheckboxChange = (name: string, checked: boolean) => {
         setReasons((prev) => ({
             ...prev,
@@ -38,7 +41,9 @@ export default function QuestionPage() {
         console.log("Raisons sélectionnées:", reasons);
         console.log("Autre (texte):", autreTexte);
         console.log("Échange téléphonique:", exchangeCall);
-        alert("Questionnaire envoyé !");
+
+        // Au lieu d'alert(), on ouvre la fenêtre
+        setIsModalOpen(true);
     };
 
     return (
@@ -81,8 +86,10 @@ export default function QuestionPage() {
                                 <Checkbox.Root
                                     id="manqueCompetences"
                                     checked={reasons.manqueCompetences}
-                                    onCheckedChange={(checked) => handleCheckboxChange("manqueCompetences", !!checked)}
-                                    className="w-6 h-6 border border-gray-600 rounded flex items-center justify-center"
+                                    onCheckedChange={(checked) =>
+                                        handleCheckboxChange("manqueCompetences", !!checked)
+                                    }
+                                    className="w-6 h-6 border border-gray-300 rounded flex items-center justify-center"
                                 >
                                     <Checkbox.Indicator>
                                         <MdCheckBox className="w-6 h-6 text-black" />
@@ -98,8 +105,10 @@ export default function QuestionPage() {
                                 <Checkbox.Root
                                     id="manqueExperience"
                                     checked={reasons.manqueExperience}
-                                    onCheckedChange={(checked) => handleCheckboxChange("manqueExperience", !!checked)}
-                                    className="w-6 h-6 border border-gray-600 rounded flex items-center justify-center"
+                                    onCheckedChange={(checked) =>
+                                        handleCheckboxChange("manqueExperience", !!checked)
+                                    }
+                                    className="w-6 h-6 border border-gray-300 rounded flex items-center justify-center"
                                 >
                                     <Checkbox.Indicator>
                                         <MdCheckBox className="w-6 h-6 text-black" />
@@ -115,8 +124,10 @@ export default function QuestionPage() {
                                 <Checkbox.Root
                                     id="inadEquation"
                                     checked={reasons.inadEquation}
-                                    onCheckedChange={(checked) => handleCheckboxChange("inadEquation", !!checked)}
-                                    className="w-6 h-6 border border-gray-600 rounded flex items-center justify-center"
+                                    onCheckedChange={(checked) =>
+                                        handleCheckboxChange("inadEquation", !!checked)
+                                    }
+                                    className="w-6 h-6 border border-gray-300 rounded flex items-center justify-center"
                                 >
                                     <Checkbox.Indicator>
                                         <MdCheckBox className="w-6 h-6 text-black" />
@@ -133,7 +144,7 @@ export default function QuestionPage() {
                                     id="autre"
                                     checked={reasons.autre}
                                     onCheckedChange={(checked) => handleCheckboxChange("autre", !!checked)}
-                                    className="w-6 h-6 border border-gray-600 rounded flex items-center justify-center"
+                                    className="w-6 h-6 border border-gray-300 rounded flex items-center justify-center"
                                 >
                                     <Checkbox.Indicator>
                                         <MdCheckBox className="w-6 h-6 text-black" />
@@ -167,7 +178,7 @@ export default function QuestionPage() {
                                     <RadioGroup.Item
                                         id="oui"
                                         value="oui"
-                                        className="w-4 h-4 rounded-full border border-gray-700 flex items-center justify-center"
+                                        className="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center"
                                     >
                                         <RadioGroup.Indicator className="w-2 h-2 rounded-full bg-black" />
                                     </RadioGroup.Item>
@@ -179,7 +190,7 @@ export default function QuestionPage() {
                                     <RadioGroup.Item
                                         id="non"
                                         value="non"
-                                        className="w-4 h-4 rounded-full border border-gray-700 flex items-center justify-center"
+                                        className="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center"
                                     >
                                         <RadioGroup.Indicator className="w-2 h-2 rounded-full bg-black" />
                                     </RadioGroup.Item>
@@ -192,7 +203,7 @@ export default function QuestionPage() {
 
                         <div className="flex justify-end space-x-2">
                             <Button type="submit" variant="default">
-                                <Link to="/edit-questionner">ENVOYER</Link>
+                                ENVOYER
                             </Button>
                             <Button variant="outline" className="text-black">
                                 <Link to="/applications">RETOUR</Link>
@@ -201,6 +212,24 @@ export default function QuestionPage() {
                     </form>
                 </CardContent>
             </Card>
+
+            {/* MODAL DE CONFIRMATION */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white w-72 p-6 rounded-md text-center">
+                        <p className="text-xl font-semibold text-black">
+                            VOTRE DEMANDE DE RETOUR A ÉTÉ ENVOYÉE.
+                        </p>
+                        <Button
+                            className="mt-4"
+                            onClick={() => setIsModalOpen(false)}
+                            variant="default"
+                        >
+                            OK
+                        </Button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

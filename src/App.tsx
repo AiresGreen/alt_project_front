@@ -4,6 +4,7 @@ import { useMediaQuery } from "react-responsive";
 import { useContext } from "react";
 import { AuthContext } from "@/hook/contexts/auth.context";
 
+
 // Importation de layouts
 import {PublicMobileLayout} from "@/components/layouts/PublicMobileLayout";
 import {PublicPcLayout} from "@/components/layouts/PublicPcLayout";
@@ -49,6 +50,7 @@ import {ProfilePicturePage} from "@/pages/profilePicture/ProfilePicturePage.tsx"
 import RepeatApplicationPage from "@/pages/folow/RepeatApplicationPage.tsx";
 import QuestionPage from "@/pages/folow/QuestionPage.tsx";
 import EditQuestionPage from "@/pages/folow/EditQuestionPage.tsx";
+import ChoiceForSendingQuestionnerPage from "@/pages/folow/ChoiceForSendingQuestionnerPage.tsx";
 
 
 
@@ -117,6 +119,7 @@ function App() {
                         <Route path="/repeat-application" element={<RepeatApplicationPage/>} />
                         <Route path="/questionner" element={<QuestionPage/>} />
                         <Route path="/edit-questionner" element={<EditQuestionPage/>} />
+                        <Route path="/choose-questionner" element={<ChoiceForSendingQuestionnerPage/>} />
                         <Route
                             path="/candidate-page"
                             element={<CandidatePage />}
