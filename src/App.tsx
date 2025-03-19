@@ -31,6 +31,7 @@ import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
 import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
 import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
+import { ProfilePicturePage } from "./pages/profilePicture/ProfilePicturePage.tsx";
 
 
 
@@ -80,6 +81,7 @@ function App() {
                         <Route path="/offers-of-employer" element={<OffersOfEmployerPage/>} />
                         <Route path="/contact-list" element={<ContactEmployeeListPage/>} />
                         <Route path="/cv-candidate" element={<CvCandidatePage/>} />
+                        <Route path="/profile-picture" element={<ProfilePicturePage/>} />
                     </Route>
                 </Route>
 
