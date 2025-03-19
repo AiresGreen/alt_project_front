@@ -1,24 +1,35 @@
-import { useState } from "react";
+import { useState} from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
-import { Check, Edit2 } from "lucide-react";
+import { Check, Edit2, Link as LinkIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import { GrSend } from "react-icons/gr";
 
 const cvList: ({ id: any; title: string; image: string })[] = [
-    { id:  1, title: "CV PROF DE FRANÇAIS", image: "/path/to/cv-preview1.png" },
+    { id: 1, title: "CV PROF DE FRANÇAIS", image: "/path/to/cv-preview1.png" },
     { id: 2, title: "CV FORMATEUR", image: "/path/to/cv-preview2.png" },
     { id: 3, title: "CV ENSEIGNANT", image: "/path/to/cv-preview3.png" }
 ];
 
-
 export const CvCandidatePage = () => {
     const navigate = useNavigate();
     const [selectedCv, setSelectedCv] = useState(null);
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSubmit = () => {
+        if (!selectedCv) {
+            setErrorMessage("Veuillez sélectionner un CV avant de continuer.");
+            return;
+        }
+        setErrorMessage("");
+        setSubmissionSuccess(true);
+        setTimeout(() => navigate("/home-inscrit"), 3000);
+    };
 
     return (
-        <div className="flex flex-col items-center bg-gradient-to-b from-teal-300 to-blue-500 min-h-screen p-6">
+        <div className="flex flex-col items-center  min-h-screen p-6">
             <h1 className="text-xl font-semibold text-center text-blue-900">ENVOYER VOTRE CANDIDATURE</h1>
             <p className="text-sm text-blue-800">CHOISISSEZ VOTRE CV</p>
             <div className="mt-6 w-full max-w-md space-y-4">
@@ -31,20 +42,32 @@ export const CvCandidatePage = () => {
                                     {selectedCv === cv.id && <Check className="w-full h-full" />}
                                 </button>
                                 <p className="text-lg font-medium text-gray-700 text-center">{cv.title}</p>
-                                <Edit2 className="text-gray-500 w-6 h-6 cursor-pointer" onClick={() => navigate('/cv-build')} />
+                                <Edit2 className="text-gray-500 w-6 h-6 cursor-pointer" onClick={() => navigate('/cv-builder')} />
                             </div>
                         </CardContent>
                     </Card>
                 ))}
             </div>
+            {errorMessage && <p className="text-red-600 mt-4">{errorMessage}</p>}
             <div className="mt-6 w-full max-w-md flex justify-between">
                 <Button variant="outline" className="px-6 py-2">
                     <Link to="/offers-of-employer" className="text-black">RETOUR</Link>
                 </Button>
-                <Button className="px-6 py-2 bg-black text-white flex items-center" disabled={!selectedCv}>
-                    <Link to="/next-step" className={`text-white flex items-center ${!selectedCv ? 'opacity-50 cursor-not-allowed' : ''}`}>CONTINUER <span className="ml-2">➡️</span></Link>
+                <Button className="px-6 py-2 bg-black text-white flex items-center" onClick={handleSubmit}>
+                    PPOSTULER <span className="ml-2"><GrSend /></span>
                 </Button>
             </div>
+            {submissionSuccess && (
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-2xl shadow-lg text-center">
+                        <p className="text-lg font-bold">Votre candidature a été envoyée.</p>
+                        <p className="text-sm text-gray-600">Suivre le progrès vous pouvez</p>
+                        <Link to="/applications" className="text-blue-500 flex items-center justify-center mt-2">
+                            <LinkIcon className="w-5 h-5 mr-1" /> ici
+                        </Link>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

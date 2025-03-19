@@ -22,6 +22,8 @@ import { EmployerPage } from "@/pages/candidate/EmployerPage.tsx";
 import OffersOfEmployerPage from "@/pages/candidate/OffersOfEmployerPage.tsx";
 import { ContactEmployeeListPage } from "@/pages/contact/ContactEmployeeListPage.tsx";
 import { CvCandidatePage } from "@/pages/candidate/CvCandidatePage.tsx";
+import { FolowApplicationPage } from "@/pages/folow/FolowApplicationPage.tsx";
+import { ProfilePicturePage } from "@/pages/profilePicture/ProfilePicturePage.tsx";
 
 // Importation de layouts
 import { PublicMobileLayout } from "@/components/layouts/PublicMobileLayout";
@@ -30,7 +32,7 @@ import { PrivateMobileLayout } from "@/components/layouts/PrivateMobileLayout";
 import { PrivatePcLayout } from "@/components/layouts/PrivatePcLayout";
 import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
-import { ProfilePicturePage } from "./pages/profilePicture/ProfilePicturePage.tsx";
+
 import { ProfileDetailsPage } from "./pages/profile/ProfileDetailsPage.tsx";
 
 function App() {
