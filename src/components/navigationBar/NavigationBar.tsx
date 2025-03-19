@@ -1,4 +1,3 @@
-import {RxAvatar} from "react-icons/rx";
 import {User, Search, Heart, LogOut, Edit, Book} from "lucide-react"
 import {
     Menubar,
@@ -12,23 +11,24 @@ import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button.tsx";
 import {CiSearch} from "react-icons/ci";
 import {TfiMenuAlt} from "react-icons/tfi";
-import {Avatar, AvatarFallback,} from "@radix-ui/react-avatar";
+import {Avatar, AvatarFallback, AvatarImage,} from "@radix-ui/react-avatar";
 import {Link} from "react-router-dom";
 
 
 /*______________________________________________________*/
 /*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL NON-INSCRIT*/
+
 /*______________________________________________________*/
 
 export function NavigationBarNonInscrit() {
     return (
-        <div className="flex items-center justify-between space-x-4">
+        <div className="flex items-center justify-around space-x-4">
             <Link to={'/'}>
                 <img
-                src="../../../public/logo.png"
-                alt="BalanceTonJob"
-                className="w-16 mr-4"
-            /></Link>
+                    src="../../../public/logo.png"
+                    alt="BalanceTonJob"
+                    className="w-38 mr-4"
+                /></Link>
             <Menubar className="flex items-center  px-4 py-2 text-sm">
                 {/* BARRE DE RECHERCHE (cachée sur mobile, visible à partir de md) */}
                 <div className="hidden md:flex items-center space-x-2 w-1/2 mx-4">
@@ -37,15 +37,15 @@ export function NavigationBarNonInscrit() {
                         placeholder="Rechercher un poste..."
                         className="w-full"
                     />
-                    <Button  className="bg-white text-gray-900">
-                        <CiSearch />
+                    <Button className="bg-white text-gray-900">
+                        <CiSearch/>
                     </Button>
                 </div>
 
                 {/* Burger menu uniquement sur mobile */}
                 <MenubarMenu>
                     <MenubarTrigger className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none data-[state=open]:bg-gray-100">
-                        <TfiMenuAlt className="h-4 w-4" />
+                        <TfiMenuAlt className="h-4 w-4"/>
                         <span>Menu</span>
                     </MenubarTrigger>
 
@@ -62,11 +62,11 @@ export function NavigationBarNonInscrit() {
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
                             <Link to={"/apropos"}>À propos</Link>
                         </MenubarItem>
-                        <MenubarSeparator />
+                        <MenubarSeparator/>
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
                             <Link to={"/mentions-legales"}>Mentions légales</Link>
                         </MenubarItem>
-                        <MenubarSeparator />
+                        <MenubarSeparator/>
                         <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
                             <Link to={"/contact"}>Contact</Link>
                         </MenubarItem>
@@ -77,7 +77,7 @@ export function NavigationBarNonInscrit() {
                 <div className="hidden md:flex space-x-4 ml-auto">
                     <MenubarMenu>
                         <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            <Link to={'/login'} >Connexion</Link>
+                            <Link to={'/login'}>Connexion</Link>
                         </MenubarTrigger>
                     </MenubarMenu>
                     <MenubarMenu>
@@ -93,37 +93,45 @@ export function NavigationBarNonInscrit() {
 
 /*______________________________________________________*/
 /*AVATAR*/
+
 /*______________________________________________________*/
 
 export function PhotoDeProfil() {
     return (
         <Avatar className={"flex flex-col items-center justify-center"}>
-            <RxAvatar/>
-            <AvatarFallback>JM FM</AvatarFallback>
+            <AvatarImage className={'rounded-full w-24 mr-4'}
+                         src="https://github.com/shadcn.png"
+                         alt="@shadcn"/>
+            <AvatarFallback className={'text-black'}>JM FM</AvatarFallback>
+            <p>Radio JM FM</p>
         </Avatar>
     )
 }
 
 /*______________________________________________________*/
 /*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL INSCRIT*/
+
 /*______________________________________________________*/
 
 export function NavigationBarInscrit() {
 
     return (
-        <div className="w-full px-4 py-2 flex items-center justify-between">
+        <div className="w-full px-4 py-2 flex items-center ">
             {/* LOGO */}
-            <Link to={'/'}>
-                <img
-                    src="../../../public/logo.png"
-                    alt="BalanceTonJob"
-                    className="w-16 mr-4"
-                /></Link>
+            <div>
+                <Link to={'/home-inscrit'}>
+                    <img
+                        src="../../../public/logo.png"
+                        alt="BalanceTonJob"
+                        className="w-38 mr-4"
+                    />
+                </Link>
+            </div>
             {/* MENUBAR GLOBAL */}
             <Menubar className="flex items-center justify-end w-full md:ml-4">
                 {/* --- MENU BURGER (MOBILE) */}
                 <MenubarMenu>
-                    <MenubarTrigger className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
+                    <MenubarTrigger className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded text-gray-700 hover:bg-transparent focus:outline-none data-[state=open]:bg-gray-100">
                         <PhotoDeProfil/>
                     </MenubarTrigger>
 
@@ -193,53 +201,52 @@ export function NavigationBarInscrit() {
                 </MenubarMenu>
 
                 {/* --- LIENS DE NAVIGATION (DESKTOP)--- */}
-                    <MenubarMenu>
-                        <MenubarTrigger className="hidden md:flex ml-auto space-x-2">
-                            <div>
-                                <PhotoDeProfil/>
-                                <span className="hidden md:text-sm font-semibold">Prénom NOM</span>
-                            </div>
-                        </MenubarTrigger>
-                        <MenubarContent className="bg-gray-300">
-                            {/* “Voir/modifier profil” */}
-                            <MenubarItem>
+                <MenubarMenu>
+                    <MenubarTrigger className="hidden md:flex ml-auto space-x-2 hover:bg-transparent focus:outline-none text-gray-700">
+                        <div>
+                            <PhotoDeProfil/>
+                        </div>
+                    </MenubarTrigger>
+                    <MenubarContent className="bg-gray-100 text-black">
+                        {/* “Voir/modifier profil” */}
+                        <MenubarItem>
                                 <span className="cursor-pointer hover:underline flex items-center gap-2">
                                     Voir/modifier profil
                                 </span>
-                                <MenubarShortcut><User className="w-4 h-4"/></MenubarShortcut>
+                            <MenubarShortcut><User className="w-4 h-4"/></MenubarShortcut>
 
-                            </MenubarItem>
-                            {/* “Voir mes CV” */}
-                            <MenubarItem>
+                        </MenubarItem>
+                        {/* “Voir mes CV” */}
+                        <MenubarItem>
                                 <span className="cursor-pointer hover:underline flex items-center gap-2">
                                     Voir mes CV
                                 </span>
-                                <MenubarShortcut><Edit className="w-4 h-4"/></MenubarShortcut>
+                            <MenubarShortcut><Edit className="w-4 h-4"/></MenubarShortcut>
 
-                            </MenubarItem>
-                            {/* “Mes offres favorites” */}
-                            <MenubarItem>
+                        </MenubarItem>
+                        {/* “Mes offres favorites” */}
+                        <MenubarItem>
                                 <span className="cursor-pointer hover:underline flex items-center gap-2">
                                     Mes offres favorites
                                 </span>
-                                <MenubarShortcut><Heart className="w-4 h-4"/></MenubarShortcut>
-                            </MenubarItem>
-                            {/* “Mes recommandations” */}
-                            <MenubarItem>
+                            <MenubarShortcut><Heart className="w-4 h-4"/></MenubarShortcut>
+                        </MenubarItem>
+                        {/* “Mes recommandations” */}
+                        <MenubarItem>
                                 <span className="cursor-pointer hover:underline flex items-center gap-2">
                                     Mes recommandations
                                 </span>
-                                <MenubarShortcut><Book className="w-4 h-4"/></MenubarShortcut>
-                            </MenubarItem>
-                            {/* “Déconnexion” */}
-                            <MenubarItem>
+                            <MenubarShortcut><Book className="w-4 h-4"/></MenubarShortcut>
+                        </MenubarItem>
+                        {/* “Déconnexion” */}
+                        <MenubarItem>
                                 <span className="cursor-pointer hover:underline flex items-center gap-2">
                                     Déconnexion
                                 </span>
-                                <MenubarShortcut><LogOut className="w-4 h-4"/></MenubarShortcut>
-                            </MenubarItem>
-                        </MenubarContent>
-                    </MenubarMenu>
+                            <MenubarShortcut><LogOut className="w-4 h-4"/></MenubarShortcut>
+                        </MenubarItem>
+                    </MenubarContent>
+                </MenubarMenu>
             </Menubar>
         </div>
     )

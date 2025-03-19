@@ -4,6 +4,13 @@ import {useMediaQuery} from "react-responsive";
 import {useContext} from "react";
 import {AuthContext} from "@/hook/contexts/auth.context";
 
+// Importation de layouts
+import {PublicMobileLayout} from "@/components/layouts/PublicMobileLayout";
+import {PublicPcLayout} from "@/components/layouts/PublicPcLayout";
+import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
+import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
+import PublicRoute from "@/utils/PublicRoute.tsx";
+import PrivateRoute from "@/utils/PrivateRoute.tsx";
 
 // Importation de pages
 import {SigninPage} from "@/pages/auth/SigninPage.tsx";
@@ -23,22 +30,11 @@ import {EmployerPage} from "@/pages/candidate/EmployerPage.tsx";
 import OffersOfEmployerPage from "@/pages/candidate/OffersOfEmployerPage.tsx";
 import {ContactEmployeeListPage} from "@/pages/contact/ContactEmployeeListPage.tsx";
 import {CvCandidatePage} from "@/pages/candidate/CvCandidatePage.tsx";
-import {FolowApplicationPage} from "@/pages/folow/FolowApplicationPage.tsx";
-import {ProfilePicturePage} from "@/pages/ProfilePicture/ProfilePicturePage.tsx";
-
-// Importation de layouts
-import {PublicMobileLayout} from "@/components/layouts/PublicMobileLayout";
-import {PublicPcLayout} from "@/components/layouts/PublicPcLayout";
-import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
-import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
-import PublicRoute from "@/utils/PublicRoute.tsx";
-import PrivateRoute from "@/utils/PrivateRoute.tsx";
-
-
-
-
-
-
+import FolowApplicationPage from "@/pages/folow/FolowApplicationPage.tsx";
+import {ProfilePicturePage} from "@/pages/profilePicture/ProfilePicturePage.tsx";
+import RepeatApplicationPage from "@/pages/folow/RepeatApplicationPage.tsx";
+import QuestionPage from "@/pages/folow/QuestionPage.tsx";
+import EditQuestionPage from "@/pages/folow/EditQuestionPage.tsx";
 
 
 
@@ -86,6 +82,9 @@ function App() {
                         <Route path="/cv-candidate" element={<CvCandidatePage/>} />
                         <Route path="/applications" element={<FolowApplicationPage/>} />
                         <Route path="/profile-picture" element={<ProfilePicturePage/>} />
+                        <Route path="/repeat-application" element={<RepeatApplicationPage/>} />
+                        <Route path="/questionner" element={<QuestionPage/>} />
+                        <Route path="/edit-questionner" element={<EditQuestionPage/>} />
                     </Route>
                 </Route>
 
