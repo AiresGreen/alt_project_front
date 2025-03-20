@@ -97,15 +97,15 @@ describe("LoginForm- End-To-End Test", () => {
         cy.contains(
             "Le mot de Passe doit contenir au moins un caractère spécial"
         );
-        //Vérifie si les deux mots de passe coïncident
-        it("has same password twice", () => {
-            cy.get('input[name="username"]').type("Cristobal");
-            cy.get('input[name="lastname"]').type("Colón");
-            cy.get(`input[name="email"]`).type("cristobal@amerigo.sp");
-            cy.get('input[name="password"]').type("Azerty12@");
-            cy.get('input[name="passwordconfirmation"]').type("Azerty12@");
-            cy.get('button[type="submit"]').click();
-            cy.contains("Les mots de passe ne correspondent pas");
-        });
+    });
+    //Vérifie si les deux mots de passe coïncident
+    it("has same password twice", () => {
+        cy.get('input[name="username"]').type("Cristobal");
+        cy.get('input[name="lastname"]').type("Colón");
+        cy.get(`input[name="email"]`).type("cristobal@amerigo.sp");
+        cy.get('input[name="password"]').type("Azerty12@");
+        cy.get('input[name="passwordconfirmation"]').type("Azerio12@");
+        cy.get('button[type="submit"]').click();
+        cy.contains("Les mots de passe ne correspondent pas");
     });
 });
