@@ -30,7 +30,7 @@ import {CandidatePage} from "./pages/candidate/CandidatePage";
 import {EmployerPage} from "@/pages/candidate/EmployerPage.tsx";
 import OffersOfEmployerPage from "@/pages/candidate/OffersOfEmployerPage.tsx";
 import {ProfileDetailsPage} from "./pages/profile/ProfileDetailsPage.tsx";
-import {ContactEmployeeListPage} from "@/pages/contact/ContactEmployeeListPage.tsx";
+import ContactEmployeeListPage from "@/pages/contact/ContactEmployeeListPage.tsx";
 import {CvCandidatePage} from "@/pages/candidate/CvCandidatePage.tsx";
 import FolowApplicationPage from "@/pages/folow/FolowApplicationPage.tsx";
 import {ProfilePicturePage} from "@/pages/profilePicture/ProfilePicturePage.tsx";
@@ -38,7 +38,7 @@ import RepeatApplicationPage from "@/pages/folow/RepeatApplicationPage.tsx";
 import QuestionPage from "@/pages/folow/QuestionPage.tsx";
 import EditQuestionPage from "@/pages/folow/EditQuestionPage.tsx";
 import ChoiceForSendingQuestionnerPage from "@/pages/folow/ChoiceForSendingQuestionnerPage.tsx";
-import {FavoritePage} from "@/pages/favorite/FavoritePage.tsx";
+import FavoritePage from "@/pages/favorite/FavoritePage.tsx";
 
 
 function App() {
@@ -55,45 +55,75 @@ function App() {
             {/* Routes Publiques */}
             <Route element={<PublicRoute/>}>
                 <Route element={isMobile ? <PublicMobileLayout/> : <PublicPcLayout/>}>
-                    <Route path="/" element={<HomeNonInscritPage/>}/>
-                    <Route path="/signin" element={<SigninPage/>}/>
-                    <Route path="/login" element={<LoginPage/>}/>
-                    <Route path="/LoginRecoveryPage" element={<LoginRecoveryPage/>}/>
-                    <Route path="/PasswordRecoveryPage" element={<PasswordRecoveryPage/>}/>
+                    <Route path="/"
+                           element={<HomeNonInscritPage/>}/>
+                    <Route path="/signin"
+                           element={<SigninPage/>}/>
+                    <Route path="/login"
+                           element={<LoginPage/>}/>
+                    <Route path="/LoginRecoveryPage"
+                           element={<LoginRecoveryPage/>}/>
+                    <Route path="/PasswordRecoveryPage"
+                           element={<PasswordRecoveryPage/>}/>
                 </Route>
             </Route>
 
             {/* Routes accessibles à tous (fixe) */}
-            <Route path="/apropos" element={<AproposPage/>}/>
-            <Route path="/contact" element={<ContactPage/>}/>
-            <Route path="/mentions-legales" element={<MentionsLegalesPage/>}/>
+            <Route path="/apropos"
+                   element={<AproposPage/>}/>
+            <Route path="/contact"
+                   element={<ContactPage/>}/>
+            <Route path="/mentions-legales"
+                   element={<MentionsLegalesPage/>}/>
 
             {/* Routes Privées */}
             {isAuthenticated && (
                 <Route element={<PrivateRoute/>}>
                     <Route element={isMobile ? (<PrivateMobileLayout/>) : (<PrivatePcLayout/>)}>
-                        <Route path="/home-inscrit" element={<HomeInscritPage/>}/>
-                        <Route path="/cv-build" element={<CvConstructPage/>}/>
-                        <Route path="/cv" element={<MyCvPage/>}/>
-                        <Route path="/candidate-page" element={<CandidatePage/>}/>
-                        <Route path="/employer-page" element={<EmployerPage/>}/>
-                        <Route path="/offers-of-employer" element={<OffersOfEmployerPage/>}/>
-                        <Route path="/contact-list" element={<ContactEmployeeListPage/>}/>
-                        <Route path="/cv-candidate" element={<CvCandidatePage/>}/>
-                        <Route path="/applications" element={<FolowApplicationPage/>}/>
-                        <Route path="/profile-picture" element={<ProfilePicturePage/>}/>
-                        <Route path="/repeat-application" element={<RepeatApplicationPage/>}/>
-                        <Route path="/questionner" element={<QuestionPage/>}/>
-                        <Route path="/edit-questionner" element={<EditQuestionPage/>}/>
-                        <Route path="/choose-questionner" element={<ChoiceForSendingQuestionnerPage/>}/>
-                        <Route path="/candidate-page" element={<CandidatePage/>}/>
-                        <Route path="/employer-page" element={<EmployerPage/>}/>
-                        <Route path="/offers-of-employer" element={<OffersOfEmployerPage/>}/>
-                        <Route path="/contact-list" element={<ContactEmployeeListPage/>}/>
-                        <Route path="/cv-candidate" element={<CvCandidatePage/>}/>
-                        <Route path="/profile-picture" element={<ProfilePicturePage/>}/>
-                        <Route path="/profile-page" element={<ProfileDetailsPage/>}/>
-                        <Route path="/favorite" element={<FavoritePage/>}/>
+                        <Route path="/home-inscrit"
+                               element={<HomeInscritPage/>}/>
+                        <Route path="/cv-build"
+                               element={<CvConstructPage/>}/>
+                        <Route path="/cv"
+                               element={<MyCvPage/>}/>
+                        <Route path="/candidate-page"
+                               element={<CandidatePage/>}/>
+                        <Route path="/employer-page"
+                               element={<EmployerPage/>}/>
+                        <Route path="/offers-of-employer"
+                               element={<OffersOfEmployerPage/>}/>
+                        <Route path="/contact-list"
+                               element={<ContactEmployeeListPage/>}/>
+                        <Route path="/cv-candidate"
+                               element={<CvCandidatePage/>}/>
+                        <Route path="/applications"
+                               element={<FolowApplicationPage/>}/>
+                        <Route path="/profile-picture"
+                               element={<ProfilePicturePage/>}/>
+                        <Route path="/repeat-application"
+                               element={<RepeatApplicationPage/>}/>
+                        <Route path="/questionner"
+                               element={<QuestionPage/>}/>
+                        <Route path="/edit-questionner"
+                               element={<EditQuestionPage/>}/>
+                        <Route path="/choose-questionner"
+                               element={<ChoiceForSendingQuestionnerPage/>}/>
+                        <Route path="/candidate-page"
+                               element={<CandidatePage/>}/>
+                        <Route path="/employer-page"
+                               element={<EmployerPage/>}/>
+                        <Route path="/offers-of-employer"
+                               element={<OffersOfEmployerPage/>}/>
+                        <Route path="/contact-list"
+                               element={<ContactEmployeeListPage/>}/>
+                        <Route path="/cv-candidate"
+                               element={<CvCandidatePage/>}/>
+                        <Route path="/profile-picture"
+                               element={<ProfilePicturePage/>}/>
+                        <Route path="/profile-page"
+                               element={<ProfileDetailsPage/>}/>
+                        <Route path="/favorite"
+                               element={<FavoritePage/>}/>
                     </Route>
                 </Route>
             )}
