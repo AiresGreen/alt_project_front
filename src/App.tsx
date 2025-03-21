@@ -6,10 +6,7 @@ import {AuthContext} from "@/hook/contexts/auth.context";
 
 
 // Importation de layouts
-import {PublicMobileLayout} from "@/components/layouts/PublicMobileLayout";
-import {PublicPcLayout} from "@/components/layouts/PublicPcLayout";
-import {PrivateMobileLayout} from "@/components/layouts/PrivateMobileLayout";
-import {PrivatePcLayout} from "@/components/layouts/PrivatePcLayout";
+import AdaptiveLayout from "@/components/layouts/AdaptiveLayout.tsx";
 import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
 
@@ -39,6 +36,9 @@ import QuestionPage from "@/pages/folow/QuestionPage.tsx";
 import EditQuestionPage from "@/pages/folow/EditQuestionPage.tsx";
 import ChoiceForSendingQuestionnerPage from "@/pages/folow/ChoiceForSendingQuestionnerPage.tsx";
 import FavoritePage from "@/pages/favorite/FavoritePage.tsx";
+import OfferPage from "@/pages/offer/OfferPage.tsx";
+import EnterprisePage from "@/pages/enterprise/EnterprisePage.tsx";
+
 
 
 function App() {
@@ -54,7 +54,7 @@ function App() {
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute/>}>
-                <Route element={isMobile ? <PublicMobileLayout/> : <PublicPcLayout/>}>
+                <Route element={<AdaptiveLayout />}>
                     <Route path="/"
                            element={<HomeNonInscritPage/>}/>
                     <Route path="/signin"
@@ -77,9 +77,8 @@ function App() {
                    element={<MentionsLegalesPage/>}/>
 
             {/* Routes Privées */}
-            {isAuthenticated && (
-                <Route element={<PrivateRoute/>}>
-                    <Route element={isMobile ? (<PrivateMobileLayout/>) : (<PrivatePcLayout/>)}>
+                            <Route element={<PrivateRoute/>}>
+                    <Route element={<AdaptiveLayout />}>
                         <Route path="/home-inscrit"
                                element={<HomeInscritPage/>}/>
                         <Route path="/cv-build"
@@ -124,9 +123,12 @@ function App() {
                                element={<ProfileDetailsPage/>}/>
                         <Route path="/favorite"
                                element={<FavoritePage/>}/>
+                        <Route path="offer-page"
+                               element={<OfferPage isAuthenticated={false}/>}/>
+                        <Route path="/enterprise-info"
+                               element={<EnterprisePage isAuthenticated={true}/>}/>
                     </Route>
                 </Route>
-            )}
 
             {/* Route page non trouvée */}
             <Route path="*"

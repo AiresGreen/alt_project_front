@@ -15,7 +15,7 @@ export const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: AuthProviderType) {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     function updateAuthentication(status: boolean) {
         setIsAuthenticated(status);

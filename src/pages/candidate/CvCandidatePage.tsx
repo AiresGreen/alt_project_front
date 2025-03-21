@@ -49,12 +49,17 @@ export const CvCandidatePage = () => {
                 ))}
             </div>
             {errorMessage && <p className="text-red-600 mt-4">{errorMessage}</p>}
-            <div className="mt-6 w-full max-w-md flex justify-between">
+            <div className="mt-6 w-full max-w-md flex justify-between gap-2">
                 <Button variant="outline" className="px-6 py-2">
                     <Link to="/offers-of-employer" className="text-black">RETOUR</Link>
                 </Button>
+                <Button variant="outline" className="px-6 py-2">
+                    <Link to="/cv-build" className="text-black">
+                    CRÉER UN NOUVEAU CV
+                    </Link>
+                </Button>
                 <Button className="px-6 py-2 bg-black text-white flex items-center" onClick={handleSubmit}>
-                    PPOSTULER <span className="ml-2"><GrSend /></span>
+                    POSTULER <span className="ml-2"><GrSend /></span>
                 </Button>
             </div>
             {submissionSuccess && (
