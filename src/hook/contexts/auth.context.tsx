@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode } from "react";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -11,7 +11,7 @@ interface AuthProviderType {
 
 export const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
-    updateAuthentication: () => {}
+    updateAuthentication: () => {},
 });
 
 export function AuthProvider({ children }: AuthProviderType) {

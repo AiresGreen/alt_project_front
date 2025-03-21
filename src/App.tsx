@@ -1,9 +1,8 @@
 // App
-import {Routes, Route} from "react-router-dom";
-import {useMediaQuery} from "react-responsive";
-import {useContext} from "react";
-import {AuthContext} from "@/hook/contexts/auth.context";
-
+import { Routes, Route } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { useContext } from "react";
+import { AuthContext } from "@/hook/contexts/auth.context";
 
 // Importation de layouts
 import AdaptiveLayout from "@/components/layouts/AdaptiveLayout.tsx";
@@ -18,17 +17,17 @@ import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 import {LoginPage} from "./pages/auth/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import {LoginRecoveryPage} from "./pages/auth/LoginRecoveryPage.tsx";
-import {PasswordRecoveryPage} from "./pages/auth/PasswordRecoveryPage";
+import { LoginRecoveryPage } from "./pages/auth/LoginRecoveryPage.tsx";
+import { PasswordRecoveryPage } from "./pages/auth/PasswordRecoveryPage";
 import MyCvPage from "./pages/cv/MyCvPage";
-import {CandidatePage} from "./pages/candidate/CandidatePage";
-import {EmployerPage} from "@/pages/candidate/EmployerPage.tsx";
+import { CandidatePage } from "./pages/candidate/CandidatePage";
+import { EmployerPage } from "@/pages/candidate/EmployerPage.tsx";
 import OffersOfEmployerPage from "@/pages/candidate/OffersOfEmployerPage.tsx";
 import {ProfileDetailsPage} from "./pages/profile/ProfileDetailsPage.tsx";
 import ContactEmployeeListPage from "@/pages/contact/ContactEmployeeListPage.tsx";
 import {CvCandidatePage} from "@/pages/candidate/CvCandidatePage.tsx";
 import FolowApplicationPage from "@/pages/folow/FolowApplicationPage.tsx";
-import {ProfilePicturePage} from "@/pages/profilePicture/ProfilePicturePage.tsx";
+import { ProfilePicturePage } from "@/pages/profilePicture/ProfilePicturePage.tsx";
 import RepeatApplicationPage from "@/pages/folow/RepeatApplicationPage.tsx";
 import QuestionPage from "@/pages/folow/QuestionPage.tsx";
 import EditQuestionPage from "@/pages/folow/EditQuestionPage.tsx";
@@ -39,29 +38,30 @@ import EnterprisePage from "@/pages/enterprise/EnterprisePage.tsx";
 import HomePage from "@/pages/home/HomePage.tsx";
 
 
-
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
-    const isMobile = useMediaQuery({query: "(max-width: 767px)"});
+    const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
     console.log(isMobile);
 
     // Récupération de l'état d'authentification depuis le contexte
-    const {isAuthenticated} = useContext(AuthContext);
+    const { isAuthenticated } = useContext(AuthContext);
     console.log("isAuthenticated in App.tsx:", isAuthenticated);
 
     return (
         <Routes>
             {/* Routes Publiques */}
-            <Route element={<PublicRoute/>}>
+            <Route element={<PublicRoute />}>
                 <Route element={<AdaptiveLayout />}>
                     <Route path="/signin"
-                           element={<SigninPage/>}/>
+                           element={<SigninPage />} />
                     <Route path="/login"
-                           element={<LoginPage/>}/>
-                    <Route path="/LoginRecoveryPage"
-                           element={<LoginRecoveryPage/>}/>
-                    <Route path="/PasswordRecoveryPage"
-                           element={<PasswordRecoveryPage/>}/>
+                           element={<LoginPage />} />
+                    <Route
+                        path="/loginrecovery"
+                        element={<LoginRecoveryPage />}/>
+                    <Route
+                        path="/passwordrecovery"
+                        element={<PasswordRecoveryPage />}/>
                 </Route>
             </Route>
 
@@ -126,12 +126,97 @@ function App() {
                                element={<ProfileDetailsPage/>}/>
                         <Route path="/favorite"
                                element={<FavoritePage/>}/>
+            {isAuthenticated && (
+                <Route element={<PrivateRoute />}>
+                    <Route
+                        element={
+                            isMobile ? (
+                                <PrivateMobileLayout />
+                            ) : (
+                                <PrivatePcLayout />
+                            )
+                        }
+                    >
+                        <Route
+                            path="/home-inscrit"
+                            element={<HomeInscritPage />}
+                        />
+                        <Route path="/cv-build" element={<CvConstructPage />} />
+                        <Route path="/cv" element={<MyCvPage />} />
+                        <Route
+                            path="/candidate-page"
+                            element={<CandidatePage />}
+                        />
+                        <Route
+                            path="/employer-page"
+                            element={<EmployerPage />}
+                        />
+                        <Route
+                            path="/offers-of-employer"
+                            element={<OffersOfEmployerPage />}
+                        />
+                        <Route
+                            path="/contact-list"
+                            element={<ContactEmployeeListPage />}
+                        />
+                        <Route
+                            path="/cv-candidate"
+                            element={<CvCandidatePage />}
+                        />
+                        <Route
+                            path="/applications"
+                            element={<FolowApplicationPage />}
+                        />
+                        <Route
+                            path="/profile-picture"
+                            element={<ProfilePicturePage />}
+                        />
+                        <Route
+                            path="/repeat-application"
+                            element={<RepeatApplicationPage />}
+                        />
+                        <Route path="/questionner" element={<QuestionPage />} />
+                        <Route
+                            path="/edit-questionner"
+                            element={<EditQuestionPage />}
+                        />
+                        <Route
+                            path="/choose-questionner"
+                            element={<ChoiceForSendingQuestionnerPage />}
+                        />
+                        <Route
+                            path="/candidate-page"
+                            element={<CandidatePage />}
+                        />
+                        <Route
+                            path="/employer-page"
+                            element={<EmployerPage />}
+                        />
+                        <Route
+                            path="/offers-of-employer"
+                            element={<OffersOfEmployerPage />}
+                        />
+                        <Route
+                            path="/contact-list"
+                            element={<ContactEmployeeListPage />}
+                        />
+                        <Route
+                            path="/cv-candidate"
+                            element={<CvCandidatePage />}
+                        />
+                        <Route
+                            path="/profile-picture"
+                            element={<ProfilePicturePage />}
+                        />
+                        <Route
+                            path="/profile-page"
+                            element={<ProfileDetailsPage />}
+                        />
                     </Route>
                 </Route>
 
             {/* Route page non trouvée */}
-            <Route path="*"
-                   element={<NotFoundPage/>}/>
+            <Route path="*" element={<NotFoundPage />} />
         </Routes>
     );
 }
