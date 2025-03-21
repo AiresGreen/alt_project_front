@@ -3,14 +3,13 @@ describe("LoginForm- End-To-End Test", () => {
         cy.visit("/signin"); //on se rend sur la page Signin pour la tester
     });
     //vérifie que tous les champs sont remplissables
-    it("fills form and submit", () => {
+    it("fills form", () => {
         cy.contains("Prénom").should("be.visible");
         cy.get('input[name="username"]').type("Cristobal");
         cy.get('input[name="lastname"]').type("Colón");
         cy.get(`input[name="email"]`).type("cristobal@amerigo.sp");
         cy.get('input[name="password"]').type("Azerty12@");
         cy.get('input[name="passwordconfirmation"]').type("Azerty12@");
-        cy.get('button[type="submit"]').click();
     });
     //vérifie si le prénom est présent
     it("contains username", () => {
@@ -107,5 +106,16 @@ describe("LoginForm- End-To-End Test", () => {
         cy.get('input[name="passwordconfirmation"]').type("Azerio12@");
         cy.get('button[type="submit"]').click();
         cy.contains("Les mots de passe ne correspondent pas");
+    });
+    //vérifie que le submit envoie vers la bonne page
+    it("fills form and submit", () => {
+        cy.contains("Prénom").should("be.visible");
+        cy.get('input[name="username"]').type("Cristobal");
+        cy.get('input[name="lastname"]').type("Colón");
+        cy.get(`input[name="email"]`).type("cristobal@amerigo.sp");
+        cy.get('input[name="password"]').type("Azerty12@");
+        cy.get('input[name="passwordconfirmation"]').type("Azerty12@");
+        cy.get('button[type="submit"]').click();
+        cy.url().should("include", "/home-inscrit");
     });
 });
