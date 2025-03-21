@@ -12,11 +12,9 @@ import PrivateRoute from "@/utils/PrivateRoute.tsx";
 
 // Importation de pages
 import {SigninPage} from "@/pages/auth/SigninPage.tsx";
-import {HomeInscritPage} from "@/pages/home/HomeInscritPage.tsx";
 import AproposPage from "@/pages/footer/AproposPage.tsx";
 import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
-import {HomeNonInscritPage} from "@/pages/home/HomeNonInscritPage.tsx";
 import {CvConstructPage} from "@/pages/cv/CvConstructPage.tsx";
 import {LoginPage} from "./pages/auth/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -38,6 +36,7 @@ import ChoiceForSendingQuestionnerPage from "@/pages/folow/ChoiceForSendingQuest
 import FavoritePage from "@/pages/favorite/FavoritePage.tsx";
 import OfferPage from "@/pages/offer/OfferPage.tsx";
 import EnterprisePage from "@/pages/enterprise/EnterprisePage.tsx";
+import HomePage from "@/pages/home/HomePage.tsx";
 
 
 
@@ -55,8 +54,6 @@ function App() {
             {/* Routes Publiques */}
             <Route element={<PublicRoute/>}>
                 <Route element={<AdaptiveLayout />}>
-                    <Route path="/"
-                           element={<HomeNonInscritPage/>}/>
                     <Route path="/signin"
                            element={<SigninPage/>}/>
                     <Route path="/login"
@@ -68,19 +65,25 @@ function App() {
                 </Route>
             </Route>
 
-            {/* Routes accessibles à tous (fixe) */}
-            <Route path="/apropos"
-                   element={<AproposPage/>}/>
-            <Route path="/contact"
-                   element={<ContactPage/>}/>
-            <Route path="/mentions-legales"
-                   element={<MentionsLegalesPage/>}/>
+            {/* Mixtes routes (même page pour connecté et non */}
+            <Route element={<AdaptiveLayout />}>
+                <Route path="/"
+                       element={<HomePage/>}/>
+                <Route path="/offer-page"
+                       element={<OfferPage />} />
+                <Route path="/enterprise-info"
+                       element={<EnterprisePage />} />
+                <Route path="/apropos"
+                       element={<AproposPage/>}/>
+                <Route path="/contact"
+                       element={<ContactPage/>}/>
+                <Route path="/mentions-legales"
+                       element={<MentionsLegalesPage/>}/>
+            </Route>
 
             {/* Routes Privées */}
-                            <Route element={<PrivateRoute/>}>
+            <Route element={<PrivateRoute/>}>
                     <Route element={<AdaptiveLayout />}>
-                        <Route path="/home-inscrit"
-                               element={<HomeInscritPage/>}/>
                         <Route path="/cv-build"
                                element={<CvConstructPage/>}/>
                         <Route path="/cv"
@@ -123,10 +126,6 @@ function App() {
                                element={<ProfileDetailsPage/>}/>
                         <Route path="/favorite"
                                element={<FavoritePage/>}/>
-                        <Route path="offer-page"
-                               element={<OfferPage isAuthenticated={false}/>}/>
-                        <Route path="/enterprise-info"
-                               element={<EnterprisePage isAuthenticated={true}/>}/>
                     </Route>
                 </Route>
 
