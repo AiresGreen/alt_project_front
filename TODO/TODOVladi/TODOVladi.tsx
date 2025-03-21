@@ -1,14 +1,12 @@
 // Date: 21/03/2025
-//TODO: [] Voir navbar sur les page d'inscription et de connexion, tout ce qui est dans auth et profile
-//TODO: [] Voir le navbar connecté : manque barre de recherche, liens
-//TODO: [] Me detendre
-//TODO: [] Aimer JM à l'infini et pour toujours
-//TODO: [] Aller dans le truc d'Alex avec le coeur rempli d'amour pour JM
+//TODO: [x] Voir navbar sur les page d'inscription et de connexion, tout ce qui est dans auth et profile
+//TODO: [x] Voir le navbar connecté : manque barre de recherche, liens
+
 
 //date: 24/03/2025
 //TODO: [] Faire les cypress
-//TODO: []
-//TODO: []
+//TODO: [] Lier les pages
+//TODO: [] Completer la page de cv-constrct
 //TODO: []
 //TODO: []
 

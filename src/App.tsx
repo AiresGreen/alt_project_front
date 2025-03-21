@@ -36,6 +36,7 @@ import FavoritePage from "@/pages/favorite/FavoritePage.tsx";
 import OfferPage from "@/pages/offer/OfferPage.tsx";
 import EnterprisePage from "@/pages/enterprise/EnterprisePage.tsx";
 import HomePage from "@/pages/home/HomePage.tsx";
+import MesRecommandations from "@/pages/recomendation/RecomendationPage.tsx";
 
 
 function App() {
@@ -126,6 +127,8 @@ function App() {
                                element={<ProfileDetailsPage/>}/>
                         <Route path="/favorite"
                                element={<FavoritePage/>}/>
+                        <Route path="/recommandations"
+                               element={<MesRecommandations/>}/>
                     </Route>
                 </Route>
 

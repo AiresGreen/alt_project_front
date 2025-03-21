@@ -1,253 +1,161 @@
-import {User, Search, Heart, LogOut, Edit, Book} from "lucide-react"
-import {
-    Menubar,
-    MenubarMenu,
-    MenubarTrigger,
-    MenubarContent,
-    MenubarItem,
-    MenubarSeparator, MenubarShortcut,
-} from "@/components/ui/menubar";
-import {Input} from "@/components/ui/input"
-import {Button} from "@/components/ui/button.tsx";
-import {CiSearch} from "react-icons/ci";
-import {TfiMenuAlt} from "react-icons/tfi";
-import {Avatar, AvatarFallback, AvatarImage,} from "@radix-ui/react-avatar";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
+import {Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator} from "@/components/ui/menubar";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {User, LogOut, Heart, Edit, Book, Menu, Search} from "lucide-react";
+import {useMediaQuery} from "react-responsive";
+import {useContext} from "react";
+import {AuthContext} from "@/hook/contexts/auth.context";
 
+export default function NavigationBar() {
+    const navigate = useNavigate();
+    const location = useLocation(); // Récupère la route actuelle
+    const isDesktop = useMediaQuery({minWidth: 768});
+    const {isAuthenticated, userProfile} = useContext(AuthContext);
 
-/*______________________________________________________*/
-/*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL NON-INSCRIT*/
+    const handleLogout = () => {
+        // Logique de déconnexion ici
+        navigate('/');
+    };
 
-/*______________________________________________________*/
-
-export function NavigationBarNonInscrit() {
     return (
-        <div className="flex items-center justify-around space-x-4">
+        <div className="w-full px-4 py-3 flex items-center justify-between bg-transparent">
             <Link to={'/'}>
-                <img
-                    src="../../../public/logo.png"
-                    alt="BalanceTonJob"
-                    className="w-38 mr-4"
-                /></Link>
-            <Menubar className="flex items-center  px-4 py-2 text-sm">
-                {/* BARRE DE RECHERCHE (cachée sur mobile, visible à partir de md) */}
-                <div className="hidden md:flex items-center space-x-2 w-1/2 mx-4">
-                    <Input
-                        type="text"
-                        placeholder="Rechercher un poste..."
-                        className="w-full"
-                    />
-                    <Button className="bg-white text-gray-900">
-                        <CiSearch/>
-                    </Button>
+                <img src="/logo.png"
+                     alt="BalanceTonJob"
+                     className="max-h-30"/>
+            </Link>
+
+
+            {/* La barre de recherche ne s'affiche que si on est sur la page "/" et en mode bureau */}
+            {isDesktop && location.pathname === "/" && (
+
+                <div className="flex items-center gap-3 ">
+                    <div className="flex flex-col items-center gap-4">
+                        {/* Liens de navigation au centre */}
+                        <div className="flex items-center gap-8">
+                            <Link to="/cv-build"
+                                  className="text-black hover:underline">
+                                Construire mon CV
+                            </Link>
+                            <Link to="/candidate-page"
+                                  className="text-black hover:underline">
+                                Mes candidatures
+                            </Link>
+                            <Link to="/contact-list"
+                                  className="text-black hover:underline">
+                                Mon carnet des contacts
+                            </Link>
+                        </div>
+                        <div className="flex items-center gap-8">
+                            <Input
+                                type="search"
+                                placeholder="Rechercher un poste..."
+                                className="flex-grow border-black bg-white "
+                            />
+                            <Button variant="outline"
+                                    size="icon">
+                                <Search className="w-5 h-5"/>
+                            </Button>
+                        </div>
+                    </div>
                 </div>
+            )}
 
-                {/* Burger menu uniquement sur mobile */}
-                <MenubarMenu>
-                    <MenubarTrigger className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none data-[state=open]:bg-gray-100">
-                        <TfiMenuAlt className="h-4 w-4"/>
-                        <span>Menu</span>
-                    </MenubarTrigger>
-
-                    <MenubarContent className="bg-white text-gray-700">
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            <Link to={'/login'}>Connexion</Link>
-                        </MenubarItem>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            <Link to={'/signin'}>M’inscrire</Link>
-                        </MenubarItem>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            <Link to={'/'}>Accueil</Link>
-                        </MenubarItem>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            <Link to={"/apropos"}>À propos</Link>
-                        </MenubarItem>
-                        <MenubarSeparator/>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            <Link to={"/mentions-legales"}>Mentions légales</Link>
-                        </MenubarItem>
-                        <MenubarSeparator/>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            <Link to={"/contact"}>Contact</Link>
-                        </MenubarItem>
-                    </MenubarContent>
-                </MenubarMenu>
-
-                {/* Menus réservés à la version desktop */}
-                <div className="hidden md:flex space-x-4 ml-auto">
+            <Menubar>
+                {!isDesktop && (
                     <MenubarMenu>
-                        <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            <Link to={'/login'}>Connexion</Link>
+                        <MenubarTrigger className="flex items-center gap-2 px-3 py-2">
+                            <Menu className="h-6 w-6"/>
                         </MenubarTrigger>
+                        <MenubarContent>
+                            {!isAuthenticated ? (
+                                <>
+                                    <MenubarItem onClick={() => navigate('/login')}>Connexion</MenubarItem>
+                                    <MenubarItem onClick={() => navigate('/signin')}>M’inscrire</MenubarItem>
+                                </>
+                            ) : (
+                                <>
+                                    <MenubarItem onClick={() => navigate('/profile-page')}>
+                                        <User className="h-4 w-4 mr-2"/>Profil
+                                    </MenubarItem>
+                                    <MenubarItem onClick={() => navigate('/cv')}>
+                                        <Edit className="h-4 w-4 mr-2"/>Mes CV
+                                    </MenubarItem>
+                                    <MenubarItem onClick={() => navigate('/favorite')}>
+                                        <Heart className="h-4 w-4 mr-2"/>Favoris
+                                    </MenubarItem>
+                                    <MenubarItem onClick={() => navigate('/recommandations')}>
+                                        <Book className="h-4 w-4 mr-2"/>Recommandations
+                                    </MenubarItem>
+                                    <MenubarSeparator/>
+                                    <MenubarItem onClick={() => navigate('/candidate-page')}>
+                                        Mes candidatures
+                                    </MenubarItem>
+                                    <MenubarItem onClick={() => navigate('/contact-list')}>
+                                        Mon carnet des contacts
+                                    </MenubarItem>
+                                    <MenubarItem onClick={() => navigate('/questionner')}>
+                                        QCM-construct
+                                    </MenubarItem>
+                                    <MenubarSeparator/>
+                                    <MenubarItem onClick={handleLogout}>
+                                        <LogOut className="h-4 w-4 mr-2"/>Déconnexion
+                                    </MenubarItem>
+                                </>
+                            )}
+                            <MenubarSeparator/>
+                            <MenubarItem onClick={() => navigate('/mentions-legales')}>
+                                Mentions légales
+                            </MenubarItem>
+                            <MenubarItem onClick={() => navigate('/contact')}>
+                                Contact
+                            </MenubarItem>
+                        </MenubarContent>
                     </MenubarMenu>
+                )}
+
+                {isDesktop && !isAuthenticated && (
+                    <div className="flex gap-3">
+                        <Button variant="ghost"
+                                onClick={() => navigate('/login')}>Connexion</Button>
+                        <Button onClick={() => navigate('/signin')}>M’inscrire</Button>
+                    </div>
+                )}
+
+                {isDesktop && isAuthenticated && (
                     <MenubarMenu>
-                        <MenubarTrigger className="px-3 py-1.5 rounded text-gray-700 hover:bg-gray-100 focus:outline-none">
-                            <Link to={'/signin'}>M’inscrire</Link>
+                        <MenubarTrigger className={"flex flex-col"}>
+                            <Avatar>
+                                <AvatarImage src={userProfile?.avatarUrl || 'https://github.com/shadcn.png'}
+                                             alt="Profil"/>
+                                <AvatarFallback>{userProfile?.initials || 'BTJ'}</AvatarFallback>
+                            </Avatar>
+                            <p className={"text-black"}>{userProfile?.initials || 'BTJ'}</p>
                         </MenubarTrigger>
+
+                        <MenubarContent>
+                            <MenubarItem onClick={() => navigate('/profile-page')}>
+                                <User className="h-4 w-4 mr-2"/>Voir mon profil
+                            </MenubarItem>
+                            <MenubarItem onClick={() => navigate('/cv')}>
+                                <Edit className="h-4 w-4 mr-2"/>Voir mes CV
+                            </MenubarItem>
+                            <MenubarItem onClick={() => navigate('/favorite')}>
+                                <Heart className="h-4 w-4 mr-2"/>Offres favorites
+                            </MenubarItem>
+                            <MenubarItem onClick={() => navigate('/recommandations')}>
+                                <Book className="h-4 w-4 mr-2"/>Recommandations
+                            </MenubarItem>
+                            <MenubarSeparator/>
+                            <MenubarItem onClick={handleLogout}>
+                                <LogOut className="h-4 w-4 mr-2"/>Déconnexion
+                            </MenubarItem>
+                        </MenubarContent>
                     </MenubarMenu>
-                </div>
+                )}
             </Menubar>
         </div>
     );
-}
-
-/*______________________________________________________*/
-/*AVATAR*/
-
-/*______________________________________________________*/
-
-export function PhotoDeProfil() {
-    return (
-        <Avatar className={"flex flex-col items-center justify-center"}>
-            <AvatarImage className={'rounded-full w-24 mr-4'}
-                         src="https://github.com/shadcn.png"
-                         alt="@shadcn"/>
-            <AvatarFallback className={'text-black'}>JM FM</AvatarFallback>
-            <p>Radio JM FM</p>
-        </Avatar>
-    )
-}
-
-/*______________________________________________________*/
-/*BARRE DE NAVIGATION POUR LA PAGE D'ACCUEIL INSCRIT*/
-
-/*______________________________________________________*/
-
-export function NavigationBarInscrit() {
-
-    return (
-        <div className="w-full px-4 py-2 flex items-center ">
-            {/* LOGO */}
-            <div>
-                <Link to={'/home-inscrit'}>
-                    <img
-                        src="../../../public/logo.png"
-                        alt="BalanceTonJob"
-                        className="w-38 mr-4"
-                    />
-                </Link>
-            </div>
-            {/* MENUBAR GLOBAL */}
-            <Menubar className="flex items-center justify-end w-full md:ml-4">
-                {/* --- MENU BURGER (MOBILE) */}
-                <MenubarMenu>
-                    <MenubarTrigger className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded text-gray-700 hover:bg-transparent focus:outline-none data-[state=open]:bg-gray-100">
-                        <PhotoDeProfil/>
-                    </MenubarTrigger>
-
-                    <MenubarContent className="bg-white text-gray-700">
-                        {/* Liste issue */}
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100 flex items-center gap-2">
-                            <User className="w-4 h-4"/>
-                            Voir mon profil
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100 flex items-center gap-2">
-                            <Search className="w-4 h-4"/>
-                            Rechercher
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100 flex items-center gap-2">
-                            <Edit className="w-4 h-4"/>
-                            Voir mes CV
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100 flex items-center gap-2">
-                            <Heart className="w-4 h-4"/>
-                            Mes offres favorites
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100 flex items-center gap-2">
-                            <Book className="w-4 h-4"/>
-                            Mes recommandations
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Construire mon CV
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Mes candidatures
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Mon carnet des contacts
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Messagerie
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            QCM-construct
-                        </MenubarItem>
-
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100 flex items-center gap-2">
-                            <LogOut className="w-4 h-4"/>
-                            Déconnexion
-                        </MenubarItem>
-
-                        <MenubarSeparator/>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            À propos
-                        </MenubarItem>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Contact
-                        </MenubarItem>
-                        <MenubarItem className="px-3 py-1.5 hover:bg-gray-100 focus:bg-gray-100">
-                            Mentions légales
-                        </MenubarItem>
-                    </MenubarContent>
-                </MenubarMenu>
-
-                {/* --- LIENS DE NAVIGATION (DESKTOP)--- */}
-                <MenubarMenu>
-                    <MenubarTrigger className="hidden md:flex ml-auto space-x-2 hover:bg-transparent focus:outline-none text-gray-700">
-                        <div>
-                            <PhotoDeProfil/>
-                        </div>
-                    </MenubarTrigger>
-                    <MenubarContent className="bg-gray-100 text-black">
-                        {/* “Voir/modifier profil” */}
-                        <MenubarItem>
-                                <span className="cursor-pointer hover:underline flex items-center gap-2">
-                                    Voir/modifier profil
-                                </span>
-                            <MenubarShortcut><User className="w-4 h-4"/></MenubarShortcut>
-
-                        </MenubarItem>
-                        {/* “Voir mes CV” */}
-                        <MenubarItem>
-                                <span className="cursor-pointer hover:underline flex items-center gap-2">
-                                    Voir mes CV
-                                </span>
-                            <MenubarShortcut><Edit className="w-4 h-4"/></MenubarShortcut>
-
-                        </MenubarItem>
-                        {/* “Mes offres favorites” */}
-                        <MenubarItem>
-                                <span className="cursor-pointer hover:underline flex items-center gap-2">
-                                    Mes offres favorites
-                                </span>
-                            <MenubarShortcut><Heart className="w-4 h-4"/></MenubarShortcut>
-                        </MenubarItem>
-                        {/* “Mes recommandations” */}
-                        <MenubarItem>
-                                <span className="cursor-pointer hover:underline flex items-center gap-2">
-                                    Mes recommandations
-                                </span>
-                            <MenubarShortcut><Book className="w-4 h-4"/></MenubarShortcut>
-                        </MenubarItem>
-                        {/* “Déconnexion” */}
-                        <MenubarItem>
-                                <span className="cursor-pointer hover:underline flex items-center gap-2">
-                                    Déconnexion
-                                </span>
-                            <MenubarShortcut><LogOut className="w-4 h-4"/></MenubarShortcut>
-                        </MenubarItem>
-                    </MenubarContent>
-                </MenubarMenu>
-            </Menubar>
-        </div>
-    )
 }

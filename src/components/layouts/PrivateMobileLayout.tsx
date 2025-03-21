@@ -1,12 +1,12 @@
 import {Link, Outlet} from "react-router-dom";
-import { NavigationBarInscrit } from "@/components/navigationBar/NavigationBar.tsx";
+import NavigationBar from "@/components/navigationBar/NavigationBar.tsx";
 
 
 export const PrivateMobileLayout = () => {
     return (
         <div className="bg-mobile-custom flex flex-col min-h-screen">
             <header className="">
-                <NavigationBarInscrit />
+                <NavigationBar isAuthenticated={false} userProfile={undefined} />
             </header>
 
             <main className="flex-1 p-2">

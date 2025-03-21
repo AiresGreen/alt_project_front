@@ -1,11 +1,11 @@
 import {Link, Outlet} from "react-router-dom";
-import { NavigationBarInscrit } from "@/components/navigationBar/NavigationBar.tsx";
+import NavigationBar from "@/components/navigationBar/NavigationBar.tsx";
 
 export const PrivatePcLayout = () => {
     return (
         <div className="bg-pc-custom  flex flex-col min-h-screen">
             <header className=" text-black p-4">
-                <NavigationBarInscrit />
+                <NavigationBar isAuthenticated={false} userProfile={undefined} />
             </header>
 
             <div className="flex flex-1">

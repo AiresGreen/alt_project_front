@@ -1,11 +1,11 @@
 import {Link, Outlet} from "react-router-dom";
-import { NavigationBarNonInscrit } from "@/components/navigationBar/NavigationBar.tsx";
+import NavigationBar from "@/components/navigationBar/NavigationBar.tsx";
 
 export const PublicMobileLayout = () => {
     return (
         <div className="bg-mobile-custom flex flex-col min-h-screen ">
             <header className="text-black p-4">
-                <NavigationBarNonInscrit/>
+                <NavigationBar isAuthenticated={false} userProfile={undefined}/>
             </header>
 
             <div className="flex flex-1">
