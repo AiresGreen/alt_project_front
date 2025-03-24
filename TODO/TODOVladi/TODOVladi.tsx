@@ -7,8 +7,9 @@
 //TODO: [] Faire les cypress
 //TODO: [] Lier les pages
 //TODO: [] Completer la page de cv-constrct
-//TODO: []
-//TODO: []
+//TODO: [x] ajout d'une formation
+//TODO: [] ajout d'une expérience
+//TODO: [] modification des informations personnelles
 
 //TODO: []
 //TODO: []

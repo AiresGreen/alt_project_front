@@ -26,17 +26,18 @@ import OffersOfEmployerPage from "@/pages/candidate/OffersOfEmployerPage.tsx";
 import {ProfileDetailsPage} from "./pages/profile/ProfileDetailsPage.tsx";
 import ContactEmployeeListPage from "@/pages/contact/ContactEmployeeListPage.tsx";
 import {CvCandidatePage} from "@/pages/candidate/CvCandidatePage.tsx";
-import FolowApplicationPage from "@/pages/folow/FolowApplicationPage.tsx";
+import FolowApplicationPage from "@/pages/follow/FolowApplicationPage.tsx";
 import { ProfilePicturePage } from "@/pages/profilePicture/ProfilePicturePage.tsx";
-import RepeatApplicationPage from "@/pages/folow/RepeatApplicationPage.tsx";
-import QuestionPage from "@/pages/folow/QuestionPage.tsx";
-import EditQuestionPage from "@/pages/folow/EditQuestionPage.tsx";
-import ChoiceForSendingQuestionnerPage from "@/pages/folow/ChoiceForSendingQuestionnerPage.tsx";
+import RepeatApplicationPage from "@/pages/follow/RepeatApplicationPage.tsx";
+import QuestionPage from "@/pages/follow/QuestionPage.tsx";
+import EditQuestionPage from "@/pages/follow/EditQuestionPage.tsx";
+import ChoiceForSendingQuestionnerPage from "@/pages/follow/ChoiceForSendingQuestionnerPage.tsx";
 import FavoritePage from "@/pages/favorite/FavoritePage.tsx";
 import OfferPage from "@/pages/offer/OfferPage.tsx";
 import EnterprisePage from "@/pages/enterprise/EnterprisePage.tsx";
 import HomePage from "@/pages/home/HomePage.tsx";
 import MesRecommandations from "@/pages/recomendation/RecomendationPage.tsx";
+import EducationListePage from "@/pages/education/EducationListPage.tsx";
 
 
 function App() {
@@ -129,6 +130,8 @@ function App() {
                                element={<FavoritePage/>}/>
                         <Route path="/recommandations"
                                element={<MesRecommandations/>}/>
+                        <Route path="/education"
+                               element={<EducationListePage/>}/>
                     </Route>
                 </Route>
 
