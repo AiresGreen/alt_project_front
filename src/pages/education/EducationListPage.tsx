@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // shadcn UI components (à adapter selon votre arborescence)
 import { Button } from "@/components/ui/button";
@@ -85,7 +85,7 @@ export default function EducationListePage() {
 
     // Détection Mobile / PC
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const isPC = useMediaQuery({ minWidth: 1025 });
+
 
     // États locaux pour les listes simulées
     const [projects, setProjects] = useState<Project[]>([]);
@@ -220,21 +220,6 @@ export default function EducationListePage() {
 
     return (
         <div className="p-4 flex flex-col gap-8">
-            {/* Liens de navigation visibles uniquement sur PC */}
-            {isPC && (
-                <nav className="flex items-center gap-4 mb-4">
-                    <Link to="/" className="text-blue-600 hover:underline">
-                        Accueil
-                    </Link>
-                    <Link to="/dashboard" className="text-blue-600 hover:underline">
-                        Dashboard
-                    </Link>
-                    <Link to="/profile" className="text-blue-600 hover:underline">
-                        Profil
-                    </Link>
-                </nav>
-            )}
-
             <h1 className="text-2xl font-bold">Gestion Projets & Formations</h1>
 
             {/* Section d'ajout de Projets */}

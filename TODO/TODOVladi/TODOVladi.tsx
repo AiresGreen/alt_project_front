@@ -1,18 +1,19 @@
 // Date: 21/03/2025
-//TODO: [x] Voir navbar sur les page d'inscription et de connexion, tout ce qui est dans auth et profile
-//TODO: [x] Voir le navbar connecté : manque barre de recherche, liens
+//TODO: [v] Voir navbar sur les page d'inscription et de connexion, tout ce qui est dans auth et profile
+//TODO: [v] Voir le navbar connecté : manque barre de recherche, liens
 
 
 //date: 24/03/2025
-//TODO: [] Faire les cypress
-//TODO: [] Lier les pages
-//TODO: [] Completer la page de cv-constrct
-//TODO: [x] ajout d'une formation
-//TODO: [] ajout d'une expérience
-//TODO: [] modification des informations personnelles
+//TODO: [x] Faire les cypress
+//TODO: [x] Lier les pages
+//TODO: [v] Completer la page de cv-constrct
+//TODO: [v] ajout d'une formation
+//TODO: [v] ajout d'une expérience
+//TODO: [v] modification des informations personnelles
 
-//TODO: []
-//TODO: []
+//date: 25/03/2025
+//TODO: [] Lier les pages
+//TODO: [] Faire les cypress
 //TODO: []
 //TODO: []
 //TODO: []

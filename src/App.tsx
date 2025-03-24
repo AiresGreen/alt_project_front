@@ -38,7 +38,8 @@ import EnterprisePage from "@/pages/enterprise/EnterprisePage.tsx";
 import HomePage from "@/pages/home/HomePage.tsx";
 import MesRecommandations from "@/pages/recomendation/RecomendationPage.tsx";
 import EducationListePage from "@/pages/education/EducationListPage.tsx";
-
+import ExperienceListePage from "@/pages/experience/ExperienceListPage.tsx";
+import PersonalInfosList from "@/pages/personnalInfos/PersonnalInfosList.tsx";
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -132,6 +133,10 @@ function App() {
                                element={<MesRecommandations/>}/>
                         <Route path="/education"
                                element={<EducationListePage/>}/>
+                        <Route path="/experience"
+                               element={<ExperienceListePage/>}/>
+                        <Route path="/personal-infos"
+                               element={<PersonalInfosList />} />
                     </Route>
                 </Route>
 
