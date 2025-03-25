@@ -1,60 +1,61 @@
-import { useState} from 'react'
-import {useForm} from 'react-hook-form'
-import {Toaster, toast} from 'sonner'
-import {Hobby} from "@/interface/HobbyInterface.tsx";
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { Toaster, toast } from "sonner"
+import { Hobby } from "@/interface/HobbyInterface"
 
-/**
- * LoisirsPage
- * -----------
- * - Affiche la liste des hobbies (mode "list").
- * - Permet l'ajout d'un hobby (mode "add").
- * - Permet la modification d'un hobby existant (mode "edit").
- * - Gère l'affichage d'un toast pour confirmer les actions.
- */
+// Composants shadcn/ui
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+
+// Icônes (lucide-react)
+import { Edit, Trash } from "lucide-react"
+
 export default function HobbiesListPage() {
     // Exemple de structure de données pour les loisirs (on stocke en local state)
     const [hobbies, setHobbies] = useState<Hobby[]>([
-        // Vous pouvez initialiser avec quelques données factices
-        {id: 1, title: 'Jouer', since: '2021', conclusion: 'Très fun'},
-        {id: 2, title: 'Manger', since: '2019', conclusion: 'Très bon'},
+        { id: 1, title: "Jouer", since: "2021", conclusion: "Très fun" },
+        { id: 2, title: "Manger", since: "2019", conclusion: "Très bon" },
     ])
 
     // Hobby actuellement sélectionné pour la modification
-    const [currentHobby, setCurrentHobby] = useState(null)
+    const [currentHobby, setCurrentHobby] = useState<Hobby | null>(null)
 
     // "list" | "add" | "edit"
-    const [mode, setMode] = useState('list')
+    const [mode, setMode] = useState<"list" | "add" | "edit">("list")
 
     // Hook form
-    const {register, handleSubmit, reset} = useForm()
+    const { register, handleSubmit, reset } = useForm()
 
     /**
      * Soumission du formulaire (pour ajouter ou éditer)
      */
     const onSubmit = (data: any) => {
-        if (mode === 'add') {
+        if (mode === "add") {
             // Ajout d'un nouveau hobby
-            const newHobby = {
+            const newHobby: Hobby = {
                 id: Date.now(), // id fictif
                 ...data,
             }
             setHobbies([...hobbies, newHobby])
-            toast.success('Loisir ajouté avec succès !')
-        } else if (mode === 'edit' && currentHobby) {
+            toast.success("Loisir ajouté avec succès !")
+        } else if (mode === "edit" && currentHobby) {
             // Édition d’un hobby existant
             setHobbies(
-                hobbies.map((h :{id:number}) =>
+                hobbies.map((h) =>
                     h.id === currentHobby.id
-                        ? {...h, ...data} // On met à jour les champs
+                        ? { ...h, ...data } // On met à jour les champs
                         : h
                 )
             )
-            toast.success('Loisir modifié avec succès !')
+            toast.success("Loisir modifié avec succès !")
         }
 
         // Après la soumission, on repasse en mode "list" et on reset le formulaire
         reset()
-        setMode('list')
+        setMode("list")
         setCurrentHobby(null)
     }
 
@@ -64,16 +65,16 @@ export default function HobbiesListPage() {
     const handleAddNew = () => {
         reset()
         setCurrentHobby(null)
-        setMode('add')
+        setMode("add")
     }
 
     /**
      * Affiche le formulaire d'édition avec les valeurs d'un hobby
      */
-    const handleEdit = (hobby: any) => {
+    const handleEdit = (hobby: Hobby) => {
         setCurrentHobby(hobby)
         reset(hobby) // Pré-remplit le formulaire avec les données existantes
-        setMode('edit')
+        setMode("edit")
     }
 
     /**
@@ -81,7 +82,7 @@ export default function HobbiesListPage() {
      */
     const handleDelete = (id: number) => {
         setHobbies(hobbies.filter((h) => h.id !== id))
-        toast.success('Loisir supprimé avec succès !')
+        toast.success("Loisir supprimé avec succès !")
     }
 
     /**
@@ -90,123 +91,114 @@ export default function HobbiesListPage() {
     const handleCancel = () => {
         reset()
         setCurrentHobby(null)
-        setMode('list')
+        setMode("list")
     }
 
     return (
-        <div className="max-w-md mx-auto p-4">
+        <div className="container mx-auto max-w-md p-4">
             {/* Composant pour les toasts */}
             <Toaster position="top-right" />
 
-            <h1 className="text-2xl font-bold mb-4">Loisirs</h1>
+            {/* Mode Liste */}
+            {mode === "list" && (
+                <Card className={"bg-card-custom text-black"}>
+                    <CardHeader>
+                        <CardTitle className="text-2xl">Loisirs</CardTitle>
+                        <CardDescription className={"text-black"}>Gérez la liste de vos hobbies</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        {/* Bouton pour créer un nouveau loisir */}
+                        <Button variant="default" onClick={handleAddNew} className="mb-4">
+                            Nouveau
+                        </Button>
 
-            {mode === 'list' && (
-                <div>
-                    {/* Bouton pour créer un nouveau loisir */}
-                    <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-                        onClick={handleAddNew}
-                    >
-                        Nouveau
-                    </button>
-
-                    {/* Liste des hobbies existants */}
-                    {hobbies.length === 0 ? (
-                        <p>Aucun loisir pour le moment.</p>
-                    ) : (
-                        <ul className="space-y-2 bg-card-custom">
-                            {hobbies.map((hobby) => (
-                                <li
-                                    key={hobby.id}
-                                    className="flex items-center justify-between border p-2 rounded"
-                                >
-                                    <div>
-                                        <div className="font-semibold">{hobby.title}</div>
-                                        <div className="text-sm text-gray-700">
-                                            Depuis : {hobby.since}
+                        {/* Liste des hobbies existants */}
+                        {hobbies.length === 0 ? (
+                            <p>Aucun loisir pour le moment.</p>
+                        ) : (
+                            <ul className="space-y-2">
+                                {hobbies.map((hobby) => (
+                                    <li
+                                        key={hobby.id}
+                                        className="flex items-center justify-between rounded border p-2"
+                                    >
+                                        <div>
+                                            <div className="font-semibold">{hobby.title}</div>
+                                            <div className="text-sm">
+                                                Depuis : {hobby.since}
+                                            </div>
+                                            <div className="text-sm">{hobby.conclusion}</div>
                                         </div>
-                                        <div className="text-sm text-gray-800">
-                                            {hobby.conclusion}
+                                        <div className="flex space-x-2">
+                                            <Button variant="outline" onClick={() => handleEdit(hobby)}>
+                                                <Edit className="mr-1 h-4 w-4" />
+                                                Modifier
+                                            </Button>
+                                            <Button variant="destructive" onClick={() => handleDelete(hobby.id)}>
+                                                <Trash className="mr-1 h-4 w-4" />
+                                                Supprimer
+                                            </Button>
                                         </div>
-                                    </div>
-                                    <div className="flex space-x-2">
-                                        <button
-                                            className="bg-green-500 text-white px-2 py-1 rounded"
-                                            onClick={() => handleEdit(hobby)}
-                                        >
-                                            Modifier
-                                        </button>
-                                        <button
-                                            className="bg-red-500 text-white px-2 py-1 rounded"
-                                            onClick={() => handleDelete(hobby.id)}
-                                        >
-                                            Supprimer
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-
-                    {/* Exemple d'autre bouton : "Retour au passé" */}
-                    <button
-                        onClick={() => alert('Retour au passé')}
-                        className="mt-4 bg-gray-300 px-4 py-2 rounded"
-                    >
-                        Retour au passé
-                    </button>
-                </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </CardContent>
+                    <CardFooter>
+                        <Button variant="secondary" onClick={() => alert("Retour au passé")}>
+                            Retour au passé
+                        </Button>
+                    </CardFooter>
+                </Card>
             )}
 
-            {/* Formulaire (ajout ou édition) */}
-            {(mode === 'add' || mode === 'edit') && (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-card-custom p-4 ">
-                    <div>
-                        <label className="block font-semibold">Vite Hobby</label>
-                        <input
-                            type="text"
-                            {...register('title', { required: true })}
-                            className="border w-full p-2 rounded"
-                            placeholder="Ex : Jouer, Lire..."
-                        />
-                    </div>
+            {/* Mode Ajout / Édition */}
+            {(mode === "add" || mode === "edit") && (
+                <Card className="mt-4">
+                    <CardHeader>
+                        <CardTitle>{mode === "add" ? "Ajouter un Loisir" : "Modifier un Loisir"}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                            <div>
+                                <Label htmlFor="title">Vite Hobby</Label>
+                                <Input
+                                    id="title"
+                                    placeholder="Ex : Jouer, Lire..."
+                                    {...register("title", { required: true })}
+                                />
+                            </div>
 
-                    <div>
-                        <label className="block font-semibold">Depuis quand ?</label>
-                        <input
-                            type="text"
-                            {...register('since')}
-                            className="border w-full p-2 rounded"
-                            placeholder="Ex : 2021"
-                        />
-                    </div>
+                            <div>
+                                <Label htmlFor="since">Depuis quand ?</Label>
+                                <Input
+                                    id="since"
+                                    placeholder="Ex : 2021"
+                                    {...register("since")}
+                                />
+                            </div>
 
-                    <div>
-                        <label className="block font-semibold">Et quoi en conclure ?</label>
-                        <textarea
-                            {...register('conclusion')}
-                            className="border w-full p-2 rounded"
-                            rows={3}
-                            placeholder="Ex : C'est super !"
-                        />
-                    </div>
+                            <div>
+                                <Label htmlFor="conclusion">Et quoi en conclure ?</Label>
+                                <Textarea
+                                    id="conclusion"
+                                    placeholder="Ex : C'est super !"
+                                    rows={3}
+                                    {...register("conclusion")}
+                                />
+                            </div>
 
-                    <div className="flex space-x-2">
-                        <button
-                            type="submit"
-                            className="bg-blue-500 text-white px-4 py-2 rounded"
-                        >
-                            {mode === 'add' ? 'Ajouter' : 'Enregistrer'}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={handleCancel}
-                            className="bg-gray-400 text-white px-4 py-2 rounded"
-                        >
-                            Annuler
-                        </button>
-                    </div>
-                </form>
+                            <div className="flex space-x-2 pt-2">
+                                <Button type="submit" variant="default">
+                                    {mode === "add" ? "Ajouter" : "Enregistrer"}
+                                </Button>
+                                <Button type="button" variant="secondary" onClick={handleCancel}>
+                                    Annuler
+                                </Button>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
             )}
         </div>
     )

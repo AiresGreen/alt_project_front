@@ -1,4 +1,4 @@
-import { IUserProfile } from "@/interface/UserInterface";
+import { IUserProfile } from "@/interface/UserInterface.ts";
 import { createContext, useState, ReactNode } from "react";
 
 

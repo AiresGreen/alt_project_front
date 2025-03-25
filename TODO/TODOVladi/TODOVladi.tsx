@@ -18,7 +18,7 @@
 //TODO: [v] finir les maj de cv
 //TODO: [v] usefulinfoslist - ajouter de wireframe
 //TODO: [v] hobies
-//TODO: [] languages
+//TODO: [v] languages
 //TODO: [] projet
 //TODO: [] skills
 
