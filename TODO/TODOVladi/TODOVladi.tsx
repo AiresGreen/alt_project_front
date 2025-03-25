@@ -14,7 +14,7 @@
 //date: 25/03/2025
 //TODO: [] Lier les pages
 //TODO: [] Faire les cypress
-//TODO: []
+//TODO: [] personal info remplacer age par linkedin et ajouter la modif de mdp
 //TODO: []
 //TODO: []
 

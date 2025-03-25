@@ -58,7 +58,7 @@ export const CvConstructPage = () => {
 
     const handlePrint = useReactToPrint({
         content: () => printRef.current,
-        documentTitle: "MonCV",
+        documentTitle: "MonCV"
     });
 
     useEffect(() => {
@@ -222,8 +222,9 @@ export const CvConstructPage = () => {
                 {/* Colonne droite - aperçu CV */}
                 <div className="lg:col-span-8 space-y-4">
                     <div className="flex justify-end">
-                        <Button onClick={handlePrint} className="gap-2">
-                            <Printer className="w-4 h-4" /> Télécharger en PDF
+                        <Button onClick={handlePrint}>
+                            <Printer className="w-4 h-4" />
+                            Télécharger en PDF
                         </Button>
                     </div>
                     <div

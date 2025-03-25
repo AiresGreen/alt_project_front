@@ -19,7 +19,7 @@ export const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: AuthProviderType) {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [userProfile, setUserProfile] = useState<IUserProfile | null>(null);
 
     function updateAuthentication(status: boolean, profile: IUserProfile | null = null) {

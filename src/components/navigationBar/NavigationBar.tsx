@@ -51,7 +51,7 @@ export default function NavigationBar() {
           2) on est sur la page d’accueil (location.pathname === "/")
       */}
             <div className={"flex flex-col items-center gap-4"}>
-            {isDesktop && (
+            {isDesktop && isAuthenticated && (
                 <div className="flex flex-col items-center gap-4">
                     {/* Liens de navigation au centre */}
                     <div className="flex items-center gap-8">

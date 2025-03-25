@@ -118,7 +118,7 @@ export default function PersonalInfosList() {
                         <div className="w-full max-w-md space-y-2">
                             <p><strong>Nom :</strong> {info.nom}</p>
                             <p><strong>Prénom :</strong> {info.prenom}</p>
-                            <p><strong>Date de Naissance :</strong> {info.dateNaissance}</p>
+                            <p><strong>Date de Naissance :</strong> {info.dateNaissance}</p> //à enlever et remplacer par linkedin
                             <p><strong>Email :</strong> {info.email}</p>
                             <p><strong>Téléphone :</strong> {info.telephone}</p>
                         </div>
