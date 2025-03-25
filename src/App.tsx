@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useContext } from "react";
 import { AuthContext } from "@/hook/contexts/auth.context";
+import { Toaster } from "sonner"
 
 // Importation de layouts
 import AdaptiveLayout from "@/components/layouts/AdaptiveLayout.tsx";
@@ -51,6 +52,7 @@ function App() {
     console.log("isAuthenticated in App.tsx:", isAuthenticated);
 
     return (
+        <>
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute />}>
@@ -143,6 +145,8 @@ function App() {
             {/* Route page non trouvée */}
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
+    <Toaster position="top-center" richColors />
+    </>
     );
 }
 

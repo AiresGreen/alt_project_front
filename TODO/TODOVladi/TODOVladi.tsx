@@ -14,7 +14,7 @@
 //date: 25/03/2025
 //TODO: [] Lier les pages
 //TODO: [] Faire les cypress
-//TODO: [] personal info remplacer age par linkedin et ajouter la modif de mdp
+//TODO: [v] personal info remplacer age par linkedin et ajouter la modif de mdp
 //TODO: [v] finir les maj de cv
 //TODO: [] usefulinfoslist - ajouter de wireframe
 //TODO: [] hobies
