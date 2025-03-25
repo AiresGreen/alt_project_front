@@ -15,8 +15,12 @@
 //TODO: [] Lier les pages
 //TODO: [] Faire les cypress
 //TODO: [] personal info remplacer age par linkedin et ajouter la modif de mdp
-//TODO: []
-//TODO: []
+//TODO: [] finir les maj de cv
+//TODO: [] usefulinfoslist - ajouter de wireframe
+//TODO: [] hobies
+//TODO: [] languages
+//TODO: [] projet
+//TODO: [] skills
 
 //TODO: []
 //TODO: []
