@@ -5,7 +5,7 @@ export const PrivatePcLayout = () => {
     return (
         <div className="bg-pc-custom  flex flex-col min-h-screen">
             <header className=" text-black p-4">
-                <NavigationBar isAuthenticated={false} userProfile={undefined} />
+                <NavigationBar />
             </header>
 
             <div className="flex flex-1">

@@ -6,7 +6,7 @@ export const PrivateMobileLayout = () => {
     return (
         <div className="bg-mobile-custom flex flex-col min-h-screen">
             <header className="">
-                <NavigationBar isAuthenticated={false} userProfile={undefined} />
+                <NavigationBar />
             </header>
 
             <main className="flex-1 p-2">
