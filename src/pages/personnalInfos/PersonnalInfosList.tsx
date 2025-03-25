@@ -18,9 +18,10 @@ import { Edit, PlusCircle, Check, ArrowLeftCircle } from "lucide-react"
 const InfoSchema = z.object({
     nom: z.string().min(1, "Le nom est requis"),
     prenom: z.string().min(1, "Le prénom est requis"),
-    dateNaissance: z.string().min(1, "La date de naissance est requise"),
+    linkedin: z.string().url("Lien LinkedIn invalide"),
     email: z.string().email("Email invalide"),
     telephone: z.string().optional(),
+    motDePasse: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères").optional(),
 })
 
 type InfoType = z.infer<typeof InfoSchema>
@@ -51,14 +52,16 @@ export default function PersonalInfosList() {
         defaultValues: {
             nom: "",
             prenom: "",
-            dateNaissance: "",
+            linkedin: "",
             email: "",
             telephone: "",
+            motDePasse: "",
         },
     })
 
     // État local
     const [info, setInfo] = useState<InfoType | null>(null)
+
     const [editMode, setEditMode] = useState(false)
 
     // Soumission du formulaire
@@ -114,19 +117,19 @@ export default function PersonalInfosList() {
             {/* Si on n'est pas en mode édition, on affiche les infos ou un message */}
             {!editMode && (
                 <>
-                    {info ? (
-                        <div className="w-full max-w-md space-y-2">
-                            <p><strong>Nom :</strong> {info.nom}</p>
-                            <p><strong>Prénom :</strong> {info.prenom}</p>
-                            <p><strong>Date de Naissance :</strong> {info.dateNaissance}</p> //à enlever et remplacer par linkedin
-                            <p><strong>Email :</strong> {info.email}</p>
-                            <p><strong>Téléphone :</strong> {info.telephone}</p>
-                        </div>
-                    ) : (
-                        <p className="text-gray-500">Aucune information enregistrée. Veuillez ajouter des infos.</p>
-                    )}
-                </>
-            )}
+                {info ? (
+                    <div className="w-full max-w-md space-y-2">
+                        <p><strong>Nom :</strong> {info.nom}</p>
+                        <p><strong>Prénom :</strong> {info.prenom}</p>
+                        <p><strong>LinkedIn :</strong> <a href={info.linkedin} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">{info.linkedin}</a></p>
+                        <p><strong>Email :</strong> {info.email}</p>
+                        <p><strong>Téléphone :</strong> {info.telephone}</p>
+                        <p><strong>Mot de passe :</strong> ********</p>
+                    </div>
+                ) : (
+                    <p className="text-gray-500">Aucune information enregistrée. Veuillez ajouter des infos.</p>
+                )}
+
 
             {/* Formulaire en mode édition */}
             {editMode && (
@@ -144,16 +147,17 @@ export default function PersonalInfosList() {
                     </div>
 
                     <div>
-                        <Label htmlFor="dateNaissance">Date de Naissance</Label>
+                        <Label htmlFor="linkedin">Profil LinkedIn</Label>
                         <Input
-                            id="dateNaissance"
-                            placeholder="JJ/MM/AAAA"
-                            {...register("dateNaissance")}
+                            id="linkedin"
+                            placeholder="https://www.linkedin.com/in/votre-profil"
+                            {...register("linkedin")}
                         />
-                        {errors.dateNaissance && (
-                            <p className="text-red-500">{errors.dateNaissance.message}</p>
+                        {errors.linkedin && (
+                            <p className="text-red-500">{errors.linkedin.message}</p>
                         )}
                     </div>
+
 
                     <div>
                         <Label htmlFor="email">Email</Label>
@@ -164,6 +168,19 @@ export default function PersonalInfosList() {
                             {...register("email")}
                         />
                         {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                    </div>
+
+                    <div>
+                        <Label htmlFor="motDePasse">Mot de passe</Label>
+                        <Input
+                            id="motDePasse"
+                            type="password"
+                            placeholder="********"
+                            {...register("motDePasse")}
+                        />
+                        {errors.motDePasse && (
+                            <p className="text-red-500">{errors.motDePasse.message}</p>
+                        )}
                     </div>
 
                     <div>
@@ -197,6 +214,8 @@ export default function PersonalInfosList() {
                         {info ? "Charger Info" : "Ajouter Info"}
                     </Button>
                 </div>
+            )}
+            </>
             )}
         </div>
     )

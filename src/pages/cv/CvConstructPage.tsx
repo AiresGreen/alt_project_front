@@ -57,7 +57,7 @@ export const CvConstructPage = () => {
     const printRef = useRef<HTMLDivElement>(null);
 
     const handlePrint = useReactToPrint({
-        content: () => printRef.current,
+        content: () => printRef.current as HTMLDivElement,
         documentTitle: "MonCV"
     });
 
