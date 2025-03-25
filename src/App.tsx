@@ -43,6 +43,7 @@ import ExperienceListePage from "@/pages/experience/ExperienceListPage.tsx";
 import PersonalInfosList from "@/pages/personnalInfos/PersonnalInfosList.tsx";
 import {UsefulInfosList} from "@/pages/personnalInfos/UsefulInfosList.tsx";
 import {PrivacyPolicyPage} from "@/pages/footer/PrivacyPolicyPage.tsx";
+import HobbiesListPage from "@/pages/hobbies/HobbiesListPage.tsx";
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -145,6 +146,8 @@ function App() {
                                element={<PersonalInfosList />} />
                         <Route path="/info-zutile"
                                element={<UsefulInfosList/>} />
+                        <Route path="/hobbies"
+                               element={<HobbiesListPage/>} />
                     </Route>
                 </Route>
 

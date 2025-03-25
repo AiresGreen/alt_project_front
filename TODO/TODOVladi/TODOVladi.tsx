@@ -16,8 +16,8 @@
 //TODO: [] Faire les cypress
 //TODO: [v] personal info remplacer age par linkedin et ajouter la modif de mdp
 //TODO: [v] finir les maj de cv
-//TODO: [] usefulinfoslist - ajouter de wireframe
-//TODO: [] hobies
+//TODO: [v] usefulinfoslist - ajouter de wireframe
+//TODO: [v] hobies
 //TODO: [] languages
 //TODO: [] projet
 //TODO: [] skills
