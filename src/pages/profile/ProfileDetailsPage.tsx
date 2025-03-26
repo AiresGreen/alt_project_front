@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -7,9 +7,9 @@ import { useMediaQuery } from "react-responsive";
 // Contexte d'authentification
 import { AuthContext } from "@/hook/contexts/auth.context";
 
-// Exemples de composants provenant de votre bibliothèque chadcn
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {generateFakeUser} from "@/utils/generateFakeUser .tsx";
 
 type ProfileFormData = {
     name: string;
@@ -21,7 +21,7 @@ export const ProfileDetailsPage = () => {
     const { userProfile } = useContext(AuthContext); // ou { isAuthenticated, user } selon votre structure
     const { register, handleSubmit } = useForm<ProfileFormData>();
 
-    // Exemple d’utilisation de react-responsive
+    //React-responsive
     const isMobile = useMediaQuery({ maxWidth: 767 });
 
     const onSubmit = (data: ProfileFormData) => {
@@ -29,9 +29,17 @@ export const ProfileDetailsPage = () => {
         toast.success("Profil mis à jour !");
         console.log("Données du formulaire :", data);
     };
+    const [testUser, setTestUser] = useState<any>(generateFakeUser);
 
-    // Si pas de user, vous pouvez gérer un état de chargement ou un redirect.
-    if (!userProfile) {
+    // Utiliser directement la fonction utilitaire pour obtenir un faux utilisateur
+    useEffect(() => {
+        if (userProfile) {
+            const fakeUser = generateFakeUser();
+            setTestUser(fakeUser);
+        }
+    }, [userProfile]);
+
+    if (!testUser) {
         return <div>Chargement...</div>;
     }
 
@@ -50,7 +58,7 @@ export const ProfileDetailsPage = () => {
                         type="text"
                         className="border p-2 w-full rounded"
                         {...register("name")}
-                        defaultValue={userProfile.name || ""}
+                        defaultValue={testUser.name || ""}
                     />
                 </div>
                 <div>
@@ -59,21 +67,21 @@ export const ProfileDetailsPage = () => {
                         type="text"
                         className="border p-2 w-full rounded"
                         {...register("phone")}
-                        defaultValue={userProfile.phone || ""}
+                        defaultValue={testUser.telephone || ""}
                     />
                 </div>
                 <Button type="submit">Enregistrer</Button>
             </form>
 
             {/* Cartes correspondant aux différentes sections du CV */}
-            <section className="space-y-4">
+            <section className="space-y-4 ">
                 {/* Infos Zutiles */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Infos Zutiles</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Contenu des Infos Zutiles (permis, statut, etc.).</p>
+                        <p>{testUser.infosUtiles}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/info-zutile")}>
@@ -92,12 +100,12 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Expériences Professionnelles */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Expériences Professionnelles</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Liste des expériences professionnelles (entreprises, postes, etc.).</p>
+                        <p>{testUser.experiences}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/experience")}>
@@ -117,12 +125,12 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Formation / Education */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Formation / Éducation</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Diplômes, écoles, certificats, etc.</p>
+                        <p>{testUser.formations}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/education")}>
@@ -143,12 +151,12 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Compétences */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Compétences</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Langages de programmation, outils, etc.</p>
+                        <p>{testUser.competences}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/skills")}>
@@ -169,12 +177,12 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Projets de Folie */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Projets de Folie</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Projets personnels ou professionnels.</p>
+                        <p>{testUser.projetFolie}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/projects")}>
@@ -195,12 +203,12 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Langues Parlées */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Langues Parlées</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Liste des langues maîtrisées.</p>
+                        <p>{testUser.langues}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/languages")}>
@@ -221,12 +229,12 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Loisirs */}
-                <Card className="bg-card-custom">
+                <Card className="bg-card-custom text-black">
                     <CardHeader>
                         <CardTitle>Loisirs</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Activités extra-professionnelles.</p>
+                        <p>{testUser.loisirs}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/hobbies")}>

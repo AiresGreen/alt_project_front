@@ -10,6 +10,7 @@ import { Toaster } from "sonner"
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {CandidateProvider} from "@/hook/contexts/candidates.context.tsx";
 
+
 // Instancier un new QueryClient
 const queryClient = new QueryClient();
 
