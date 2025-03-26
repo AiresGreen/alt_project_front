@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function ContactPage() {
     const [nom, setNom] = useState("")
@@ -15,6 +16,7 @@ export default function ContactPage() {
 
     return (
         <div className="p-4">
+            <BackButton/>
             <h1 className="text-2xl font-bold mb-4">Contact</h1>
             <p className="mb-4 text-sm">
                 Pour toute demande, veuillez remplir le formulaire ci-dessous :

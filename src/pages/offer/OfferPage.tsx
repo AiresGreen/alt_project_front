@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useContext } from 'react';
 import { AuthContext } from '@/hook/contexts/auth.context';
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 const schema = z.object({
     nom: z.string().min(1, 'Nom requis'),
@@ -42,6 +43,7 @@ const ApplicationForm = () => {
             <Button type="submit" className="mt-2">
                 Postuler
             </Button>
+            <BackButton/>
         </form>
     );
 };

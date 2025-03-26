@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Info } from 'lucide-react';
 import { useMediaQuery } from '@/lib/useMediaQuery';
 import {Link} from "react-router-dom";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 const FavoritePage = () => {
     const isDesktop = useMediaQuery('(min-width: 768px)');
@@ -32,10 +33,11 @@ const FavoritePage = () => {
             <div className="flex items-center justify-between mb-4">
                 <h1 className="text-xl font-bold">Liste des offres favorites</h1>
                 <Button size="sm" variant="outline" className="text-indigo-600 border-indigo-600 hover:bg-indigo-50">
-                    <Link to={"/home-inscrit"} className={"flex items-center gap-2"}>
+                    <Link to={"/"} className={"flex items-center gap-2"}>
                         <IoArrowUndo className={"text-black"} /> Accueil
                     </Link>
                 </Button>
+                <BackButton/>
             </div>
 
             <div className="space-y-4">

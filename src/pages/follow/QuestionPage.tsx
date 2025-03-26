@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { FaPenFancy } from "react-icons/fa";
 import { MdCheckBox } from "react-icons/md";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function QuestionPage() {
     const [reasons, setReasons] = useState({
@@ -205,9 +206,7 @@ export default function QuestionPage() {
                             <Button type="submit" variant="default">
                                 ENVOYER
                             </Button>
-                            <Button variant="outline" className="text-black">
-                                <Link to="/applications">RETOUR</Link>
-                            </Button>
+                            <BackButton/>
                         </div>
                     </form>
                 </CardContent>

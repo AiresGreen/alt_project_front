@@ -10,6 +10,7 @@ import { AuthContext } from "@/hook/contexts/auth.context";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import {generateFakeUser} from "@/utils/generateFakeUser .tsx";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 type ProfileFormData = {
     name: string;
@@ -255,11 +256,9 @@ export const ProfileDetailsPage = () => {
                 </Card>
             </section>
 
-            {/* Bouton de retour vers les offres */}
+            {/* Bouton de retour*/}
             <div className="mt-8">
-                <Button onClick={() => navigate("/offers-of-employer")}>
-                    Retour aux Offres
-                </Button>
+                <BackButton/>
             </div>
         </div>
     );

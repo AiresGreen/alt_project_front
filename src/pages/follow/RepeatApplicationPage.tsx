@@ -12,6 +12,7 @@ import { Link } from "react-router-dom"
 
 // On importe le hook du contexte
 import { useCandidateContext } from "@/hook/contexts/candidates.context.tsx"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function RepeatApplicationPage() {
     // On récupère candidatures et setCandidatures depuis le contexte
@@ -154,9 +155,7 @@ export default function RepeatApplicationPage() {
 
             {/* Bouton Retour en bas */}
             <div className="p-4">
-                <Button variant="outline" className="w-full">
-                    <Link to="/applications">Retour</Link>
-                </Button>
+                <BackButton/>
             </div>
         </div>
     )

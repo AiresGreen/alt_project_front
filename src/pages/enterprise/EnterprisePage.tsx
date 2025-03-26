@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { AuthContext } from '@/hook/contexts/auth.context';
 import {useContext} from "react";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 const formSchema = z.object({
     nom: z.string().min(2, 'Le nom doit contenir au moins 2 caractères.'),
@@ -139,6 +140,7 @@ export default function EnterprisePage () {
                                 </FormItem>
                             )} />
                             <Button type="submit">Envoyer</Button>
+                            <BackButton/>
                         </form>
                     </Form>
                 </section>

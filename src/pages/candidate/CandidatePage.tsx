@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {Link} from "react-router-dom";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export const CandidatePage = () => {
     return (
@@ -15,9 +16,7 @@ export const CandidatePage = () => {
                         <Button className="w-full bg-white border border-gray-300 text-black">
                             <Link to={"/applications"}>VOIR MES CANDIDATURES</Link>
                         </Button>
-                        <Button className="w-full bg-white border border-gray-300 text-black">
-                            <Link to={"/home-inscrit"}> RETOUR </Link>
-                        </Button>
+                        <BackButton/>
                     </CardContent>
                 </Card>
             </div>

@@ -2,8 +2,9 @@ import {useState} from "react";
 import {Card, CardContent} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {Checkbox} from "@/components/ui/checkbox";
-import {ArrowRight, ArrowLeft} from "lucide-react";
+import {ArrowRight} from "lucide-react";
 import {Link} from "react-router-dom";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function OffersOfEmployerPage() {
     const [selected, setSelected] = useState([false, false, false]);
@@ -34,11 +35,7 @@ export default function OffersOfEmployerPage() {
                     </CardContent>
                 </Card>
                 <div className="flex justify-between mt-6">
-                    <Link to={"/employer-page"}>
-                        <Button variant="outline">
-                            <ArrowLeft className="mr-2 h-4 w-4"/> RETOUR
-                        </Button>
-                    </Link>
+                    <BackButton/>
                     <Link to={"/cv-candidate"}>
                         <Button>
                             CONTINUER <ArrowRight className="ml-2 h-4 w-4"/>

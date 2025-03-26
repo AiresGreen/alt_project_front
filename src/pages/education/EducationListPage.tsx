@@ -28,6 +28,10 @@ import { useMediaQuery } from "react-responsive";
 // Contexte d'authentification
 import { AuthContext } from "@/hook/contexts/auth.context";
 
+// AJOUT : import du toast
+import { toast } from "sonner";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
+
 /** *******************************************************
  *             Schémas Zod pour la validation
  *********************************************************/
@@ -85,7 +89,6 @@ export default function EducationListePage() {
 
     // Détection Mobile / PC
     const isMobile = useMediaQuery({ maxWidth: 768 });
-
 
     // États locaux pour les listes simulées
     const [projects, setProjects] = useState<Project[]>([]);
@@ -148,6 +151,8 @@ export default function EducationListePage() {
         };
         setProjects((prev) => [...prev, newProject]);
         resetProjectForm();
+        // Toast de succès
+        toast.success("Projet ajouté avec succès !");
     };
 
     const onSubmitProjectEdit = (data: ProjectFormData) => {
@@ -159,11 +164,15 @@ export default function EducationListePage() {
         );
         setProjectToEdit(null);
         resetProjectEditForm();
+        // Toast de succès
+        toast.success("Projet modifié avec succès !");
     };
 
     const deleteProject = (id: string) => {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) return;
         setProjects((prev) => prev.filter((proj) => proj.id !== id));
+        // Toast de succès
+        toast.success("Projet supprimé avec succès !");
     };
 
     /*******************************
@@ -184,6 +193,8 @@ export default function EducationListePage() {
         };
         setFormations((prev) => [...prev, newFormation]);
         resetFormationForm();
+        // Toast de succès
+        toast.success("Formation ajoutée avec succès !");
     };
 
     const onSubmitFormationEdit = (data: FormationFormData) => {
@@ -195,11 +206,15 @@ export default function EducationListePage() {
         );
         setFormationToEdit(null);
         resetFormationEditForm();
+        // Toast de succès
+        toast.success("Formation modifiée avec succès !");
     };
 
     const deleteFormation = (id: string) => {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette formation ?")) return;
         setFormations((prev) => prev.filter((form) => form.id !== id));
+        // Toast de succès
+        toast.success("Formation supprimée avec succès !");
     };
 
     /*******************************
@@ -429,6 +444,7 @@ export default function EducationListePage() {
                     <CardHeader>
                         <CardTitle>Modifier Formation</CardTitle>
                         <CardDescription>Modifiez les informations de la formation</CardDescription>
+                        <BackButton/>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmitFormationEdit(onSubmitFormationEdit)} className="grid gap-4">

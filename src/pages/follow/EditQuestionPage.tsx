@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function EditQuestionPage() {
     // Ici, on démarre avec une valeur vide (pas de texte par défaut).
@@ -37,11 +38,7 @@ Selon vous, quels sont les principaux points que je devrais améliorer pour mieu
                             ENVOYER
                         </Link>
                     </Button>
-                    <Button variant="outline" className="text-black">
-                        <Link to="/applications">
-                            RETOUR
-                        </Link>
-                    </Button>
+                    <BackButton/>
                 </div>
             </div>
         </div>

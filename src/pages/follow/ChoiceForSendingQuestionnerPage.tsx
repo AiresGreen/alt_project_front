@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button.tsx";
 import { Link } from "react-router-dom";
 import { useCandidateContext } from "@/hook/contexts/candidates.context.tsx";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 
 export default function ChoiceForSendingQuestionnerPage() {
@@ -137,9 +138,7 @@ export default function ChoiceForSendingQuestionnerPage() {
             </div>
 
             <div className="p-4">
-                <Button variant="outline" className="w-full">
-                    <Link to="/applications">Retour</Link>
-                </Button>
+                <BackButton/>
             </div>
         </div>
     );

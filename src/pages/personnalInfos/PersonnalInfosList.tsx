@@ -14,6 +14,7 @@ import {Label} from "@/components/ui/label"
 // Icônes Lucide
 import {Edit, Check, ArrowLeftCircle} from "lucide-react"
 import ChangePasswordForm from "@/pages/personnalInfos/ChangePasswordForm.tsx";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 // Schéma de validation avec Zod
 const InfoSchema = z.object({
@@ -102,6 +103,7 @@ export default function PersonalInfosList() {
                     <ArrowLeftCircle className="w-5 h-5"/>
                     <span>Mon Profil</span>
                 </Button>
+                <BackButton/>
                 <h1 className="text-xl font-bold">
                     {isMobile ? "Infos Perso (Mobile)" : "Infos Personnelles"}
                 </h1>

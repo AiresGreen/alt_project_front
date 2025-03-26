@@ -3,6 +3,7 @@ import {FaGlobe, FaIndustry, FaLinkedin, FaMapMarkerAlt, FaUsers} from "react-ic
 import {Button} from "@/components/ui/button.tsx";
 import {HeartIcon} from "lucide-react";
 import {Link} from "react-router-dom";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export const EmployerPage = () => {
     return (
@@ -44,6 +45,7 @@ export const EmployerPage = () => {
                     <Button>
                         <Link to="/contact-list"> VOIR LISTE DES SALARIÉS </Link>
                     </Button>
+                    <BackButton/>
                 </div>
             </Card>
         </div>

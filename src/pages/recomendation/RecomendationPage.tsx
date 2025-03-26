@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function MesRecommandations() {
     const isMobile = useMediaQuery("(max-width: 768px)")
@@ -24,6 +25,7 @@ function MobileLayout() {
             <header className="mb-4 flex items-center justify-between">
                 <h1 className="text-lg font-bold">Liste de recommandation</h1>
                 <Button>+ Reco</Button>
+                <BackButton/>
             </header>
 
             {/* Liste des recommandations avec ScrollArea */}
@@ -64,6 +66,7 @@ function DesktopLayout() {
                 <div className="space-x-2">
                     <Button>GET recommendation</Button>
                     <Button>Créer le CV</Button>
+                    <BackButton/>
                 </div>
             </header>
 
@@ -104,22 +107,6 @@ function DesktopLayout() {
                 </ScrollArea>
             </div>
 
-            {/* Footer */}
-            <Separator />
-            <footer className="flex items-center justify-between p-4 text-sm text-gray-500">
-                <div className="space-x-4">
-                    <a href="#" className="hover:underline">
-                        À propos
-                    </a>
-                    <a href="#" className="hover:underline">
-                        Contact
-                    </a>
-                    <a href="#" className="hover:underline">
-                        Mentions légales
-                    </a>
-                </div>
-                <p>© 2018 BalanceTonJob.io - GPT MJ Madoz. Open-source powered</p>
-            </footer>
         </div>
     )
 }

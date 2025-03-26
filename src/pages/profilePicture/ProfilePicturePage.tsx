@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export const ProfilePicturePage = () => {
     // Stocke l'ensemble des photos, initialisé avec une image par défaut
@@ -95,9 +95,7 @@ export const ProfilePicturePage = () => {
                 )}
                 {/**Retour au profil */}
 
-                <Button>
-                    <Link to="/profile-page">Retour au profil</Link>
-                </Button>
+                <BackButton/>
 
                 {/* Optionnel : Affichez une galerie de photos */}
                 {photos.length > 0 && (

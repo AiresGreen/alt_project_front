@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Check, Edit2, Link as LinkIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { GrSend } from "react-icons/gr";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 const cvList: ({ id: any; title: string; image: string })[] = [
     { id: 1, title: "CV PROF DE FRANÇAIS", image: "/path/to/cv-preview1.png" },
@@ -50,9 +51,7 @@ export const CvCandidatePage = () => {
             </div>
             {errorMessage && <p className="text-red-600 mt-4">{errorMessage}</p>}
             <div className="mt-6 w-full max-w-md flex justify-between gap-2">
-                <Button variant="outline" className="px-6 py-2">
-                    <Link to="/offers-of-employer" className="text-black">RETOUR</Link>
-                </Button>
+                <BackButton/>
                 <Button variant="outline" className="px-6 py-2">
                     <Link to="/cv-build" className="text-black">
                     CRÉER UN NOUVEAU CV

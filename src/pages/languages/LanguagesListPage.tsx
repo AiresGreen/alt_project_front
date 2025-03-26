@@ -11,6 +11,7 @@ import {
     CardFooter,
 } from "@/components/ui/card";
 import { toast } from "sonner";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export const LanguagesListPage = () => {
     // State pour la liste des langues
@@ -164,7 +165,7 @@ export const LanguagesListPage = () => {
 
             {/* Bouton de retour */}
             <div>
-                <Button variant="outline">Retour au profil</Button>
+                <BackButton/>
             </div>
         </div>
     );

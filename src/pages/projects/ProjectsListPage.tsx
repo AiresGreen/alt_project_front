@@ -15,6 +15,7 @@ import { toast } from 'sonner'
 
 // Interface du projet
 import { ProjectInterface } from '@/interface/ProjectInterfaces.ts'
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 // Pour gérer un tableau d'objets tâches (chacun avec une propriété "name")
 const projectSchema = z.object({
@@ -286,9 +287,7 @@ export default function ProjectsListPage() {
 
             {/* Bouton "Retour au profil" */}
             <div className="mt-8">
-                <Button variant="outline" onClick={() => navigate('/profil')}>
-                    Retour au profil
-                </Button>
+                <BackButton/>
             </div>
         </div>
     )

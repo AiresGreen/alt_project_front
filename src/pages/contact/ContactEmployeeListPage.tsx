@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 // Exemple de données mock
 const teamMembers = [
@@ -75,9 +76,7 @@ export default function ContactEmployeeListPage() {
             <Card className="flex flex-col w-full h-full bg-card-custom p-4 text-black">
                 <CardHeader className="flex items-center justify-between">
                     {isMobile && (
-                        <Button variant="ghost" onClick={() => setSelectedMember(null)}>
-                            ← Retour
-                        </Button>
+                        <BackButton/>
                     )}
                     {selectedMember
                         ? teamMembers.find((m) => m.id === selectedMember)?.name
@@ -114,6 +113,7 @@ export default function ContactEmployeeListPage() {
                             onChange={(e) => setNewMessage(e.target.value)}
                         />
                         <Button onClick={handleSendMessage}>Envoyer</Button>
+                        <BackButton/>
                     </div>
                 </CardFooter>
             </Card>

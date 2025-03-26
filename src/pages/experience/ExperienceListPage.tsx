@@ -9,11 +9,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Lucide React (icônes)
 import { Edit, Trash2 } from "lucide-react";
 
-// shadcn/ui (exemple, adapte selon ton organisation de composants)
+// shadcn/ui (exemple, adaptez selon votre organisation de composants)
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
+// AJOUT : import du toast
+import { toast } from "sonner";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 // Schéma Zod pour valider le formulaire
 const experienceSchema = z.object({
@@ -59,12 +63,14 @@ export default function ExperienceListePage() {
         if (editingIndex === null) {
             // Ajout d’une nouvelle expérience
             setExperiences([...experiences, data]);
+            toast.success("Expérience ajoutée avec succès !");
         } else {
             // Modification d’une expérience existante
             const updatedList = [...experiences];
             updatedList[editingIndex] = data;
             setExperiences(updatedList);
             setEditingIndex(null);
+            toast.success("Expérience modifiée avec succès !");
         }
 
         // On réinitialise le formulaire
@@ -95,14 +101,17 @@ export default function ExperienceListePage() {
 
     // Clic sur "Supprimer"
     const handleDelete = (index: number) => {
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette expérience ?")) return;
         const updatedList = [...experiences];
         updatedList.splice(index, 1);
         setExperiences(updatedList);
+        toast.success("Expérience supprimée avec succès !");
     };
 
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-6">Expériences Professionnelles</h1>
+            <BackButton/>
 
             {/* Bouton pour afficher le formulaire d’ajout */}
             {!showForm && (
@@ -198,7 +207,7 @@ export default function ExperienceListePage() {
                 {experiences.map((exp, index) => (
                     <div
                         key={index}
-                        className="border p-4 rounded flex flex-col  md:flex-row md:items-center md:justify-between"
+                        className="border p-4 rounded flex flex-col md:flex-row md:items-center md:justify-between"
                     >
                         <div className="mb-4 md:mb-0">
                             {/* Titre (poste) et entreprise */}

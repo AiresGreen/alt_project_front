@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
-export const UsefulInfosList: React.FC = () => {
+export const UsefulInfosList = () => {
     // État contenant la liste des infos utiles
     const [infos, setInfos] = useState<string[]>([
         'Marié',
@@ -15,7 +15,7 @@ export const UsefulInfosList: React.FC = () => {
 
     // État pour la nouvelle info saisie
     const [newInfo, setNewInfo] = useState<string>('');
-    const navigate = useNavigate();
+
 
     // Ajout d'une nouvelle info
     const handleAddInfo = () => {
@@ -31,7 +31,7 @@ export const UsefulInfosList: React.FC = () => {
     };
 
     // Gestion de la touche "Entrée" dans le champ de saisie
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: any) => {
         if (e.key === 'Enter') {
             handleAddInfo();
         }
@@ -85,12 +85,7 @@ export const UsefulInfosList: React.FC = () => {
 
             {/* Bouton de retour */}
             <div className="mt-4">
-                <button
-                    onClick={() => navigate('/profile')}
-                    className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
-                >
-                    Retour au profil
-                </button>
+                <BackButton/>
             </div>
 
             {/* Mentions sur la confidentialité */}

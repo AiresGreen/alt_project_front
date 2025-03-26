@@ -1,6 +1,9 @@
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
+
 export const PrivacyPolicyPage = () => {
     return (
         <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto', fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
+            <BackButton/>
             <h1>Politique de Confidentialité de BalanceTonJob.io</h1>
             <p><em>Dernière mise à jour : 07 février 2025</em></p>
             <p>

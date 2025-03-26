@@ -1,6 +1,9 @@
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
+
 export default function AproposPage() {
     return (
         <div className="p-4">
+            <BackButton/>
             <h1 className="text-2xl font-bold mb-4">À propos de BalanceTonJob</h1>
             <p className="mb-4 text-sm">
                 BalanceTonJob est une plateforme dédiée à la recherche d'emploi qui connecte les candidats aux meilleures offres du marché.

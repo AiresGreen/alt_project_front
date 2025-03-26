@@ -24,6 +24,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/hook/contexts/auth.context";
 import { useReactToPrint } from "react-to-print";
 
+// AJOUT : import du toast
+import { toast } from "sonner";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
+
 const experienceOptions = ["Miaou", "Piaou", "PitouPitou"];
 const educationOptions = ["Nia", "Nou", "FILOU"];
 const projects = ["CRM BalanceTonJob", "Bla-Bla Boop"];
@@ -85,21 +89,33 @@ export const CvConstructPage = () => {
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit((values) => console.log("Form Data:", values))}
+                onSubmit={form.handleSubmit((values) => {
+                    // Log et toast de confirmation
+                    console.log("Form Data:", values);
+                    toast.success("CV sauvegardé avec succès !");
+                })}
                 className="p-4 gap-4 bg-background text-foreground grid grid-cols-1 lg:grid-cols-12"
             >
                 {/* Colonne gauche - formulaire utilisateur */}
                 <div className="lg:col-span-4 space-y-4 pr-6 border-r">
                     {/* Avatar */}
                     {imagePreview && (
-                        <img src={imagePreview} alt="Avatar" className="w-20 h-20 object-cover rounded" />
+                        <img
+                            src={imagePreview}
+                            alt="Avatar"
+                            className="w-20 h-20 object-cover rounded"
+                        />
                     )}
                     <div className="grid grid-cols-4 gap-2 border p-2 rounded">
                         {avatars.map((a, i) => (
                             <button
                                 key={i}
                                 type="button"
-                                className={`text-2xl p-2 border rounded ${form.watch("avatar") === a ? "bg-primary text-white" : "hover:bg-muted"}`}
+                                className={`text-2xl p-2 border rounded ${
+                                    form.watch("avatar") === a
+                                        ? "bg-primary text-white"
+                                        : "hover:bg-muted"
+                                }`}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     form.setValue("avatar", a);
@@ -110,7 +126,11 @@ export const CvConstructPage = () => {
                             </button>
                         ))}
                     </div>
-                    <Button variant="secondary" className="w-full" onClick={() => fileInputRef.current?.click()}>
+                    <Button
+                        variant="secondary"
+                        className="w-full"
+                        onClick={() => fileInputRef.current?.click()}
+                    >
                         Télécharger une photo
                     </Button>
                     <input
@@ -132,10 +152,14 @@ export const CvConstructPage = () => {
                             }
                         }}
                     />
-                    <Button variant="ghost" className="w-full text-destructive" onClick={() => {
-                        form.setValue("avatar", "");
-                        setImagePreview(null);
-                    }}>
+                    <Button
+                        variant="ghost"
+                        className="w-full text-destructive"
+                        onClick={() => {
+                            form.setValue("avatar", "");
+                            setImagePreview(null);
+                        }}
+                    >
                         Supprimer
                     </Button>
 
@@ -147,11 +171,18 @@ export const CvConstructPage = () => {
                             <FormItem>
                                 <FormLabel>Prénom</FormLabel>
                                 <FormControl>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <SelectTrigger><SelectValue placeholder="Choisissez votre prénom" /></SelectTrigger>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Choisissez votre prénom" />
+                                        </SelectTrigger>
                                         <SelectContent>
                                             {nameOptions.map((opt) => (
-                                                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                                                <SelectItem key={opt} value={opt}>
+                                                    {opt}
+                                                </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
@@ -166,11 +197,18 @@ export const CvConstructPage = () => {
                             <FormItem>
                                 <FormLabel>Nom</FormLabel>
                                 <FormControl>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <SelectTrigger><SelectValue placeholder="Choisissez votre nom" /></SelectTrigger>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                    >
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Choisissez votre nom" />
+                                        </SelectTrigger>
                                         <SelectContent>
                                             {lastnameOptions.map((opt) => (
-                                                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                                                <SelectItem key={opt} value={opt}>
+                                                    {opt}
+                                                </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
@@ -180,43 +218,103 @@ export const CvConstructPage = () => {
                     />
 
                     {/* Autres sélections (Compétences, etc.) */}
-                    {["skills", "experience", "education", "project", "interest"].map((field) => (
-                        <FormField
-                            key={field}
-                            control={form.control}
-                            name={field as keyof CVFormValues}
-                            render={() => (
-                                <FormItem>
-                                    <FormLabel className="capitalize">{field}</FormLabel>
-                                    <FormControl>
-                                        <div className="flex flex-col space-y-1">
-                                            {(form.getValues(field as keyof CVFormValues) as string[] | undefined)?.map((val) => (
-                                                <Badge key={val} variant="secondary" className="flex justify-between items-center gap-2">
-                                                    {val}
-                                                    <X className="w-3 h-3 cursor-pointer" onClick={() => form.setValue(field as keyof CVFormValues, (form.getValues(field as keyof CVFormValues) as string[]).filter((v) => v !== val))} />
-                                                </Badge>
-                                            ))}
-                                            {({ skills: skillsOptions, experience: experienceOptions, education: educationOptions, project: projects, interest: interests } as Record<string, string[]>)[field]?.map((opt) => (
-                                                <label key={opt} className="flex items-center space-x-2">
-                                                    <Checkbox
-                                                        checked={(form.watch(field as keyof CVFormValues) as string[]).includes(opt)}
-                                                        onCheckedChange={() => {
-                                                            const current = form.getValues(field as keyof CVFormValues) as string[];
-                                                            form.setValue(
-                                                                field as keyof CVFormValues,
-                                                                current.includes(opt) ? current.filter(v => v !== opt) : [...current, opt]
-                                                            );
-                                                        }}
-                                                    />
-                                                    <span>{opt}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                    ))}
+                    {["skills", "experience", "education", "project", "interest"].map(
+                        (field) => (
+                            <FormField
+                                key={field}
+                                control={form.control}
+                                name={field as keyof CVFormValues}
+                                render={() => (
+                                    <FormItem>
+                                        <FormLabel className="capitalize">
+                                            {field}
+                                        </FormLabel>
+                                        <FormControl>
+                                            <div className="flex flex-col space-y-1">
+                                                {(
+                                                    form.getValues(
+                                                        field as keyof CVFormValues
+                                                    ) as string[] | undefined
+                                                )?.map((val) => (
+                                                    <Badge
+                                                        key={val}
+                                                        variant="secondary"
+                                                        className="flex justify-between items-center gap-2"
+                                                    >
+                                                        {val}
+                                                        <X
+                                                            className="w-3 h-3 cursor-pointer"
+                                                            onClick={() =>
+                                                                form.setValue(
+                                                                    field as keyof CVFormValues,
+                                                                    (
+                                                                        form.getValues(
+                                                                            field as keyof CVFormValues
+                                                                        ) as string[]
+                                                                    ).filter(
+                                                                        (v) =>
+                                                                            v !== val
+                                                                    )
+                                                                )
+                                                            }
+                                                        />
+                                                    </Badge>
+                                                ))}
+                                                {
+                                                    ({
+                                                        skills: skillsOptions,
+                                                        experience: experienceOptions,
+                                                        education: educationOptions,
+                                                        project: projects,
+                                                        interest: interests
+                                                    } as Record<string, string[]>)[
+                                                        field
+                                                        ]?.map((opt) => (
+                                                        <label
+                                                            key={opt}
+                                                            className="flex items-center space-x-2"
+                                                        >
+                                                            <Checkbox
+                                                                checked={(
+                                                                    form.watch(
+                                                                        field as keyof CVFormValues
+                                                                    ) as string[]
+                                                                ).includes(opt)}
+                                                                onCheckedChange={() => {
+                                                                    const current =
+                                                                        form.getValues(
+                                                                            field as keyof CVFormValues
+                                                                        ) as string[];
+                                                                    form.setValue(
+                                                                        field as keyof CVFormValues,
+                                                                        current.includes(
+                                                                            opt
+                                                                        )
+                                                                            ? current.filter(
+                                                                                (
+                                                                                    v
+                                                                                ) =>
+                                                                                    v !==
+                                                                                    opt
+                                                                            )
+                                                                            : [
+                                                                                ...current,
+                                                                                opt
+                                                                            ]
+                                                                    );
+                                                                }}
+                                                            />
+                                                            <span>{opt}</span>
+                                                        </label>
+                                                    ))
+                                                }
+                                            </div>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                        )
+                    )}
                 </div>
 
                 {/* Colonne droite - aperçu CV */}
@@ -226,6 +324,7 @@ export const CvConstructPage = () => {
                             <Printer className="w-4 h-4" />
                             Télécharger en PDF
                         </Button>
+                        <BackButton/>
                     </div>
                     <div
                         ref={printRef}
@@ -234,10 +333,13 @@ export const CvConstructPage = () => {
                         <div className="flex justify-between items-center border-b pb-6 mb-4">
                             <div>
                                 <h1 className="text-3xl font-bold text-gray-800">
-                                    {form.watch("firstname")} {form.watch("lastname")}
+                                    {form.watch("firstname")}{" "}
+                                    {form.watch("lastname")}
                                 </h1>
                                 {form.watch("title") && (
-                                    <p className="text-gray-600 mt-1">{form.watch("title")}</p>
+                                    <p className="text-gray-600 mt-1">
+                                        {form.watch("title")}
+                                    </p>
                                 )}
                             </div>
                             {imagePreview && (
@@ -249,9 +351,22 @@ export const CvConstructPage = () => {
                             )}
                         </div>
 
-                        {(["summary", "experience", "education", "skills", "project", "interest"] as const).map((field) => {
+                        {(
+                            [
+                                "summary",
+                                "experience",
+                                "education",
+                                "skills",
+                                "project",
+                                "interest"
+                            ] as const
+                        ).map((field) => {
                             const values = form.watch(field);
-                            if (!values || (Array.isArray(values) && values.length === 0)) return null;
+                            if (
+                                !values ||
+                                (Array.isArray(values) && values.length === 0)
+                            )
+                                return null;
 
                             const sectionTitles: Record<string, string> = {
                                 summary: "Profil professionnel",
@@ -259,7 +374,7 @@ export const CvConstructPage = () => {
                                 education: "Formation",
                                 skills: "Compétences",
                                 project: "Projets réalisés",
-                                interest: "Centres d'intérêt",
+                                interest: "Centres d'intérêt"
                             };
 
                             return (
@@ -274,11 +389,20 @@ export const CvConstructPage = () => {
                                             ))}
                                         </ul>
                                     ) : (
-                                        <p className="text-sm text-gray-800 whitespace-pre-wrap">{values}</p>
+                                        <p className="text-sm text-gray-800 whitespace-pre-wrap">
+                                            {values}
+                                        </p>
                                     )}
                                 </div>
                             );
                         })}
+                    </div>
+
+                    {/* AJOUT : Bouton pour soumettre le formulaire */}
+                    <div className="flex justify-end">
+                        <Button type="submit">
+                            Enregistrer mon CV
+                        </Button>
                     </div>
                 </div>
             </form>

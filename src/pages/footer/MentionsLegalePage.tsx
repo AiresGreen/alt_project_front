@@ -1,6 +1,9 @@
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
+
 export default function MentionsLegalesPage() {
     return (
         <div className="p-4">
+            <BackButton/>
             <h1 className="text-2xl font-bold mb-4">Mentions Légales</h1>
             <p className="mb-4 text-sm">
                 Les informations ci-dessous régissent l'utilisation du site BalanceTonJob.

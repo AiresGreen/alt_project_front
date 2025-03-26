@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 // Icônes (lucide-react)
 import { Edit, Trash } from "lucide-react"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 export default function HobbiesListPage() {
     // Exemple de structure de données pour les loisirs (on stocke en local state)
@@ -142,9 +143,7 @@ export default function HobbiesListPage() {
                         )}
                     </CardContent>
                     <CardFooter>
-                        <Button variant="secondary" onClick={() => alert("Retour au passé")}>
-                            Retour au passé
-                        </Button>
+                        <BackButton/>
                     </CardFooter>
                 </Card>
             )}

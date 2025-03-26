@@ -25,6 +25,7 @@ import {
 // Bouton et Link
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 //
 // 1. Définition des types
@@ -101,7 +102,6 @@ export default function FolowApplicationPage() {
     //
     const onSubmit = (data: FormValues) => {
         console.log("Form data:", data)
-        // TODO : envoyer en backend, etc.
     }
 
     //
@@ -302,11 +302,7 @@ export default function FolowApplicationPage() {
                             Envoyer la demande de retour
                         </Link>
                     </Button>
-                    <Button variant="outline" type="button">
-                        <Link to="/">
-                            Retour
-                        </Link>
-                    </Button>
+                    <BackButton/>
                 </div>
             </form>
         </Form>

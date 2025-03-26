@@ -14,7 +14,7 @@ import {
 import { FiltersAccordion } from '@/components/filters/FiltersAccordion';
 import { Filter } from 'lucide-react';
 
-export default function HomePage () {
+export default function HomePage() {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const { isAuthenticated } = useContext(AuthContext);
     const [openSheet, setOpenSheet] = useState(false);
@@ -47,7 +47,7 @@ export default function HomePage () {
                             </div>
                             <section className="w-full space-y-4">
                                 {[1, 2].map((i) => (
-                                    <Card key={i} className='bg-card-custom'>
+                                    <Card key={i} className="bg-card-custom">
                                         <CardHeader>
                                             <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
                                             <CardDescription>
@@ -77,7 +77,7 @@ export default function HomePage () {
                             <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4 bg-gradient-to-b from-teal-500 to-blue-700">
                                 <FiltersAccordion />
                                 {isAuthenticated ? (
-                                    <Button variant="outline" className="w-full mt-4" onClick={() => navigate('/profile')}>
+                                    <Button variant="outline" className="w-full mt-4" onClick={() => navigate('/profile-page')}>
                                         Accéder à mon profil
                                     </Button>
                                 ) : (
@@ -88,7 +88,7 @@ export default function HomePage () {
                             </aside>
                             <section className="md:w-3/4 w-full space-y-4">
                                 {[1, 2].map((i) => (
-                                    <Card key={i} className='bg-card-custom'>
+                                    <Card key={i} className="bg-card-custom">
                                         <CardHeader>
                                             <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
                                             <CardDescription>
@@ -101,7 +101,7 @@ export default function HomePage () {
                                             <p className="text-sm">Description de l'offre, missions, profil recherché, etc.</p>
                                         </CardContent>
                                         <CardFooter className="flex justify-end">
-                                            <Button>Voir offre</Button>
+                                            <Button onClick={() => navigate('/offer-page')}>Voir offre</Button>
                                         </CardFooter>
                                     </Card>
                                 ))}
@@ -112,6 +112,4 @@ export default function HomePage () {
             </main>
         </div>
     );
-};
-
-
+}

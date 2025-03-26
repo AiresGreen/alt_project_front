@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button.tsx";
 import { FaRegEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 
 
@@ -24,6 +25,7 @@ export default function MyCvPage() {
                     <Card key={cv.id} className="shadow hover:shadow-lg transition">
                         <CardHeader>
                             <CardTitle>{cv.title}</CardTitle>
+                            <BackButton/>
                         </CardHeader>
                         <CardContent>
                             <div className="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">

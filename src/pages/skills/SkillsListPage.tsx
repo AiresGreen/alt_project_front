@@ -26,6 +26,7 @@ import { Input } from '@/components/ui/input'
 
 // Import de sonner pour les toasts
 import { toast } from 'sonner'
+import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 // Définition du "mode" de la page
 type PageMode = 'list' | 'create' | 'edit'
@@ -187,9 +188,7 @@ export const SkillsListPage = () => {
                     ))}
                 </ul>
                 <div className="mt-6">
-                    <Button variant="outline" className="w-full" onClick={handleGoBack}>
-                        Retour au profil
-                    </Button>
+                    <BackButton/>
                 </div>
             </>
         )
