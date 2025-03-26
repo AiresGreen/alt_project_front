@@ -24,7 +24,6 @@ import MyCvPage from "./pages/cv/MyCvPage";
 import { CandidatePage } from "./pages/candidate/CandidatePage";
 import { EmployerPage } from "@/pages/candidate/EmployerPage.tsx";
 import OffersOfEmployerPage from "@/pages/candidate/OffersOfEmployerPage.tsx";
-import {ProfileDetailsPage} from "./pages/profile/ProfileDetailsPage.tsx";
 import ContactEmployeeListPage from "@/pages/contact/ContactEmployeeListPage.tsx";
 import {CvCandidatePage} from "@/pages/candidate/CvCandidatePage.tsx";
 import FolowApplicationPage from "@/pages/follow/FolowApplicationPage.tsx";
@@ -47,6 +46,7 @@ import HobbiesListPage from "@/pages/hobbies/HobbiesListPage.tsx";
 import {LanguagesListPage} from "@/pages/languages/LanguagesListPage.tsx";
 import ProjectsListPage from "@/pages/projects/ProjectsListPage.tsx";
 import {SkillsListPage} from "@/pages/skills/SkillsListPage.tsx";
+import {ProfileDetailsPage} from "@/pages/profile/ProfileDetailsPage.tsx";
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -135,8 +135,6 @@ function App() {
                                element={<CvCandidatePage/>}/>
                         <Route path="/profile-picture"
                                element={<ProfilePicturePage/>}/>
-                        <Route path="/profile-page"
-                               element={<ProfileDetailsPage/>}/>
                         <Route path="/favorite"
                                element={<FavoritePage/>}/>
                         <Route path="/recommandations"
@@ -157,6 +155,8 @@ function App() {
                                element={<ProjectsListPage/>} />
                         <Route path="/skills"
                                  element={<SkillsListPage/>} />
+                        <Route path="/profile-page"
+                                 element={<ProfileDetailsPage/>}/>
                     </Route>
                 </Route>
 

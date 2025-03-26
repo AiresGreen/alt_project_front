@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { LanguageInterface } from "@/interface/LanguageInterface";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 
-export const LanguagesListPage: React.FC = () => {
+export const LanguagesListPage = () => {
     // State pour la liste des langues
     const [langues, setLangues] = useState<LanguageInterface[]>([]);
 
@@ -25,7 +25,7 @@ export const LanguagesListPage: React.FC = () => {
     const [editId, setEditId] = useState<number | null>(null);
 
     // Soumission du formulaire (création ou édition)
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
 
         if (isEditing && editId !== null) {
@@ -124,7 +124,7 @@ export const LanguagesListPage: React.FC = () => {
             </Card>
 
             {/* Liste des langues */}
-            <div>
+            <div className={"bg-card-custom"}>
                 <h2 className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
                 {langues.length === 0 ? (
                     <p>Aucune langue pour le moment.</p>

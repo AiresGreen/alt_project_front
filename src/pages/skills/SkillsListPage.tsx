@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -36,7 +36,7 @@ interface SkillFormValues {
     context: string
 }
 
-export const SkillsListPage: React.FC = () => {
+export const SkillsListPage = () => {
     const navigate = useNavigate()
 
     // État local pour la liste des compétences
