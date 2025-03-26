@@ -45,6 +45,7 @@ import {UsefulInfosList} from "@/pages/personnalInfos/UsefulInfosList.tsx";
 import {PrivacyPolicyPage} from "@/pages/footer/PrivacyPolicyPage.tsx";
 import HobbiesListPage from "@/pages/hobbies/HobbiesListPage.tsx";
 import {LanguagesListPage} from "@/pages/languages/LanguagesListPage.tsx";
+import ProjectsListPage from "@/pages/projects/ProjectsListPage.tsx";
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -151,6 +152,8 @@ function App() {
                                element={<HobbiesListPage/>} />
                         <Route path="/languages"
                                element={<LanguagesListPage/>} />
+                        <Route path="/projects"
+                               element={<ProjectsListPage/>} />
                     </Route>
                 </Route>
 
