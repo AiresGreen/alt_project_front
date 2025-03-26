@@ -23,11 +23,11 @@
 //TODO: [x] skills
 
 //date: 26/03/2025
-//TODO: [] Lier les pages
+//TODO: [v] Lier les pages
 //TODO: [] Faire les cypress
 //TODO: [v] projet
 //TODO: [v] skills
-//TODO: [] Verifier le toast partout
-//TODO: [] Checker les interfaces
+//TODO: [v] Verifier le toast partout
+//TODO: [v] Checker les interfaces
 //TODO: []
 

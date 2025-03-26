@@ -1,42 +1,79 @@
-describe("CV Form - End-to-End Test", () => {
+
+
+describe('CV Construct Page', () => {
     beforeEach(() => {
-        cy.visit("/cv-build"); // Remplace par le bon chemin si nécessaire
+        cy.visit('/cv-construct');
     });
 
-    it("Remplit le formulaire et soumet", () => {
-        // Vérifier que la page charge bien
-        cy.contains("Prénom").should("be.visible");
-
-        // Remplir les champs de texte
-        cy.get('input[name="firstname"]').type("Antoine");
-        cy.get('input[name="lastname"]').type("Dupont");
-        cy.get('input[name="title"]').type("Champion du monde de Rugby");
-        cy.get('textarea[name="summary"]').type(
-            "Passionné par le sport et les douches."
-        );
-
-        // Sélectionner une langue
-        cy.get("[data-testid='select-languages']").click(); // Ouvre le Select
-        cy.get("[role='option']").contains("Français").click(); // Sélectionne "Français"
-
-        // Sélectionner une compétence
-        cy.get("[data-testid='select-skills']").click();
-        cy.get("[role='option']").contains("Informatique").click();
-
-        // Soumettre le formulaire
-        cy.get('button[type="submit"]').click();
+    it('Sélectionne un avatar via les boutons emoji', () => {
+        // On suppose que chaque bouton avatar possède data-cy="avatar-button" et un attribut data-avatar
+        cy.get('[data-cy=avatar-button][data-avatar="🧑‍💻"]').click();
+        // Vérifie que le bouton sélectionné a une classe active (ex: .active)
+        cy.get('[data-cy=avatar-button].active')
+            .should('have.attr', 'data-avatar', '🧑‍💻');
     });
 
-    it("Affiche des erreurs pour les champs requis vides", () => {
-        // Essayer de soumettre sans remplir
-        cy.get('button[type="submit"]').click();
+    it('Télécharge une photo et affiche l’aperçu', () => {
+        // Nécessite le plugin cypress-file-upload et un fichier fixture (ex: "example.png" dans cypress/fixtures)
+        const fileName = 'example.png';
+        cy.fixture(fileName, 'base64').then(fileContent => {
+            cy.get('[data-cy=file-input]').attachFile({
+                fileContent,
+                fileName,
+                mimeType: 'image/png',
+                encoding: 'base64'
+            });
+        });
+        // Vérifie que l’aperçu de l’avatar est visible
+        cy.get('[data-cy=avatar-preview]').should('be.visible');
+    });
 
-        // Vérifier les messages d'erreur
-        cy.contains("Le prénom est requis").should("be.visible");
-        cy.contains("Le nom est requis").should("be.visible");
-        cy.contains("Le titre est requis").should("be.visible");
-        cy.contains("Le résumé est requis").should("be.visible");
-        cy.contains("La langue est requise").should("be.visible");
-        cy.contains("Une compétence est requise").should("be.visible");
+    it('Supprime l’avatar lorsque le bouton "Supprimer" est cliqué', () => {
+        // D'abord, on simule la sélection d'un avatar
+        cy.get('[data-cy=avatar-button][data-avatar="🧑‍💻"]').click();
+        // Puis on clique sur le bouton de suppression, identifié par data-cy="delete-avatar"
+        cy.get('[data-cy=delete-avatar]').click();
+        // Vérifie que l’aperçu n’est plus présent
+        cy.get('[data-cy=avatar-preview]').should('not.exist');
+    });
+
+    it('Permet de sélectionner le prénom et le nom dans les dropdowns', () => {
+        // Sélection du prénom
+        cy.get('[data-cy=firstname-select]').click();
+        cy.get('[data-cy=firstname-option][data-value="Jean"]').click();
+        cy.get('[data-cy=firstname-select]').should('contain.text', 'Jean');
+
+        // Sélection du nom
+        cy.get('[data-cy=lastname-select]').click();
+        cy.get('[data-cy=lastname-option][data-value="Dupont"]').click();
+        cy.get('[data-cy=lastname-select]').should('contain.text', 'Dupont');
+    });
+
+    it('Permet de cocher des options dans les listes (ex. expérience, compétences)', () => {
+        // Pour l'expérience, on coche "Miaou"
+        cy.get('[data-cy=checkbox-experience][data-value="Miaou"]')
+            .check({ force: true });
+        // Vérifie que "Miaou" apparait dans la liste des expériences
+        cy.get('[data-cy=experience-list]').should('contain.text', 'Miaou');
+
+        // Pour les compétences, on coche "Communication"
+        cy.get('[data-cy=checkbox-skills][data-value="Communication"]')
+            .check({ force: true });
+        cy.get('[data-cy=skills-list]').should('contain.text', 'Communication');
+    });
+
+    it('Affiche les boutons "Télécharger en PDF" et le bouton de retour', () => {
+        // Vérifie la présence du bouton pour télécharger le PDF, identifié par data-cy="download-pdf"
+        cy.get('[data-cy=download-pdf]').should('be.visible');
+        // Vérifie la présence du bouton de retour
+        cy.get('[data-cy=back-button]').should('exist');
+    });
+
+    it('Soumet le formulaire et affiche le toast de confirmation', () => {
+        // On simule la soumission du formulaire via le bouton identifié par data-cy="submit-cv"
+        cy.get('[data-cy=submit-cv]').click();
+        // Vérifie l'apparition du toast de confirmation (par exemple, avec data-cy="toast")
+        cy.get('[data-cy=toast]')
+            .should('contain.text', 'CV sauvegardé avec succès !');
     });
 });
