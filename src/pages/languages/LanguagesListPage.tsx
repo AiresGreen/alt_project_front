@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { LanguageInterface } from "@/interface/LanguageInterface";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import {
     CardContent,
     CardFooter,
 } from "@/components/ui/card";
+import { toast } from "sonner";
 
 export const LanguagesListPage: React.FC = () => {
     // State pour la liste des langues
@@ -18,7 +19,6 @@ export const LanguagesListPage: React.FC = () => {
     // States pour le formulaire
     const [nom, setNom] = useState("");
     const [niveau, setNiveau] = useState("");
-    const [extrait, setExtrait] = useState("");
 
     // States pour l’édition
     const [isEditing, setIsEditing] = useState(false);
@@ -32,9 +32,10 @@ export const LanguagesListPage: React.FC = () => {
             // Mode édition : mise à jour de la langue ciblée
             setLangues((prevLangues) =>
                 prevLangues.map((langue) =>
-                    langue.id === editId ? { ...langue, nom, niveau, extrait } : langue
+                    langue.id === editId ? { ...langue, nom, niveau } : langue
                 )
             );
+            toast.success("Langue modifiée avec succès");
         } else {
             // Mode création : ajout d'une nouvelle langue
             const newId = new Date().getTime(); // Génère un id unique
@@ -42,9 +43,9 @@ export const LanguagesListPage: React.FC = () => {
                 id: newId,
                 nom,
                 niveau,
-                extrait,
             };
             setLangues((prevLangues) => [...prevLangues, nouvelleLangue]);
+            toast.success("Langue ajoutée avec succès");
         }
         resetForm();
     };
@@ -55,12 +56,12 @@ export const LanguagesListPage: React.FC = () => {
         setEditId(langue.id);
         setNom(langue.nom);
         setNiveau(langue.niveau);
-        setExtrait(langue.extrait);
     };
 
     // Supprime une langue
     const handleDelete = (id: number) => {
         setLangues((prevLangues) => prevLangues.filter((l) => l.id !== id));
+        toast("Langue supprimée");
     };
 
     // Réinitialise le formulaire et repasse en mode création
@@ -69,7 +70,6 @@ export const LanguagesListPage: React.FC = () => {
         setEditId(null);
         setNom("");
         setNiveau("");
-        setExtrait("");
     };
 
     return (
@@ -81,8 +81,8 @@ export const LanguagesListPage: React.FC = () => {
                         {isEditing ? "Modifier une langue" : "Ajouter une nouvelle langue"}
                     </CardTitle>
                 </CardHeader>
-                <form onSubmit={handleSubmit}>
-                    <CardContent className="space-y-4">
+                <form onSubmit={handleSubmit} >
+                    <CardContent className="space-y-4 text-black">
                         <div>
                             <Label htmlFor="nom" className="block mb-1">
                                 Nom de la langue
@@ -109,29 +109,13 @@ export const LanguagesListPage: React.FC = () => {
                                 required
                             />
                         </div>
-                        <div>
-                            <Label htmlFor="extrait" className="block mb-1">
-                                Extrait
-                            </Label>
-                            <Input
-                                id="extrait"
-                                type="text"
-                                value={extrait}
-                                onChange={(e) => setExtrait(e.target.value)}
-                                placeholder="Ex : Langue vivante étrangère"
-                            />
-                        </div>
                     </CardContent>
                     <CardFooter className="flex items-center space-x-4">
                         <Button type="submit" variant="default">
                             {isEditing ? "Enregistrer" : "Ajouter"}
                         </Button>
                         {isEditing && (
-                            <Button
-                                type="button"
-                                variant="outline"
-                                onClick={resetForm}
-                            >
+                            <Button type="button" variant="outline" onClick={resetForm}>
                                 Annuler
                             </Button>
                         )}
@@ -140,23 +124,20 @@ export const LanguagesListPage: React.FC = () => {
             </Card>
 
             {/* Liste des langues */}
-            <div className={"bg-card-custom"}>
-                <h2 className="text-xl font-semibold mb-4">Langues enregistrées</h2>
+            <div>
+                <h2 className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
                 {langues.length === 0 ? (
                     <p>Aucune langue pour le moment.</p>
                 ) : (
                     <div className="grid gap-4">
                         {langues.map((langue) => (
-                            <Card key={langue.id} className="border">
+                            <Card key={langue.id} className="border bg-card-custom">
                                 <CardHeader>
                                     <CardTitle>{langue.nom}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <p>
                                         <strong>Niveau :</strong> {langue.niveau}
-                                    </p>
-                                    <p>
-                                        <strong>Extrait :</strong> {langue.extrait}
                                     </p>
                                 </CardContent>
                                 <CardFooter className="flex space-x-2">

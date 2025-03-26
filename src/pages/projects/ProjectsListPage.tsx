@@ -10,6 +10,9 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+// Librairie sonner pour les notifications
+import { toast } from 'sonner'
+
 // Interface du projet
 import { ProjectInterface } from '@/interface/ProjectInterfaces.ts'
 
@@ -96,12 +99,14 @@ export default function ProjectsListPage() {
         setProjects((prev) => [...prev, newProject])
         setShowNewProjectForm(false)
         reset()
+        toast.success('Nouveau projet ajouté !')
     }
 
     // Annuler la création (ferme le formulaire et réinitialise les champs)
     const handleCancelNewProject = () => {
         reset()
         setShowNewProjectForm(false)
+        toast('Création annulée')
     }
 
     // Modifier une tâche existante (exemple via prompt)
@@ -118,6 +123,7 @@ export default function ProjectsListPage() {
                 return { ...project, tasks: updatedTasks }
             })
         )
+        toast.success('Tâche modifiée !')
     }
 
     // Supprimer une tâche existante
@@ -129,10 +135,12 @@ export default function ProjectsListPage() {
                 return { ...project, tasks: updatedTasks }
             })
         )
+        toast.error('Tâche supprimée !')
     }
 
     return (
         <div className="w-full max-w-lg mx-auto p-4">
+
             {/* Header avec Formation, Expérience Pro, Nouveau */}
             <div className="flex items-center justify-between mb-4">
                 <Button variant="link" onClick={() => navigate('/formation')}>
@@ -254,7 +262,6 @@ export default function ProjectsListPage() {
                                 className="flex items-center justify-between bg-gray-50 p-2 rounded"
                             >
                                 <span>{task}</span>
-                                {/* Les boutons Modifier / Supprimer sur la même ligne */}
                                 <div className="space-x-2">
                                     <Button
                                         variant="default"

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { Toaster, toast } from "sonner"
+import { toast } from "sonner"
 import { Hobby } from "@/interface/HobbyInterface"
 
 // Composants shadcn/ui
@@ -96,9 +96,6 @@ export default function HobbiesListPage() {
 
     return (
         <div className="container mx-auto max-w-md p-4">
-            {/* Composant pour les toasts */}
-            <Toaster position="top-right" />
-
             {/* Mode Liste */}
             {mode === "list" && (
                 <Card className={"bg-card-custom text-black"}>

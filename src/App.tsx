@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useContext } from "react";
 import { AuthContext } from "@/hook/contexts/auth.context";
-import { Toaster } from "sonner"
+
 
 // Importation de layouts
 import AdaptiveLayout from "@/components/layouts/AdaptiveLayout.tsx";
@@ -46,6 +46,7 @@ import {PrivacyPolicyPage} from "@/pages/footer/PrivacyPolicyPage.tsx";
 import HobbiesListPage from "@/pages/hobbies/HobbiesListPage.tsx";
 import {LanguagesListPage} from "@/pages/languages/LanguagesListPage.tsx";
 import ProjectsListPage from "@/pages/projects/ProjectsListPage.tsx";
+import {SkillsListPage} from "@/pages/skills/SkillsListPage.tsx";
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -57,7 +58,7 @@ function App() {
     console.log("isAuthenticated in App.tsx:", isAuthenticated);
 
     return (
-        <>
+
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute />}>
@@ -154,14 +155,15 @@ function App() {
                                element={<LanguagesListPage/>} />
                         <Route path="/projects"
                                element={<ProjectsListPage/>} />
+                        <Route path="/skills"
+                                 element={<SkillsListPage/>} />
                     </Route>
                 </Route>
 
             {/* Route page non trouvée */}
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
-    <Toaster position="top-center" richColors />
-    </>
+
     );
 }
 

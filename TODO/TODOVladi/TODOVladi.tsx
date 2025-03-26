@@ -26,8 +26,8 @@
 //TODO: [] Lier les pages
 //TODO: [] Faire les cypress
 //TODO: [v] projet
-//TODO: [] skills
-//TODO: []
+//TODO: [v] skills
+//TODO: [] Verifier le toast partout
 //TODO: []
 //TODO: []
 
