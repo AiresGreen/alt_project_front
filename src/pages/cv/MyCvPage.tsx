@@ -33,7 +33,7 @@ export default function MyCvPage() {
                             </div>
                             <p className="mt-2 text-sm text-gray-700">CV PROB DE FRANÇAIS</p>
                             <Link to={"/cv-builder"}>
-                                <Button className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition">
+                                <Button className="flex items-center gap-2 font-bold py-2 px-4 rounded transition">
                                     <FaRegEdit />
                                     Modifier
                                 </Button>

@@ -166,7 +166,7 @@ export const SkillsListPage = () => {
     const renderList = () => {
         return (
             <>
-                <ul className="space-y-4 bg-card-custom">
+                <ul className="space-y-4 ">
                     {skills.map((skill) => (
                         <li
                             key={skill.id}
@@ -206,7 +206,7 @@ export const SkillsListPage = () => {
         return (
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmitForm)}>
-                    <Card className="bg-card-custom">
+                    <Card className="">
                         <CardHeader>
                             <CardTitle className="text-lg font-bold">{titleForm}</CardTitle>
                         </CardHeader>

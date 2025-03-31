@@ -115,12 +115,12 @@ export default function FolowApplicationPage() {
                     Suivi de mes candidatures
                 </h1>
 
-                <div className="space-y-6 bg-card-custom">
+                <div className="space-y-6 ">
                     {/* On mappe sur `fields` (venant de useFieldArray) */}
                     {fields.map((cand, index) => (
                         <div
                             key={cand.id} // `field.id` géré par RHF, ici on peut aussi utiliser cand.id
-                            className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
+                            className="border"
                         >
                             {/* Titre de l'offre */}
                             <div className="text-lg font-semibold mb-4">
@@ -140,8 +140,7 @@ export default function FolowApplicationPage() {
                                                 className="
                           w-5 h-5
                           flex items-center justify-center
-                          rounded border border-gray-300
-                          bg-white
+                          rounded border
                           focus:outline-none focus:ring-2 focus:ring-blue-500
                         "
                                             >
@@ -186,8 +185,7 @@ export default function FolowApplicationPage() {
                                                     <SelectTrigger
                                                         className="
                               w-full inline-flex items-center justify-between
-                              rounded border border-gray-300
-                              bg-white px-2 py-1
+                              rounded border px-2 py-1
                               focus:outline-none focus:ring-2 focus:ring-blue-500
                             "
                                                     >
@@ -196,7 +194,7 @@ export default function FolowApplicationPage() {
                                                 </FormControl>
                                                 <SelectContent
                                                     className="
-                            bg-white border border-gray-300
+
                             rounded shadow-lg z-50 text-black
                           "
                                                 >
@@ -224,8 +222,7 @@ export default function FolowApplicationPage() {
                                                     <SelectTrigger
                                                         className="
                               w-full inline-flex items-center justify-between
-                              rounded border border-gray-300
-                              bg-white px-2 py-1
+                              rounded border  px-2 py-1
                               focus:outline-none focus:ring-2 focus:ring-blue-500
                             "
                                                     >
@@ -234,7 +231,6 @@ export default function FolowApplicationPage() {
                                                 </FormControl>
                                                 <SelectContent
                                                     className="
-                            bg-white border border-gray-300
                             rounded shadow-lg z-50 text-black
                           "
                                                 >
@@ -262,8 +258,7 @@ export default function FolowApplicationPage() {
                                                     <SelectTrigger
                                                         className="
                               w-full inline-flex items-center justify-between
-                              rounded border border-gray-300
-                              bg-white px-2 py-1
+                              rounded border px-2 py-1
                               focus:outline-none focus:ring-2 focus:ring-blue-500
                             "
                                                     >
@@ -272,7 +267,6 @@ export default function FolowApplicationPage() {
                                                 </FormControl>
                                                 <SelectContent
                                                     className="
-                            bg-white border border-gray-300
                             rounded shadow-lg z-50 text-black
                           "
                                                 >

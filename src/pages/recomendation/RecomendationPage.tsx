@@ -13,7 +13,7 @@ export default function MesRecommandations() {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
-    <div className="min-h-screen bg-white text-gray-800">
+    <div className="min-h-screen">
       {isMobile ? <MobileLayout /> : <DesktopLayout />}
     </div>
   );

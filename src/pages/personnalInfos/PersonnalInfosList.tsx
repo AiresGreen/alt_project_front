@@ -114,7 +114,7 @@ export default function PersonalInfosList() {
             {!editMode && (
                 <>
                     {info ? (
-                        <div className="w-full max-w-md space-y-2 bg-card-custom shadow">
+                        <div className="w-full max-w-md space-y-2  shadow">
                             <p><strong>Nom :</strong> {info.nom}</p>
                             <p><strong>Prénom :</strong> {info.prenom}</p>
                             <p>
@@ -149,7 +149,7 @@ export default function PersonalInfosList() {
             {editMode && (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="w-full max-w-md space-y-4 p-6 rounded-xl bg-card-custom shadow"
+                    className="w-full max-w-md space-y-4 p-6 rounded-xl  shadow"
                 >
                     <div>
                         <Label htmlFor="nom">Nom</Label>

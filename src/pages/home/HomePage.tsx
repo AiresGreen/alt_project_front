@@ -47,7 +47,7 @@ export default function HomePage() {
                             </div>
                             <section className="w-full space-y-4">
                                 {[1, 2].map((i) => (
-                                    <Card key={i} className="bg-card-custom">
+                                    <Card key={i} className="">
                                         <CardHeader>
                                             <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
                                             <CardDescription>
@@ -74,7 +74,7 @@ export default function HomePage() {
                         </>
                     ) : (
                         <>
-                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4 bg-gradient-to-b from-teal-500 to-blue-700">
+                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4">
                                 <FiltersAccordion />
                                 {isAuthenticated ? (
                                     <Button variant="outline" className="w-full mt-4" onClick={() => navigate('/profile-page')}>
@@ -88,7 +88,7 @@ export default function HomePage() {
                             </aside>
                             <section className="md:w-3/4 w-full space-y-4">
                                 {[1, 2].map((i) => (
-                                    <Card key={i} className="bg-card-custom">
+                                    <Card key={i} className="">
                                         <CardHeader>
                                             <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
                                             <CardDescription>

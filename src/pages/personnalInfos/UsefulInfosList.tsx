@@ -48,7 +48,7 @@ export const UsefulInfosList = () => {
             </header>
 
             {/* Liste des infos */}
-            <div className="bg-white shadow rounded p-4 bg-card-custom">
+            <div className="shadow rounded p-4 ">
                 {infos.map((info, index) => (
                     <div
                         key={index}
@@ -76,7 +76,7 @@ export const UsefulInfosList = () => {
                     />
                     <button
                         onClick={handleAddInfo}
-                        className="bg-blue-500 text-white px-4 rounded-r hover:bg-blue-600"
+                        className="px-4 rounded-r "
                     >
                         Ajouter
                     </button>
@@ -90,7 +90,7 @@ export const UsefulInfosList = () => {
 
             {/* Mentions sur la confidentialité */}
             <footer className="mt-8 text-xs text-gray-500">
-                <p className={"bg-gray-500 rounded-lg p-2"}>
+                <p className={" rounded-lg p-2"}>
                     Les informations saisies ici sont facultatives et servent uniquement à vous aider dans votre recherche d’emploi. Vous restez libre de choisir quelles informations partager avec les recruteurs. Pour en savoir plus sur la gestion de vos données, consultez notre{' '}
                     <a href="/politique-confidentialite" className="text-blue-500 underline">
                         Politique de confidentialité

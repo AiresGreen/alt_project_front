@@ -165,7 +165,7 @@ export default function ProjectsListPage() {
             {showNewProjectForm && (
                 <form
                     onSubmit={handleSubmit(onSubmitNewProject)}
-                    className="space-y-3 mb-6 border p-5 rounded bg-gray-50"
+                    className="space-y-3 mb-6 border p-5 rounded "
                 >
                     {/* Champ Titre */}
                     <div>
@@ -251,7 +251,7 @@ export default function ProjectsListPage() {
 
             {/* Liste des projets existants */}
             {projects.map((project) => (
-                <div key={project.id} className="mb-6 bg-card-custom p-3 rounded">
+                <div key={project.id} className="mb-6  p-3 rounded">
                     <h2 className="text-lg font-semibold">{project.title}</h2>
                     <p className="text-sm text-gray-700 mb-2">{project.organization}</p>
 
@@ -260,7 +260,7 @@ export default function ProjectsListPage() {
                         {project.tasks.map((task, index) => (
                             <li
                                 key={index}
-                                className="flex items-center justify-between bg-gray-50 p-2 rounded"
+                                className="flex items-center justify-between  p-2 rounded"
                             >
                                 <span>{task}</span>
                                 <div className="space-x-2">

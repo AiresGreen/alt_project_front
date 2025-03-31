@@ -47,7 +47,7 @@ export const ProfilePicturePage = () => {
     const currentPhoto = photos.length > 0 ? photos[photos.length - 1] : null;
 
     return (
-        <div className="flex flex-col gap-12 bg-background/65 rounded-xl items-center p-4">
+        <div className="flex flex-col gap-12 rounded-xl items-center p-4">
             <Avatar className="flex flex-col  gap-4 ">
                 {currentPhoto ? (
                     <AvatarImage

@@ -77,7 +77,7 @@ export default function QuestionPage() {
 
   return (
     <div className="mx-auto max-w-md p-4">
-      <Card className="bg-card-custom">
+      <Card className="">
         <CardHeader>
           <CardTitle className="text-center">
             ENVOYER LA QUESTION SUR LES POINTS À AMÉLIORER ?
@@ -218,7 +218,7 @@ export default function QuestionPage() {
                     value="oui"
                     className="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center"
                   >
-                    <RadioGroup.Indicator className="w-2 h-2 rounded-full bg-black" />
+                    <RadioGroup.Indicator className="w-2 h-2 rounded-full " />
                   </RadioGroup.Item>
                   <label htmlFor="oui" className="text-gray-950">
                     Oui, j’aimerais en discuter
@@ -230,7 +230,7 @@ export default function QuestionPage() {
                     value="non"
                     className="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center"
                   >
-                    <RadioGroup.Indicator className="w-2 h-2 rounded-full bg-black" />
+                    <RadioGroup.Indicator className="w-2 h-2 rounded-full" />
                   </RadioGroup.Item>
                   <label htmlFor="non" className="text-gray-950">
                     Non, il n’y aura pas d’opportunité correspondante
@@ -251,8 +251,8 @@ export default function QuestionPage() {
 
       {/* MODAL DE CONFIRMATION */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white w-72 p-6 rounded-md text-center">
+        <div className="fixed inset-0 z-50 flex items-center justify-center ">
+          <div className="w-72 p-6 rounded-md text-center">
             <p className="text-xl font-semibold text-black">
               VOTRE DEMANDE DE RETOUR A ÉTÉ ENVOYÉE.
             </p>

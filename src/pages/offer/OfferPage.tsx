@@ -63,7 +63,7 @@ export default function OfferPage() {
 
     return (
         <div className="p-4 md:p-8 min-h-screen">
-            <Card className="max-w-4xl mx-auto shadow-lg bg-card-custom">
+            <Card className="max-w-4xl mx-auto shadow-lg ">
                 <CardHeader>
                     <CardTitle className="text-xl md:text-2xl font-semibold">
                         [Titre du poste] - CDI / CDD / Freelance - [Ville ou Remote]

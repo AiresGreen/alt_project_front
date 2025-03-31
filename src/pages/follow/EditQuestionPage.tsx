@@ -10,7 +10,7 @@ export default function EditQuestionPage() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center px-4 py-6">
-            <div className="w-full max-w-md bg-white rounded-lg p-4 shadow-md">
+            <div className="w-full max-w-md  rounded-lg p-4 shadow-md">
                 <h1 className="text-xl font-bold mb-4">Écrivez votre message</h1>
 
                 <textarea

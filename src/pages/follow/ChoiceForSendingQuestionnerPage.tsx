@@ -40,8 +40,8 @@ export default function ChoiceForSendingQuestionnerPage() {
     }
     console.log(candidatures)
     return (
-        <div className="min-h-screen bg-white">
-            <div className="bg-blue-600 text-white p-4">
+        <div className="min-h-screen ">
+            <div className="p-4">
                 <h1 className="text-xl font-bold">Suivi de mes candidatures</h1>
             </div>
 
@@ -49,12 +49,12 @@ export default function ChoiceForSendingQuestionnerPage() {
                 {candidatures.map((cand) => (
                     <div key={cand.id} className="rounded-md overflow-hidden shadow">
                         {/* Header coloré */}
-                        <div className="bg-blue-600 text-white p-3 font-semibold">
+                        <div className="p-3 font-semibold">
                             {cand.title} - {cand.contractType} - {cand.location}
                         </div>
 
                         {/* Contenu de la candidature */}
-                        <div className="bg-white p-4">
+                        <div className="p-4">
                             <div className="grid grid-cols-4 gap-4">
                                 {/* CV */}
                                 <div>

@@ -76,7 +76,7 @@ export const LanguagesListPage = () => {
     return (
         <div className="p-6 space-y-6">
             {/* Formulaire de création / édition */}
-            <Card className="bg-card-custom">
+            <Card className="">
                 <CardHeader>
                     <CardTitle className="text-lg font-bold">
                         {isEditing ? "Modifier une langue" : "Ajouter une nouvelle langue"}
@@ -125,14 +125,14 @@ export const LanguagesListPage = () => {
             </Card>
 
             {/* Liste des langues */}
-            <div className={"bg-card-custom"}>
+            <div className={""}>
                 <h2 className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
                 {langues.length === 0 ? (
                     <p>Aucune langue pour le moment.</p>
                 ) : (
                     <div className="grid gap-4">
                         {langues.map((langue) => (
-                            <Card key={langue.id} className="border bg-card-custom">
+                            <Card key={langue.id} className="border ">
                                 <CardHeader>
                                     <CardTitle>{langue.nom}</CardTitle>
                                 </CardHeader>

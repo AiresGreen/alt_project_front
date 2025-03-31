@@ -50,7 +50,7 @@ export default function ChangePasswordForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-md p-6 space-y-6 rounded-xl bg-card-custom shadow"
+            className="w-full max-w-md p-6 space-y-6 rounded-xl  shadow"
         >
             {/* Ancien mot de passe */}
             <div className="relative">

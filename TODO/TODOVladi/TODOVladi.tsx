@@ -1,3 +1,14 @@
+//MVP Pages
+//TODO: [] Auth
+//TODO: [] Home
+//TODO: [] Profile
+//TODO: [] CvConstruct
+//TODO: [] Follow
+
+
+
+
+
 // Date: 21/03/2025
 //TODO: [v] Voir navbar sur les page d'inscription et de connexion, tout ce qui est dans auth et profile
 //TODO: [v] Voir le navbar connecté : manque barre de recherche, liens
@@ -30,4 +41,11 @@
 //TODO: [v] Verifier le toast partout
 //TODO: [v] Checker les interfaces
 //TODO: []
+
+//Page à revoir
+//Todo: [ ] Service
+//TODO: [ ] QuestionPage
+//TODO: [ ] CvConstructPage - conseil Ange + badge - ne se retire pas
+//TODO: [ ] RecommendationPage
+//TODO: [ ]
 

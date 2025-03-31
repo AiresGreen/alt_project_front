@@ -72,13 +72,13 @@ export const SigninPage = () => {
 
     return (
         <>
-            <div className="bg-green-300  m-8 rounded-xl ">
-                <h1 className="font-[var(--font-nunito)] text-center text-3xl md:text-6xl bg-gradient-to-r from-cyan-700 to-blue-950 bg-clip-text text-transparent bord ">
+            <div className="m-8 rounded-xl ">
+                <h1 className="font-[var(--font-nunito)] text-center text-3xl md:text-6xl text-transparent bord ">
                     {" "}
                     INSCRIPTION{" "}
                 </h1>
             </div>
-            <div className="bg-background/65 rounded-xl">
+            <div className="rounded-xl">
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}

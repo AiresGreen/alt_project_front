@@ -11,7 +11,7 @@ export const EmployerPage = () => {
             <header>
                 <h1 className="text-2xl font-bold mb-6">MES CANDIDATURES</h1>
             </header>
-            <Card className="bg-card-custom p-4 mb-4 border rounded-2xl shadow-md">
+            <Card className=" p-4 mb-4 border rounded-2xl shadow-md">
                 <h2 className="text-lg font-bold flex items-center gap-2">
                     🚀 EntrepriseTech – Innover, Connecter, Réussir
                 </h2>

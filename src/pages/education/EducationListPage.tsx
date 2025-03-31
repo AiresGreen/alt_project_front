@@ -238,7 +238,7 @@ export default function EducationListePage() {
             <h1 className="text-2xl font-bold">Gestion Projets & Formations</h1>
 
             {/* Section d'ajout de Projets */}
-            <Card className={"bg-card-custom text-black"}>
+            <Card className={" text-black"}>
                 <CardHeader>
                     <CardTitle>Projets</CardTitle>
                     <CardDescription className={"text-gray-700"}>Ajoutez un nouveau projet</CardDescription>
@@ -372,7 +372,7 @@ export default function EducationListePage() {
             </div>
 
             {/* Section d'ajout de Formations */}
-            <Card className={"text-black bg-card-custom"}>
+            <Card className={"text-black "}>
                 <CardHeader>
                     <CardTitle className={"text-black"}>Formations</CardTitle>
                     <CardDescription className={"text-gray-700"}>Ajoutez une nouvelle formation</CardDescription>
@@ -556,7 +556,7 @@ export default function EducationListePage() {
                     <p>Aucune formation ajoutée.</p>
                 ) : (
                     <table className="min-w-full text-sm">
-                        <thead className="bg-blue-500">
+                        <thead>
                         <tr>
                             <th className="p-2 text-left">Organisme</th>
                             <th className="p-2 text-left">Diplôme</th>
@@ -565,7 +565,7 @@ export default function EducationListePage() {
                             <th className="p-2 text-left">Actions</th>
                         </tr>
                         </thead>
-                        <tbody className={"bg-white"}>
+                        <tbody>
                         {formations.map((form) => (
                             <tr key={form.id} className="border-b last:border-none">
                                 <td className="p-2">{form.organisme}</td>
@@ -591,8 +591,8 @@ export default function EducationListePage() {
 
             {/* Indicateur pour mobile */}
             {isMobile && (
-                <div className="bg-yellow-100 p-4 rounded-md">
-                    <p className="text-yellow-800">Mode mobile (adaptive layout).</p>
+                <div className="p-4 rounded-md">
+                    <p>Mode mobile (adaptive layout).</p>
                 </div>
             )}
         </div>

@@ -124,7 +124,7 @@ export default function ExperienceListePage() {
             {showForm && (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-4 mb-8 p-4 rounded-lg bg-card-custom"
+                    className="space-y-4 mb-8 p-4 rounded-lg "
                 >
                     <div>
                         <Label htmlFor="poste">Poste</Label>
@@ -203,7 +203,7 @@ export default function ExperienceListePage() {
             )}
 
             {/* Liste des expériences */}
-            <div className="space-y-4 bg-card-custom">
+            <div className="space-y-4 ">
                 {experiences.map((exp, index) => (
                     <div
                         key={index}

@@ -73,7 +73,7 @@ export default function ContactEmployeeListPage() {
 
         // Conversation : si un membre est sélectionné (ou si on est sur desktop)
         return (
-            <Card className="flex flex-col w-full h-full bg-card-custom p-4 text-black">
+            <Card className="flex flex-col w-full h-full  p-4 text-black">
                 <CardHeader className="flex items-center justify-between">
                     {isMobile && (
                         <BackButton/>
@@ -129,7 +129,7 @@ export default function ContactEmployeeListPage() {
             ) : (
                 <div className="flex h-full gap-4">
                     {/* Liste des membres */}
-                    <div className="w-1/3 border-r border-gray-300 pr-4 flex flex-col gap-2 bg-card-custom p-4">
+                    <div className="w-1/3 border-r border-gray-300 pr-4 flex flex-col gap-2  p-4">
                         {teamMembers.map((member) => (
                             <Card
                                 key={member.id}

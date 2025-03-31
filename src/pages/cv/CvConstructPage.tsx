@@ -91,7 +91,7 @@ export const CvConstructPage = () => {
                     console.log("Form Data:", values);
                     toast.success("CV sauvegardé avec succès !");
                 })}
-                className="p-4 gap-4 bg-background text-foreground grid grid-cols-1 lg:grid-cols-12"
+                className="p-4 gap-4 text-foreground grid grid-cols-1 lg:grid-cols-12"
             >
                 {/* Colonne gauche - formulaire utilisateur */}
                 <div className="lg:col-span-4 space-y-4 pr-6 border-r">
@@ -305,7 +305,7 @@ export const CvConstructPage = () => {
                                                     | undefined)?.map((val) => (
                                                     <Badge
                                                         key={val}
-                                                        variant="secondary"
+                                                        variant="default"
                                                         className="flex justify-between items-center gap-2"
                                                         data-cy={`${field}-list`}
                                                     >

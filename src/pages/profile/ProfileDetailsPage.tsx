@@ -77,7 +77,7 @@ export const ProfileDetailsPage = () => {
             {/* Cartes correspondant aux différentes sections du CV */}
             <section className="space-y-4 ">
                 {/* Infos Zutiles */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Infos Zutiles</CardTitle>
                     </CardHeader>
@@ -101,7 +101,7 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Expériences Professionnelles */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Expériences Professionnelles</CardTitle>
                     </CardHeader>
@@ -126,7 +126,7 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Formation / Education */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Formation / Éducation</CardTitle>
                     </CardHeader>
@@ -152,7 +152,7 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Compétences */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Compétences</CardTitle>
                     </CardHeader>
@@ -178,7 +178,7 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Projets de Folie */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Projets de Folie</CardTitle>
                     </CardHeader>
@@ -204,7 +204,7 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Langues Parlées */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Langues Parlées</CardTitle>
                     </CardHeader>
@@ -230,7 +230,7 @@ export const ProfileDetailsPage = () => {
                 </Card>
 
                 {/* Loisirs */}
-                <Card className="bg-card-custom text-black">
+                <Card className=" text-black">
                     <CardHeader>
                         <CardTitle>Loisirs</CardTitle>
                     </CardHeader>

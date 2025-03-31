@@ -99,7 +99,7 @@ export default function HobbiesListPage() {
         <div className="container mx-auto max-w-md p-4">
             {/* Mode Liste */}
             {mode === "list" && (
-                <Card className={"bg-card-custom text-black"}>
+                <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl">Loisirs</CardTitle>
                         <CardDescription className={"text-black"}>Gérez la liste de vos hobbies</CardDescription>

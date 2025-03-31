@@ -32,13 +32,13 @@ export const LoginRecoveryPage = () => {
     }
     return (
         <>
-            <div className="bg-green-300 md:m-20 m-8">
-                <h1 className="font-[var(--font-nunito)] text-center text-3xl md:text-6xl bg-gradient-to-r from-cyan-700 to-blue-950 bg-clip-text text-transparent bord ">
+            <div className=" md:m-20 m-8">
+                <h1 className="font-[var(--font-nunito)] text-center text-3xl md:text-6xl text-transparent bord ">
                     {" "}
                     Récupération d'accès{" "}
                 </h1>
             </div>
-            <div className="bg-background/65 rounded-xl">
+            <div className="rounded-xl">
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
