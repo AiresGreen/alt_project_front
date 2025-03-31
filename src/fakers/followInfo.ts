@@ -1,0 +1,1 @@
+//tableau des offre d'emploi qui corresponde à la structure affichée sur la page RepeatApplicationPage, FollowApplicationPage

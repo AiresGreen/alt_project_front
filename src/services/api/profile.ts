@@ -1,0 +1,1 @@
+//point d'API pour recouperer l'information pour la page ProfilePage

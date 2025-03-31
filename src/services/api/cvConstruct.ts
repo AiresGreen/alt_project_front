@@ -1,0 +1,1 @@
+//point API pour recouperer l'information pour la page CvConstructPage
