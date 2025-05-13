@@ -1,47 +1,46 @@
-import axios from "axios";
+import { useApi } from "@/hook/useApi";
 
-interface UserPayload {
-  name: string;
-  email: string;
-  telephone?: string;
-  adresse?: string;
-}
 
-interface ResponseData {
-  message: string;
-  user: any;
-}
+const api = useApi();
 
-const BASE_URL = 'http://localhost:3000/users'; // URL de l'API simulant la base de données
 
-/**
- * API pour signin.
- * Vérifie si l'utilisateur existe déjà en effectuant une requête GET sur l'API.
- * S'il n'existe pas, il est créé via une requête POST.
- */
-export async function signin(payload: UserPayload): Promise<ResponseData> {
+export const signin = async (payload: { email: string; password: string }) => {
   try {
-    // Vérification de l'existence de l'utilisateur par email
-    const { data: existingUsers } = await axios.get(BASE_URL, {
-      params: { email: payload.email },
-    });
+    // Envoi d'une requête POST vers /auth/signin avec les identifiants
+    const { data } = await api.post("/auth/signin", payload);
 
-    if (existingUsers && existingUsers.length > 0) {
-      // L'utilisateur existe déjà
-      return {
-        message: "Utilisateur existe déjà",
-        user: existingUsers[0],
-      };
-    } else {
-      // Création d'un nouvel utilisateur
-      const { data: newUser } = await axios.post(BASE_URL, payload);
-      return {
-        message: "Utilisateur créé avec succès",
-        user: newUser,
-      };
+    // Si le backend renvoie des tokens, on les stocke dans le localStorage
+    if (data.access_token && data.refresh_token) {
+      localStorage.setItem("access-token", data.access_token);
+      localStorage.setItem("refresh-token", data.refresh_token);
     }
-  } catch (error) {
-    console.error(error);
-    throw new Error("Erreur lors de la connexion");
+
+
+    return data;
+  } catch (error: any) {
+    throw error.response?.data?.message || "Erreur lors de la connexion";
   }
-}
+};
+
+
+export const signup = async (payload: {
+  email: string;
+  username: string;
+  lastname: string;
+  password: string;
+}) => {
+  try {
+    // Envoi d'une requête POST vers /auth/signup avec les infos de l'utilisateur
+    const { data } = await api.post("/auth/signup", payload);
+
+    // Stockage immédiat des tokens reçus après inscription
+    if (data.access_token && data.refresh_token) {
+      localStorage.setItem("access-token", data.access_token);
+      localStorage.setItem("refresh-token", data.refresh_token);
+    }
+
+    return data;
+  } catch (error: any) {
+    throw error.response?.data?.message || "Erreur lors de l'inscription";
+  }
+};

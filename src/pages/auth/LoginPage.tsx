@@ -31,13 +31,15 @@ export const LoginPage = () => {
       password: ""
     }
   });
-  // 2. Define a submit handler.
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
     console.log(values);
-    signin(values)
-    updateAuthentication(true);
+      signin(values)
+          .then(() => updateAuthentication(true))
+          .catch((err) =>
+              form.setError("email", { message: err || "Identifiants invalides" })
+          );
   }
 
   return (
