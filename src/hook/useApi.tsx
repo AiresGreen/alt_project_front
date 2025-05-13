@@ -19,8 +19,13 @@ export function useApi() {
         const token = localStorage.getItem("access-token");
         //  et l'injecter dans la requete
         token ? (config.headers["Authorization"] = "Bearer " + token) : "";
+
         return config
     });
+
+
+
+
 
     api.interceptors.response.use(
         (response: any) => response,

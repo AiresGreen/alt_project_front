@@ -46,6 +46,7 @@ import { LanguagesListPage } from "@/pages/languages/LanguagesListPage.tsx";
 import ProjectsListPage from "@/pages/projects/ProjectsListPage.tsx";
 import { SkillsListPage } from "@/pages/skills/SkillsListPage.tsx";
 import { ProfileDetailsPage } from "@/pages/profile/ProfileDetailsPage.tsx";
+import VerificationEnAttentePage from "./pages/VerificationEnAttentePage.tsx";
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -111,6 +112,8 @@ function App() {
 
             {/* Route pour page non trouvée */}
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/verification-en-attente" element={<VerificationEnAttentePage />} />
+
         </Routes>
     );
 }

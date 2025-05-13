@@ -1,7 +1,10 @@
 export interface IUserProfile {
     avatarUrl?: string;
     initials?: string;
-    username?: string;
-    email?: string;
     [key: string]: any;
+    id: number;
+    email: string;
+    firstname: string;
+    lastname: string;
+    emailVerified: boolean;
 }

@@ -14,10 +14,13 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {signup} from "@/services/api/auth.ts";
+import {useNavigate} from "react-router-dom";
+
+
 
 const formSchema = z
     .object({
-        username: z.string().nonempty("Le prénom doit être présent"),
+        firstname: z.string().nonempty("Le prénom doit être présent"),
         lastname: z.string().nonempty("Le nom est nécessaire"),
         email: z
             .string()
@@ -55,21 +58,28 @@ export const SigninPage = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            firstname: "",
             lastname: "",
             email: "",
             password: "",
         },
     });
-
+    const navigate = useNavigate();
 
     function onSubmit(values: z.infer<typeof formSchema>) {
 
         console.log(values);
         console.log("click");
-        const { email, password, username, lastname } = values;
-        signup({ email, password, username, lastname })
-            .then(() => updateAuthentication(true))
+
+        signup(values)
+            .then((user) => {
+                if (user.emailVerified) {
+                    updateAuthentication(true, user);
+                } else {
+                    updateAuthentication(false, user);
+                    navigate("/verification-en-attente");
+                }
+            })
             .catch((err) =>
                 form.setError("email", { message: err || "Inscription échouée" })
             );
@@ -91,7 +101,7 @@ export const SigninPage = () => {
                     >
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="firstname"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Prénom</FormLabel>
@@ -164,7 +174,7 @@ export const SigninPage = () => {
                                         <Input
                                             type="password"
                                             placeholder="Confirmation"
-                                            {...field}
+                                            {...field} value={field.value ?? ""}
                                         />
                                     </FormControl>
                                     <FormMessage />
