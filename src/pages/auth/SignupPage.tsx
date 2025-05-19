@@ -18,6 +18,7 @@ import {useNavigate} from "react-router-dom";
 
 
 
+
 const formSchema = z
     .object({
         firstname: z.string().nonempty("Le prénom doit être présent"),
@@ -53,7 +54,7 @@ const formSchema = z
         path: ["passwordconfirmation"],
     });
 
-export const SigninPage = () => {
+export const SignupPage = () => {
     const { updateAuthentication } = useContext(AuthContext);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -72,7 +73,7 @@ export const SigninPage = () => {
         console.log("click");
 
         signup(values)
-            .then((user) => {
+            .then((user:any) => {
                 if (user.emailVerified) {
                     updateAuthentication(true, user);
                 } else {
@@ -80,7 +81,7 @@ export const SigninPage = () => {
                     navigate("/verification-en-attente");
                 }
             })
-            .catch((err) =>
+            .catch((err:any) =>
                 form.setError("email", { message: err || "Inscription échouée" })
             );
     }

@@ -10,7 +10,7 @@ import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
 
 // Importation de pages
-import { SigninPage } from "@/pages/auth/SigninPage.tsx";
+import { SignupPage } from "@/pages/auth/SignupPage.tsx";
 import AproposPage from "@/pages/footer/AproposPage.tsx";
 import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
@@ -62,7 +62,7 @@ function App() {
             {/* Routes Publiques */}
             <Route element={<PublicRoute />}>
                 <Route element={<AdaptiveLayout />}>
-                    <Route path="/signin" element={<SigninPage />} />
+                    <Route path="/signin" element={<SignupPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/loginrecovery" element={<LoginRecoveryPage />} />
                     <Route path="/passwordrecovery" element={<PasswordRecoveryPage />} />
