@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useContext } from "react";
 import { AuthContext } from "@/hook/contexts/auth.context";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 // Importation de layouts
 import AdaptiveLayout from "@/components/layouts/AdaptiveLayout.tsx";
@@ -48,6 +49,7 @@ import { SkillsListPage } from "@/pages/skills/SkillsListPage.tsx";
 import { ProfileDetailsPage } from "@/pages/profile/ProfileDetailsPage.tsx";
 import VerificationEnAttentePage from "./pages/VerificationEnAttentePage.tsx";
 
+
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
     const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
@@ -58,6 +60,7 @@ function App() {
     console.log("isAuthenticated in App.tsx:", isAuthenticated);
 
     return (
+        <>
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute />}>
@@ -115,6 +118,9 @@ function App() {
             <Route path="/verification-en-attente" element={<VerificationEnAttentePage />} />
 
         </Routes>
+
+    <ReactQueryDevtools/>
+        </>
     );
 }
 

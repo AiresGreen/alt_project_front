@@ -36,11 +36,15 @@ export const LoginPage = () => {
 
     console.log(values);
       signin(values)
-          .then((user) => {
-              if (user.emailVerified) {
-                  updateAuthentication(true, user);
+          .then((response) => {
+              console.log(response);
+              if (response.user.emailVerified) {
+                  localStorage.setItem("access-token", response.accessToken);
+                  localStorage.setItem("refresh-token", response.refreshToken);
+                  console.log("🚀 les tokens dans localstorage");
+                  updateAuthentication(true, response.user);
               } else {
-                  updateAuthentication(false, user);
+                  updateAuthentication(false, response.user);
                   navigate("/verification-en-attente");
               }
           })

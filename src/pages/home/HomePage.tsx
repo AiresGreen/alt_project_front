@@ -13,12 +13,26 @@ import {
 } from '@/components/ui/sheet';
 import { FiltersAccordion } from '@/components/filters/FiltersAccordion';
 import { Filter } from 'lucide-react';
+import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {OfferInterface} from "@/interface/OfferInterface.ts"
+import {getOffers} from "@/services/api/home.ts";
+
 
 export default function HomePage() {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const { isAuthenticated } = useContext(AuthContext);
     const [openSheet, setOpenSheet] = useState(false);
     const navigate = useNavigate();
+
+    //===TanStack code
+    const queryClient = useQueryClient();
+console.log('coucou');
+    //===Appel get
+    const {data: offers, isLoading, isError} = useQuery<OfferInterface[]>({
+        queryKey:["offers"],
+        queryFn: () => getOffers(),
+        staleTime: 0,
+    })
 
     return (
         <div>
@@ -46,10 +60,13 @@ export default function HomePage() {
                                 </Sheet>
                             </div>
                             <section className="w-full space-y-4">
-                                {[1, 2].map((i) => (
+                                {isLoading && <span>Loading...</span>}
+                                {isError && <span>Erreur</span>}
+                                {offers && (
+                                offers.map((offer:OfferInterface, i:number)=> (
                                     <Card key={i} className="">
                                         <CardHeader>
-                                            <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
+                                            <CardTitle>[ {i}] – CDI / CDD / Freelance</CardTitle>
                                             <CardDescription>
                                                 <span className="text-sm">Lieu : Ville / Télétravail</span><br />
                                                 <span className="text-sm">Type de contrat : CDI / CDD / Alternance / Stage / Freelance</span><br />
@@ -69,7 +86,7 @@ export default function HomePage() {
                                             )}
                                         </CardFooter>
                                     </Card>
-                                ))}
+                                )))}
                             </section>
                         </>
                     ) : (

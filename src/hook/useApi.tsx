@@ -15,7 +15,7 @@ export function useApi() {
     });
 
     api.interceptors.request.use((config) => {
-        const token = localStorage.getItem('accessToken');
+        const token = localStorage.getItem('access-token');
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token;
             console.log("🚀 ~ file: useApi.ts:17 ~ api.interceptors.config.use ~ token:", token)
@@ -27,40 +27,46 @@ export function useApi() {
 
     // interceptor response API
     api.interceptors.response.use((response) => {
+        console.log("🚀 ~ useApi ~ response: usaApi donne response");
         return response
     }, async (error) => {
+        console.log("🚀 ~ useApi ~ error: useApi donne error");
         if (error.response && error.response.status === 401) {
             const originalRequest = error.config;
             if (!originalRequest._retry) {
-                // pour éviter boucle infinie du refreshToken
+                // pour éviter boucle infinie du refresh-token
                 originalRequest._retry = true;
             }
 
-            const refreshToken = localStorage.getItem('refreshToken')
+            const refreshToken = localStorage.getItem('refresh-token')
+            console.log("🚀 ~ useApi ~ refreshToken fonctionne dans useApi ")
 
             if (refreshToken) {
+                console.log("🚀 ~ useApi ~ error: ", error);
                 try {
                     const result = await refreshTokens();
-                    localStorage.setItem('accessToken', result?.data.datas.accessToken);
-                    localStorage.setItem('refreshToken', result?.data.datas.refreshToken);
-                    originalRequest.headers['Authorization'] = 'Bearer ' + result?.data.datas.accessToken;
+                    localStorage.setItem('access-token', result?.accessToken);
+                    localStorage.setItem('refresh-token', result?.refreshToken);
+                    originalRequest.headers['Authorization'] = 'Bearer ' + result?.accessToken;
                     return axios(originalRequest);
                 } catch (error) {
                     // supprimer le token et le refresh
-                    destroyTokenUser();
-                    window.location.href = "/";
+                    await destroyTokenUser();
+                    window.location.href = "/login";
                 }
             } else {
                 // supprimer le token et le refresh
-                destroyTokenUser();
-                window.location.href = "/";
+                await destroyTokenUser();
+                window.location.href = "/login";
+                console.log("refreshtoken est mort");
             }
         }
         if (error.response && error.response.status === 500) {
-            destroyTokenUser();
-            window.location.href = "/";
+            await destroyTokenUser();
+            window.location.href = "/login";
         }
         return Promise.reject(error)
+        console.log("log de la dernière ligne response de useApi")
     })
     return api
 }
