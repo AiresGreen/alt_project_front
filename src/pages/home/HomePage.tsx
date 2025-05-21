@@ -13,12 +13,24 @@ import {
 } from '@/components/ui/sheet';
 import { FiltersAccordion } from '@/components/filters/FiltersAccordion';
 import { Filter } from 'lucide-react';
+import {useQuery} from "@tanstack/react-query";
+import {OfferInterface} from "@/interface/OfferInterface.ts"
+import {getOffers} from "@/services/api/home.ts";
+
 
 export default function HomePage() {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const { isAuthenticated } = useContext(AuthContext);
     const [openSheet, setOpenSheet] = useState(false);
     const navigate = useNavigate();
+
+
+    //===Appel get
+    const {data: offers, isLoading, isError} = useQuery<OfferInterface[]>({
+        queryKey:["offers"],
+        queryFn: () => getOffers(),
+        staleTime: 0,
+    })
 
     return (
         <div>
@@ -46,18 +58,24 @@ export default function HomePage() {
                                 </Sheet>
                             </div>
                             <section className="w-full space-y-4">
-                                {[1, 2].map((i) => (
+                                {isLoading && <span>Loading...</span>}
+                                {isError && <span>Erreur</span>}
+                                {offers && (
+                                offers.map((offer:OfferInterface, i:number)=> (
                                     <Card key={i} className="">
                                         <CardHeader>
-                                            <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
+                                            <CardTitle> {offer.title}</CardTitle>
                                             <CardDescription>
-                                                <span className="text-sm">Lieu : Ville / Télétravail</span><br />
-                                                <span className="text-sm">Type de contrat : CDI / CDD / Alternance / Stage / Freelance</span><br />
-                                                <span className="text-sm">Salaire : Fourchette de rémunération</span>
+                                                <span className="text-sm">Date de publication: {offer.date_creation} </span>
+                                                <span className="text-sm">Lieu : {offer.commune} / {offer.departement} / {offer.region}</span><br />
+                                                <span className="text-sm">Type de contrat : {offer.type_contract} / {offer.duree_hebdo}</span><br />
+                                                <span className="text-sm">Salaire : {offer.salaireMin}</span>
+                                                <span className="text-sm">Domaine: {offer.domaine} </span>
+                                                <span className="text-sm">Experience: {offer.experience} </span>
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent>
-                                            <p className="text-sm">Description de l'offre, missions, profil recherché, etc.</p>
+                                            <p className="text-sm">Description: {offer.description}</p>
                                         </CardContent>
                                         <CardFooter className="flex justify-between">
                                             {isAuthenticated ? (
@@ -69,7 +87,7 @@ export default function HomePage() {
                                             )}
                                         </CardFooter>
                                     </Card>
-                                ))}
+                                )))}
                             </section>
                         </>
                     ) : (
@@ -87,24 +105,30 @@ export default function HomePage() {
                                 )}
                             </aside>
                             <section className="md:w-3/4 w-full space-y-4">
-                                {[1, 2].map((i) => (
-                                    <Card key={i} className="">
-                                        <CardHeader>
-                                            <CardTitle>[Titre du poste {i}] – CDI / CDD / Freelance</CardTitle>
-                                            <CardDescription>
-                                                <span className="text-sm">Lieu : Ville / Télétravail</span><br />
-                                                <span className="text-sm">Type de contrat : CDI / CDD / Alternance / Stage / Freelance</span><br />
-                                                <span className="text-sm">Salaire : Fourchette de rémunération</span>
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <p className="text-sm">Description de l'offre, missions, profil recherché, etc.</p>
-                                        </CardContent>
+                                {isLoading && <span>Loading...</span>}
+                                {isError && <span>Erreur</span>}
+                                {offers && (
+                                    offers.map((offer:OfferInterface, i:number)=> (
+                                        <Card key={i} className="">
+                                            <CardHeader>
+                                                <CardTitle> {offer.title}</CardTitle>
+                                                <CardDescription>
+                                                    <span className="text-sm">Date de publication: {offer.date_creation} </span>
+                                                    <span className="text-sm">Lieu : {offer.commune} / {offer.departement} / {offer.region}</span><br />
+                                                    <span className="text-sm">Type de contrat : {offer.type_contract} / {offer.duree_hebdo}</span><br />
+                                                    <span className="text-sm">Salaire : {offer.salaireMin}</span>
+                                                    <span className="text-sm">Domaine: {offer.domaine} </span>
+                                                    <span className="text-sm">Experience: {offer.experience} </span>
+                                                </CardDescription>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <p className="text-sm">Description: {offer.description}</p>
+                                            </CardContent>
                                         <CardFooter className="flex justify-end">
                                             <Button onClick={() => navigate('/offer-page')}>Voir offre</Button>
                                         </CardFooter>
                                     </Card>
-                                ))}
+                                )))}
                             </section>
                         </>
                     )}
