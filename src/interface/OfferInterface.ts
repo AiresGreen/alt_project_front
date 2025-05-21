@@ -4,7 +4,13 @@ export interface OfferInterface {
     id: number;
     title: string;
     description: string;
-    publication_date: Date;
-    user_id: number;
-    enterprise_id: number;
+    date_creation:string;
+    commune: string;
+    departement: string;
+    domaine: string;
+    duree_hebdo: string;
+    experience: string;
+    region: string;
+    type_contract: string;
+    salaireMin: string;
 }
