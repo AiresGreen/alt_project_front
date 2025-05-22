@@ -2,15 +2,17 @@
 
 export interface OfferInterface {
     id: number;
-    title: string;
+    intitule: string;
     description: string;
-    date_creation:string;
-    commune: string;
-    departement: string;
+    dateCreation:string;
+    lieuTravail: {libelle:string} ;
+    salaire: {libelle:string} ;
     domaine: string;
-    duree_hebdo: string;
-    experience: string;
-    region: string;
-    type_contract: string;
-    salaireMin: string;
+    dureeHebdo: string;
+    experienceLibelle: string;
+    entreprise:{nom:string;logo:string;url:string};
+    typeContratLibelle: string;
+    dureeTravailLibelle:string;
+    secteurActiviteLibelle:string
+
 }
