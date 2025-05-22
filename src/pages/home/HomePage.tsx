@@ -86,46 +86,75 @@ export default function HomePage() {
                                                     <CardTitle>
                                                         {offer.intitule}
                                                     </CardTitle>
-                                                    <CardDescription>
-                                                        <span className="text-sm">
-                                                            Date de publication:
-                                                            {
-                                                                offer.date_creation
-                                                            }
-                                                        </span>
-                                                        <span className="text-sm">
-                                                            Lieu :
-                                                            {offer.commune} /
-                                                            {offer.departement}/
-                                                            {offer.region}
-                                                        </span>
-                                                        <br />
-                                                        <span className="text-sm">
-                                                            Type de contrat :
-                                                            {
-                                                                offer.type_contract
-                                                            }
-                                                            /{offer.duree_hebdo}
+                                                    <CardDescription className="gap-4">
+                                                        <span className="text-sm ">
+                                                            Date de publication
+                                                            :{" "}
+                                                            {new Date(
+                                                                offer.dateCreation
+                                                            ).toLocaleString(
+                                                                "fr-FR",
+                                                                {
+                                                                    day: "2-digit",
+                                                                    month: "2-digit",
+                                                                    year: "numeric",
+                                                                }
+                                                            )}
                                                         </span>
                                                         <br />
                                                         <span className="text-sm">
-                                                            Salaire :
-                                                            {offer.salaireMin}
+                                                            Lieu :{" "}
+                                                            {
+                                                                offer
+                                                                    .lieuTravail
+                                                                    .libelle
+                                                            }
                                                         </span>
+                                                        <br />
                                                         <span className="text-sm">
-                                                            Domaine:
-                                                            {offer.domaine}
+                                                            Type de contrat :{" "}
+                                                            {
+                                                                offer.typeContratLibelle
+                                                            }{" "}
+                                                            /{" "}
+                                                            {
+                                                                offer.dureeTravailLibelle
+                                                            }
                                                         </span>
+                                                        <br />
                                                         <span className="text-sm">
-                                                            Experience:
-                                                            {offer.experience}
+                                                            Salaire :{" "}
+                                                            {
+                                                                offer.salaire
+                                                                    .libelle
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span className="text-sm">
+                                                            Domaine :{" "}
+                                                            {
+                                                                offer.secteurActiviteLibelle
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span className="text-sm">
+                                                            Experience :{" "}
+                                                            {
+                                                                offer.experienceLibelle
+                                                            }
                                                         </span>
                                                     </CardDescription>
                                                 </CardHeader>
                                                 <CardContent>
                                                     <p className="text-sm">
-                                                        Description:
-                                                        {offer.description}
+                                                        Description :{" "}
+                                                        {offer.description.slice(
+                                                            0,
+                                                            250
+                                                        )}
+                                                        <span className="text-sm text-muted-foreground">
+                                                            ...
+                                                        </span>
                                                     </p>
                                                 </CardContent>
                                                 <CardFooter className="flex justify-between">
@@ -159,7 +188,7 @@ export default function HomePage() {
                             </section>
                         </>
                     ) : (
-                        <>
+                        <section className="flex gap-16">
                             <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4">
                                 <FiltersAccordion />
                                 {isAuthenticated ? (
@@ -182,7 +211,7 @@ export default function HomePage() {
                                     </Button>
                                 )}
                             </aside>
-                            <section className="md:w-3/4 w-full space-y-4">
+                            <section className="md:w-3/4 w-full space-y-8 max-h-[900px] overflow-auto">
                                 {isLoading && <span>Loading...</span>}
                                 {isError && <span>Erreur</span>}
                                 {offers &&
@@ -279,7 +308,7 @@ export default function HomePage() {
                                         )
                                     )}
                             </section>
-                        </>
+                        </section>
                     )}
                 </div>
             </main>
