@@ -220,7 +220,7 @@ export default function HomePage() {
                                 )}
                             </aside>
                             <div>
-                                <section className=" w-full space-y-8 max-h-[800px] overflow-y-visible overflow-auto always-show-scrollbar ">
+                                <section className=" w-full space-y-8 max-h-[800px] always-show-scrollbar">
                                     {isLoading && <span>Loading...</span>}
                                     {isError && <span>Erreur</span>}
                                     {currentOffers &&

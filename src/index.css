@@ -3,8 +3,7 @@
 
 
 @import "tailwindcss";
-@plugin 'tailwind-scrollbar';
-@plugin "tailwindcss-animate";
+
 
 
 :root {
@@ -245,7 +244,8 @@
 
 .always-show-scrollbar {
 scrollbar-gutter: stable;
-scrollbar-width: 8;
+scrollbar-width: thin;
+overflow-y: scroll
 }
 
 
