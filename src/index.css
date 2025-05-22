@@ -3,8 +3,7 @@
 
 
 @import "tailwindcss";
-
-
+@plugin 'tailwind-scrollbar';
 @plugin "tailwindcss-animate";
 
 
@@ -240,6 +239,13 @@
         color: var(--accent-foreground);
     }
 
+
+
+}
+
+.always-show-scrollbar {
+scrollbar-gutter: stable;
+scrollbar-width: 8;
 }
 
 

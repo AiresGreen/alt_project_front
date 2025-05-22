@@ -41,7 +41,15 @@ export default function HomePage() {
         queryFn: () => getOffers(),
         staleTime: 0,
     });
+    //_____ Pagination----//
+    const [page, setPage] = useState(1);
+    const OFFERS_PER_PAGE = 8;
 
+    const totalPages = offers ? Math.ceil(offers.length / OFFERS_PER_PAGE) : 0;
+    const currentOffers = offers?.slice(
+        (page - 1) * OFFERS_PER_PAGE,
+        page * OFFERS_PER_PAGE
+    );
     return (
         <div>
             <main>
@@ -189,7 +197,7 @@ export default function HomePage() {
                         </>
                     ) : (
                         <section className="flex gap-16">
-                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4">
+                            <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4 sticky-top-24 h-fit">
                                 <FiltersAccordion />
                                 {isAuthenticated ? (
                                     <Button
@@ -211,103 +219,132 @@ export default function HomePage() {
                                     </Button>
                                 )}
                             </aside>
-                            <section className="md:w-3/4 w-full space-y-8 max-h-[900px] overflow-auto">
-                                {isLoading && <span>Loading...</span>}
-                                {isError && <span>Erreur</span>}
-                                {offers &&
-                                    offers.map(
-                                        (offer: OfferInterface, i: number) => (
-                                            <Card key={i} className="">
-                                                <CardHeader>
-                                                    <CardTitle>
-                                                        {offer.intitule}
-                                                    </CardTitle>
-                                                    <CardDescription className="gap-4">
-                                                        <span className="text-sm ">
-                                                            Date de publication
-                                                            :{" "}
-                                                            {new Date(
-                                                                offer.dateCreation
-                                                            ).toLocaleString(
-                                                                "fr-FR",
+                            <div>
+                                <section className=" w-full space-y-8 max-h-[800px] overflow-y-visible overflow-auto always-show-scrollbar ">
+                                    {isLoading && <span>Loading...</span>}
+                                    {isError && <span>Erreur</span>}
+                                    {currentOffers &&
+                                        currentOffers.map(
+                                            (
+                                                offer: OfferInterface,
+                                                i: number
+                                            ) => (
+                                                <Card key={i} className="">
+                                                    <CardHeader>
+                                                        <CardTitle>
+                                                            {offer.intitule}
+                                                        </CardTitle>
+                                                        <CardDescription className="gap-4">
+                                                            <span className="text-sm ">
+                                                                Date de
+                                                                publication :{" "}
+                                                                {new Date(
+                                                                    offer.dateCreation
+                                                                ).toLocaleString(
+                                                                    "fr-FR",
+                                                                    {
+                                                                        day: "2-digit",
+                                                                        month: "2-digit",
+                                                                        year: "numeric",
+                                                                    }
+                                                                )}
+                                                            </span>
+                                                            <br />
+                                                            <span className="text-sm">
+                                                                Lieu :{" "}
                                                                 {
-                                                                    day: "2-digit",
-                                                                    month: "2-digit",
-                                                                    year: "numeric",
+                                                                    offer
+                                                                        .lieuTravail
+                                                                        .libelle
                                                                 }
+                                                            </span>
+                                                            <br />
+                                                            <span className="text-sm">
+                                                                Type de contrat
+                                                                :{" "}
+                                                                {
+                                                                    offer.typeContratLibelle
+                                                                }{" "}
+                                                                /{" "}
+                                                                {
+                                                                    offer.dureeTravailLibelle
+                                                                }
+                                                            </span>
+                                                            <br />
+                                                            <span className="text-sm">
+                                                                Salaire :{" "}
+                                                                {
+                                                                    offer
+                                                                        .salaire
+                                                                        .libelle
+                                                                }
+                                                            </span>
+                                                            <br />
+                                                            <span className="text-sm">
+                                                                Domaine :{" "}
+                                                                {
+                                                                    offer.secteurActiviteLibelle
+                                                                }
+                                                            </span>
+                                                            <br />
+                                                            <span className="text-sm">
+                                                                Experience :{" "}
+                                                                {
+                                                                    offer.experienceLibelle
+                                                                }
+                                                            </span>
+                                                        </CardDescription>
+                                                    </CardHeader>
+                                                    <CardContent>
+                                                        <p className="text-sm">
+                                                            Description :{" "}
+                                                            {offer.description.slice(
+                                                                0,
+                                                                250
                                                             )}
-                                                        </span>
-                                                        <br />
-                                                        <span className="text-sm">
-                                                            Lieu :{" "}
-                                                            {
-                                                                offer
-                                                                    .lieuTravail
-                                                                    .libelle
+                                                            <span className="text-sm text-muted-foreground">
+                                                                ...
+                                                            </span>
+                                                        </p>
+                                                    </CardContent>
+                                                    <CardFooter className="flex justify-end">
+                                                        <Button
+                                                            onClick={() =>
+                                                                navigate(
+                                                                    "/offer-page"
+                                                                )
                                                             }
-                                                        </span>
-                                                        <br />
-                                                        <span className="text-sm">
-                                                            Type de contrat :{" "}
-                                                            {
-                                                                offer.typeContratLibelle
-                                                            }{" "}
-                                                            /{" "}
-                                                            {
-                                                                offer.dureeTravailLibelle
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span className="text-sm">
-                                                            Salaire :{" "}
-                                                            {
-                                                                offer.salaire
-                                                                    .libelle
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span className="text-sm">
-                                                            Domaine :{" "}
-                                                            {
-                                                                offer.secteurActiviteLibelle
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span className="text-sm">
-                                                            Experience :{" "}
-                                                            {
-                                                                offer.experienceLibelle
-                                                            }
-                                                        </span>
-                                                    </CardDescription>
-                                                </CardHeader>
-                                                <CardContent>
-                                                    <p className="text-sm">
-                                                        Description :{" "}
-                                                        {offer.description.slice(
-                                                            0,
-                                                            250
-                                                        )}
-                                                        <span className="text-sm text-muted-foreground">
-                                                            ...
-                                                        </span>
-                                                    </p>
-                                                </CardContent>
-                                                <CardFooter className="flex justify-end">
-                                                    <Button
-                                                        onClick={() =>
-                                                            navigate(
-                                                                "/offer-page"
-                                                            )
-                                                        }
-                                                    >
-                                                        Voir offre
-                                                    </Button>
-                                                </CardFooter>
-                                            </Card>
-                                        )
-                                    )}
-                            </section>
+                                                        >
+                                                            Voir offre
+                                                        </Button>
+                                                    </CardFooter>
+                                                </Card>
+                                            )
+                                        )}
+                                </section>
+                                {totalPages > 1 && (
+                                    <div className="flex justify-center gap-2 pt-4">
+                                        {Array.from(
+                                            { length: totalPages },
+                                            (_, i) => (
+                                                <Button
+                                                    key={i}
+                                                    variant={
+                                                        page === i + 1
+                                                            ? "default"
+                                                            : "outline"
+                                                    }
+                                                    onClick={() =>
+                                                        setPage(i + 1)
+                                                    }
+                                                >
+                                                    {i + 1}
+                                                </Button>
+                                            )
+                                        )}
+                                    </div>
+                                )}
+                            </div>
                         </section>
                     )}
                 </div>
