@@ -27,10 +27,11 @@ export default function NavigationBar() {
     const navigate = useNavigate();
     const location = useLocation();
     const isDesktop = useMediaQuery({minWidth: 768});
-    const {isAuthenticated, userProfile} = useContext(AuthContext);
+    const {isAuthenticated, userProfile, updateAuthentication} = useContext(AuthContext);
 
     const handleLogout = () => {
         // Logique de déconnexion ici
+        updateAuthentication(false);
         navigate("/");
     };
 

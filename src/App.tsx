@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useContext } from "react";
 import { AuthContext } from "@/hook/contexts/auth.context";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 // Importation de layouts
 import AdaptiveLayout from "@/components/layouts/AdaptiveLayout.tsx";
@@ -10,7 +11,7 @@ import PublicRoute from "@/utils/PublicRoute.tsx";
 import PrivateRoute from "@/utils/PrivateRoute.tsx";
 
 // Importation de pages
-import { SigninPage } from "@/pages/auth/SigninPage.tsx";
+import { SignupPage } from "@/pages/auth/SignupPage.tsx";
 import AproposPage from "@/pages/footer/AproposPage.tsx";
 import ContactPage from "@/pages/footer/ContactPage.tsx";
 import MentionsLegalesPage from "@/pages/footer/MentionsLegalePage.tsx";
@@ -46,6 +47,8 @@ import { LanguagesListPage } from "@/pages/languages/LanguagesListPage.tsx";
 import ProjectsListPage from "@/pages/projects/ProjectsListPage.tsx";
 import { SkillsListPage } from "@/pages/skills/SkillsListPage.tsx";
 import { ProfileDetailsPage } from "@/pages/profile/ProfileDetailsPage.tsx";
+import VerificationEnAttentePage from "./pages/VerificationEnAttentePage.tsx";
+
 
 function App() {
     // Détecte si l'appareil est mobile (largeur <= 767px)
@@ -57,11 +60,12 @@ function App() {
     console.log("isAuthenticated in App.tsx:", isAuthenticated);
 
     return (
+        <>
         <Routes>
             {/* Routes Publiques */}
             <Route element={<PublicRoute />}>
                 <Route element={<AdaptiveLayout />}>
-                    <Route path="/signin" element={<SigninPage />} />
+                    <Route path="/signin" element={<SignupPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/loginrecovery" element={<LoginRecoveryPage />} />
                     <Route path="/passwordrecovery" element={<PasswordRecoveryPage />} />
@@ -111,7 +115,12 @@ function App() {
 
             {/* Route pour page non trouvée */}
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/verification-en-attente" element={<VerificationEnAttentePage />} />
+
         </Routes>
+
+    <ReactQueryDevtools/>
+        </>
     );
 }
 

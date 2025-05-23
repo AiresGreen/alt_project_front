@@ -14,7 +14,7 @@ import { signin } from "@/services/api/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -31,13 +31,26 @@ export const LoginPage = () => {
       password: ""
     }
   });
-  // 2. Define a submit handler.
+    const navigate = useNavigate();
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
     console.log(values);
-    signin(values)
-    updateAuthentication(true);
+      signin(values)
+          .then((response) => {
+              console.log(response);
+              if (response.user.emailVerified) {
+                  localStorage.setItem("access-token", response.accessToken);
+                  localStorage.setItem("refresh-token", response.refreshToken);
+                  console.log("🚀 les tokens dans localstorage");
+                  updateAuthentication(true, response.user);
+              } else {
+                  updateAuthentication(false, response.user);
+                  navigate("/verification-en-attente");
+              }
+          })
+          .catch((err) =>
+              form.setError("email", { message: err || "Identifiants invalides" })
+          );
   }
 
   return (

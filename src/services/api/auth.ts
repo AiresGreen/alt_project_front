@@ -1,47 +1,63 @@
+import { useApi } from "@/hook/useApi";
 import axios from "axios";
 
-interface UserPayload {
-  name: string;
-  email: string;
-  telephone?: string;
-  adresse?: string;
-}
 
-interface ResponseData {
-  message: string;
-  user: any;
-}
+const api = useApi();
 
-const BASE_URL = 'http://localhost:3000/users'; // URL de l'API simulant la base de données
 
-/**
- * API pour signin.
- * Vérifie si l'utilisateur existe déjà en effectuant une requête GET sur l'API.
- * S'il n'existe pas, il est créé via une requête POST.
- */
-export async function signin(payload: UserPayload): Promise<ResponseData> {
+export const signin = async (payload: { email: string; password: string }) => {
+
   try {
-    // Vérification de l'existence de l'utilisateur par email
-    const { data: existingUsers } = await axios.get(BASE_URL, {
-      params: { email: payload.email },
-    });
+    // Envoi d'une requête POST vers /auth/signin avec les identifiants
+    const { data } = await api.post("/auth/signin", payload);
 
-    if (existingUsers && existingUsers.length > 0) {
-      // L'utilisateur existe déjà
-      return {
-        message: "Utilisateur existe déjà",
-        user: existingUsers[0],
-      };
-    } else {
-      // Création d'un nouvel utilisateur
-      const { data: newUser } = await axios.post(BASE_URL, payload);
-      return {
-        message: "Utilisateur créé avec succès",
-        user: newUser,
-      };
-    }
-  } catch (error) {
-    console.error(error);
-    throw new Error("Erreur lors de la connexion");
+
+    console.log("🚀 ~  ~ signin: ", data);
+    return data;
+  } catch (error: any) {
+    throw error.response?.data?.message || "Erreur lors de la connexion";
   }
+};
+
+
+export const signup = async (payload:
+                             { email: string; firstname: string; lastname: string; password: string }) => {
+  try {
+    // Envoi d'une requête POST vers /auth/signup avec les infos de l'utilisateur
+    const { data } = await api.post("/auth/signup", payload);
+
+    // Stockage immédiat des tokens reçus après inscription
+
+    return data;
+  } catch (error: any) {
+    throw error.response?.data?.message || "Erreur lors de l'inscription";
+  }
+};
+
+
+export async function refreshTokens() {
+
+  const token = localStorage.getItem('refresh-token');
+  const headers = {
+    'Authorization': 'Bearer ' + token,
+  }
+
+  try {
+    const {data} = await axios.post(
+        import.meta.env.VITE_API_LOCAL_URL + 'auth/refresh',
+        {},
+        { headers }
+    );
+    console.log(":rocket: ~ file: auth.tsx:55 ~ refreshToken ~ refreshToken:", data)
+    return data;
+  } catch (error) {
+    throw new Error("Echec du refreshToken " + error);
+  }
+}
+
+
+export async function destroyTokenUser() {
+  localStorage.removeItem('access-token');
+  localStorage.removeItem('refresh-token');
+  localStorage.removeItem('user');
 }

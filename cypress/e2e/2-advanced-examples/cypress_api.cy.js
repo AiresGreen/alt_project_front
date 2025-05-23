@@ -110,7 +110,7 @@ context('Cypress APIs', () => {
     })
   })
 
-  context('Cypress.env()', () => {
+  context('Cypress..env()', () => {
     beforeEach(() => {
       cy.visit('https://example.cypress.io/cypress-api')
     })

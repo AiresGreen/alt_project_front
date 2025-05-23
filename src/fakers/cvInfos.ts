@@ -1,6 +1,6 @@
 export const getFakeCv = () => {
     return {
-        name: "John Doe",
+        name: "John Malkovitch",
         title: "Développeur Full Stack",
         experience: [
             { company: "Tech Corp", role: "Développeur", years: 2 },
