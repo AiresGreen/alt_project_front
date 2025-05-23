@@ -6,9 +6,8 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
-import { X, Printer } from "lucide-react";
+
+import { Printer } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -26,7 +25,60 @@ import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
 import { BackButton } from "@/components/BackButton/BackButton.tsx";
 import html2pdf from "html2pdf.js";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { Command, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Check } from "lucide-react";
 
+
+type Props = {
+    label: string;
+    options: string[];
+    value: string[];
+    onChange: (values: string[]) => void;
+};
+
+export const MultiSelect = ({ label, options, value, onChange }: Props) => {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <Button variant="outline" className="w-full justify-start">
+                    {value.length ? value.join(", ") : `Sélectionner ${label}`}
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0">
+                <Command>
+                    <CommandInput placeholder={`Rechercher ${label}`} />
+                    <CommandList>
+                        {options.map((opt) => (
+                            <CommandItem
+                                key={opt}
+                                onSelect={() => {
+                                    const selected = value.includes(opt)
+                                        ? value.filter((v) => v !== opt)
+                                        : [...value, opt];
+                                    onChange(selected);
+                                }}
+                            >
+                                <Check
+                                    className={`mr-2 h-4 w-4 ${
+                                        value.includes(opt) ? "opacity-100" : "opacity-0"
+                                    }`}
+                                />
+                                {opt}
+                            </CommandItem>
+                        ))}
+                    </CommandList>
+                </Command>
+            </PopoverContent>
+        </Popover>
+    );
+};
 
 
 const experienceOptions = ["Miaou", "Piaou", "PitouPitou"];
@@ -260,7 +312,7 @@ export const CvConstructPage = () => {
                                 <FormControl>
                                     <input
                                         {...field}
-                                        placeholder="Ex : Français, Anglais"
+                                        placeholder="Ex : Français - maternel, Anglais - B1"
                                         className="border rounded p-2 w-full"
                                         data-cy="languages-input"
                                     />
@@ -270,83 +322,35 @@ export const CvConstructPage = () => {
                     />
 
                     {/* Autres sélections : compétences, expérience, formation, projets, centres d'intérêt */}
-                    {["skills", "experience", "education", "project", "interest"].map(
-                        (field) => (
+                    {(["skills", "experience", "education", "project", "interest"] as const).map((field) => {
+                        const fieldOptions: Record<string, string[]> = {
+                            skills: skillsOptions,
+                            experience: experienceOptions,
+                            education: educationOptions,
+                            project: projects,
+                            interest: interests,
+                        };
+
+                        return (
                             <FormField
                                 key={field}
                                 control={form.control}
-                                name={field as keyof CVFormValues}
-                                render={() => (
+                                name={field}
+                                render={({ field: { value } }) => (
                                     <FormItem>
                                         <FormLabel className="capitalize">{field}</FormLabel>
-                                        <FormControl>
-                                            <div className="flex flex-col space-y-1">
-                                                {(form.getValues(field as keyof CVFormValues) as
-                                                    | string[]
-                                                    | undefined)?.map((val) => (
-                                                    <Badge
-                                                        key={val}
-                                                        variant="default"
-                                                        className="flex justify-between items-center gap-2"
-                                                        data-cy={`${field}-list`}
-                                                    >
-                                                        {val}
-                                                        <X
-                                                            className="w-3 h-3 cursor-pointer"
-                                                            onClick={() =>
-                                                                form.setValue(
-                                                                    field as keyof CVFormValues,
-                                                                    (form.getValues(
-                                                                        field as keyof CVFormValues
-                                                                    ) as string[]).filter((v) => v !== val)
-                                                                )
-                                                            }
-                                                        />
-                                                    </Badge>
-                                                ))}
-                                                {(
-                                                    {
-                                                        skills: skillsOptions,
-                                                        experience: experienceOptions,
-                                                        education: educationOptions,
-                                                        project: projects,
-                                                        interest: interests
-                                                    } as Record<string, string[]>
-                                                )[field]?.map((opt) => (
-                                                    <label
-                                                        key={opt}
-                                                        className="flex items-center space-x-2"
-                                                    >
-                                                        <Checkbox
-                                                            checked={(
-                                                                form.watch(
-                                                                    field as keyof CVFormValues
-                                                                ) as string[]
-                                                            ).includes(opt)}
-                                                            onCheckedChange={() => {
-                                                                const current =
-                                                                    form.getValues(field as keyof CVFormValues) as
-                                                                        string[];
-                                                                form.setValue(
-                                                                    field as keyof CVFormValues,
-                                                                    current.includes(opt)
-                                                                        ? current.filter((v) => v !== opt)
-                                                                        : [...current, opt]
-                                                                );
-                                                            }}
-                                                            data-cy={`checkbox-${field}`}
-                                                            data-value={opt}
-                                                        />
-                                                        <span>{opt}</span>
-                                                    </label>
-                                                ))}
-                                            </div>
-                                        </FormControl>
+                                        <MultiSelect
+                                            label={field}
+                                            options={fieldOptions[field]}
+                                            value={value ?? []}
+                                            onChange={(vals) => form.setValue(field, vals)}
+                                        />
                                     </FormItem>
                                 )}
                             />
-                        )
-                    )}
+                        );
+                    })}
+
                 </div>
 
                 {/* Colonne droite - aperçu CV */}
@@ -363,7 +367,7 @@ export const CvConstructPage = () => {
                             data-cy="download-pdf"
                         >
                             <Printer className="w-4 h-4" />
-                            Télécharger en PDF
+                            Imprimer
                         </Button>
                         <Button
                             variant="outline"
@@ -391,76 +395,65 @@ export const CvConstructPage = () => {
                         </Button>
                         <BackButton data-cy="back-button" />
                     </div>
+
                     <div
                         ref={printRef}
                         id="cv-to-print"
-                        className="border rounded-md p-8 bg-white shadow-md space-y-8 font-sans w-full"
+                        className="bg-white p-8 rounded shadow-md w-full font-sans print:text-black print:bg-white print:shadow-none print:p-4"
                     >
-                        <div className="flex justify-between items-center border-b pb-6 mb-4">
+                        {/* En-tête */}
+                        <div className="flex justify-between items-center border-b pb-4 mb-4">
                             <div>
-                                <h1 className="text-3xl font-bold text-gray-800">
+                                <h1 className="text-2xl font-bold uppercase tracking-wide text-gray-800">
                                     {form.watch("firstname")} {form.watch("lastname")}
                                 </h1>
                                 {form.watch("title") && (
-                                    <p
-                                        className="text-gray-600 mt-1"
-                                        data-cy="title-preview"
-                                    >
-                                        {form.watch("title")}
-                                    </p>
+                                    <p className="text-sm text-gray-600 mt-1">{form.watch("title")}</p>
                                 )}
                             </div>
+
                             {imagePreview && (
                                 <img
                                     src={imagePreview}
                                     alt="Avatar"
-                                    className="w-24 h-24 object-cover rounded-full border shadow"
-                                    data-cy="avatar-preview"
+                                    className="w-24 h-24 object-cover rounded-full border"
                                 />
                             )}
                         </div>
 
-                        {(["summary", "experience", "education", "skills", "project", "interest"] as const).map(
-                            (field) => {
-                                const values = form.watch(field);
-                                if (!values || (Array.isArray(values) && values.length === 0))
-                                    return null;
+                        {/* Sections dynamiques */}
+                        {(["summary", "languages", "experience", "education", "skills", "project", "interest"] as const).map((field) => {
+                            const values = form.watch(field);
+                            if (!values || (Array.isArray(values) && values.length === 0)) return null;
 
-                                const sectionTitles: Record<string, string> = {
-                                    summary: "Profil professionnel",
-                                    experience: "Expérience professionnelle",
-                                    education: "Formation",
-                                    skills: "Compétences",
-                                    project: "Projets réalisés",
-                                    interest: "Centres d'intérêt"
-                                };
+                            const sectionTitles: Record<string, string> = {
+                                summary: "Profil professionnel",
+                                languages: "Langues parlées",
+                                experience: "Expérience professionnelle",
+                                education: "Formation",
+                                skills: "Compétences",
+                                project: "Projets réalisés",
+                                interest: "Centres d’intérêt",
+                            };
 
-                                return (
-                                    <div key={field}>
-                                        <h2 className="text-lg font-semibold text-gray-700 border-b mb-2 pb-1 uppercase">
-                                            {sectionTitles[field]}
-                                        </h2>
-                                        {Array.isArray(values) ? (
-                                            <ul
-                                                className="list-disc list-inside text-gray-800 text-sm space-y-1"
-                                                data-cy={`${field}-list`}
-                                            >
-                                                {values.map((val: string) => (
-                                                    <li key={val}>{val}</li>
-                                                ))}
-                                            </ul>
-                                        ) : (
-                                            <p
-                                                className="text-sm text-gray-800 whitespace-pre-wrap"
-                                                data-cy={`${field}-preview`}
-                                            >
-                                                {values}
-                                            </p>
-                                        )}
-                                    </div>
-                                );
-                            }
-                        )}
+                            return (
+                                <div key={field} className="mb-6">
+                                    <h2 className="text-md font-semibold text-gray-700 border-b pb-1 mb-2 uppercase tracking-wide">
+                                        {sectionTitles[field]}
+                                    </h2>
+
+                                    {Array.isArray(values) ? (
+                                        <ul className="list-disc list-inside text-sm text-gray-800 space-y-1">
+                                            {values.map((val: string) => (
+                                                <li key={val}>{val}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-sm text-gray-800 whitespace-pre-line">{values}</p>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
 
                     {/* Bouton de soumission du formulaire */}
