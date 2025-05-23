@@ -25,6 +25,9 @@ import { AuthContext } from "@/hook/contexts/auth.context";
 import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
 import { BackButton } from "@/components/BackButton/BackButton.tsx";
+import html2pdf from "html2pdf.js";
+
+
 
 const experienceOptions = ["Miaou", "Piaou", "PitouPitou"];
 const educationOptions = ["Nia", "Nou", "FILOU"];
@@ -33,7 +36,7 @@ const interests = ["Cinéma", "Jeux vidéo", "Lecture"];
 const skillsOptions = ["Communication", "Informatique"];
 const nameOptions = ["Jean", "Marie", "Alex"];
 const lastnameOptions = ["Dupont", "Durand", "Lemoine"];
-const avatars = ["🧑‍💻", "🧕", "👨‍🚀", "👩‍🎨"];
+
 
 const cvSchema = z.object({
     firstname: z.string(),
@@ -60,8 +63,8 @@ export const CvConstructPage = () => {
 
     const handlePrint = useReactToPrint({
         content: () => printRef.current as HTMLDivElement,
-        documentTitle: "MonCV"
-    });
+        documentTitle: "MonCV",
+    } as any);
 
     useEffect(() => {
         if (!isAuthenticated) navigate("/login");
@@ -85,7 +88,7 @@ export const CvConstructPage = () => {
     });
 
     return (
-        <Form {...form}>
+    <Form {...form}>
             <form
                 onSubmit={form.handleSubmit((values) => {
                     console.log("Form Data:", values);
@@ -104,29 +107,7 @@ export const CvConstructPage = () => {
                             data-cy="avatar-preview"
                         />
                     )}
-                    {/* Bouton de sélection des avatars */}
-                    <div className="grid grid-cols-4 gap-2 border p-2 rounded">
-                        {avatars.map((a, i) => (
-                            <button
-                                key={i}
-                                type="button"
-                                className={`text-2xl p-2 border rounded ${
-                                    form.watch("avatar") === a
-                                        ? "bg-primary text-white"
-                                        : "hover:bg-muted"
-                                }`}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    form.setValue("avatar", a);
-                                    setImagePreview(null);
-                                }}
-                                data-cy="avatar-button"
-                                data-avatar={a}
-                            >
-                                {a}
-                            </button>
-                        ))}
-                    </div>
+                    {/* Bouton pour telecharger la photo */}
                     <Button
                         variant="secondary"
                         className="w-full"
@@ -370,15 +351,49 @@ export const CvConstructPage = () => {
 
                 {/* Colonne droite - aperçu CV */}
                 <div className="lg:col-span-8 space-y-4">
-                    <div className="flex justify-end">
-                        <Button onClick={handlePrint} data-cy="download-pdf">
+                    <div className="flex justify-end gap-12">
+                        <Button
+                            onClick={() => {
+                                form.trigger(); // force la validation pour forcer un re-render propre
+                                setTimeout(() => {
+                                    console.log("💡 ref DOM :", printRef.current);
+                                    handlePrint();
+                                }, 100); // laisse le temps au DOM de se rafraîchir
+                            }}
+                            data-cy="download-pdf"
+                        >
                             <Printer className="w-4 h-4" />
                             Télécharger en PDF
+                        </Button>
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                const element = printRef.current;
+                                if (!element) {
+                                    toast.error("Impossible de générer le PDF");
+                                    return;
+                                }
+
+                                html2pdf()
+                                    .set({
+                                        margin: 0.5,
+                                        filename: `CV_${form.getValues("firstname")}_${form.getValues("lastname")}.pdf`,
+                                        image: { type: "jpeg", quality: 0.98 },
+                                        html2canvas: { scale: 2 },
+                                        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+                                    })
+                                    .from(element)
+                                    .save();
+                            }}
+                            data-cy="save-pdf"
+                        >
+                            📥 Télécharger le PDF
                         </Button>
                         <BackButton data-cy="back-button" />
                     </div>
                     <div
                         ref={printRef}
+                        id="cv-to-print"
                         className="border rounded-md p-8 bg-white shadow-md space-y-8 font-sans w-full"
                     >
                         <div className="flex justify-between items-center border-b pb-6 mb-4">
