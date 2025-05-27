@@ -16,7 +16,7 @@ export const getOffers = async () => {
     }
 }
 
-export const getOfferById = async (id: string) => {
+export const getOfferById = async (id:string) => {
     try {
         //===Récupération d'offre par id
         const { data } = await api.get(`/offer/${id}`);

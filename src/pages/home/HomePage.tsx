@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
-import { useMediaQuery } from "react-responsive";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "@/hook/contexts/auth.context";
-import { Button } from "@/components/ui/button";
+import {useState, useContext} from "react";
+import {useMediaQuery} from "react-responsive";
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "@/hook/contexts/auth.context";
+import {Button} from "@/components/ui/button";
 import {
     Card,
     CardHeader,
@@ -19,15 +19,15 @@ import {
     SheetTitle,
     SheetDescription,
 } from "@/components/ui/sheet";
-import { FiltersAccordion } from "@/components/filters/FiltersAccordion";
-import { Filter } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { OfferInterface } from "@/interface/OfferInterface.ts";
-import { getOffers } from "@/services/api/home.ts";
+import {FiltersAccordion} from "@/components/filters/FiltersAccordion";
+import {Filter} from "lucide-react";
+import {useQuery} from "@tanstack/react-query";
+import {OfferInterface} from "@/interface/OfferInterface.ts";
+import {getOffers} from "@/services/api/home.ts";
 
 export default function HomePage() {
-    const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-    const { isAuthenticated } = useContext(AuthContext);
+    const isMobile = useMediaQuery({query: "(max-width: 768px)"});
+    const {isAuthenticated} = useContext(AuthContext);
     const [openSheet, setOpenSheet] = useState(false);
     const navigate = useNavigate();
 
@@ -63,7 +63,7 @@ export default function HomePage() {
                                 >
                                     <SheetTrigger asChild>
                                         <Button variant="outline">
-                                            <Filter className="h-4 w-4" />
+                                            <Filter className="h-4 w-4"/>
                                             <span>Filtre</span>
                                         </Button>
                                     </SheetTrigger>
@@ -78,7 +78,7 @@ export default function HomePage() {
                                             </SheetDescription>
                                         </SheetHeader>
                                         <div className="mt-4">
-                                            <FiltersAccordion />
+                                            <FiltersAccordion/>
                                         </div>
                                     </SheetContent>
                                 </Sheet>
@@ -89,7 +89,8 @@ export default function HomePage() {
                                 {offers &&
                                     offers.map(
                                         (offer: OfferInterface, i: number) => (
-                                            <Card key={i} className="">
+                                            <Card key={i}
+                                                  className="">
                                                 <CardHeader>
                                                     <CardTitle>
                                                         {offer.intitule}
@@ -109,7 +110,7 @@ export default function HomePage() {
                                                                 }
                                                             )}
                                                         </span>
-                                                        <br />
+                                                        <br/>
                                                         <span className="text-sm">
                                                             Lieu :{" "}
                                                             {
@@ -118,7 +119,7 @@ export default function HomePage() {
                                                                     .libelle
                                                             }
                                                         </span>
-                                                        <br />
+                                                        <br/>
                                                         <span className="text-sm">
                                                             Type de contrat :{" "}
                                                             {
@@ -129,7 +130,7 @@ export default function HomePage() {
                                                                 offer.dureeTravailLibelle
                                                             }
                                                         </span>
-                                                        <br />
+                                                        <br/>
                                                         <span className="text-sm">
                                                             Salaire :{" "}
                                                             {
@@ -137,14 +138,14 @@ export default function HomePage() {
                                                                     .libelle
                                                             }
                                                         </span>
-                                                        <br />
+                                                        <br/>
                                                         <span className="text-sm">
                                                             Domaine :{" "}
                                                             {
                                                                 offer.secteurActiviteLibelle
                                                             }
                                                         </span>
-                                                        <br />
+                                                        <br/>
                                                         <span className="text-sm">
                                                             Experience :{" "}
                                                             {
@@ -198,7 +199,7 @@ export default function HomePage() {
                     ) : (
                         <section className="flex gap-16">
                             <aside className="md:w-1/4 w-full border p-4 rounded-lg space-y-4 sticky-top-24 h-fit">
-                                <FiltersAccordion />
+                                <FiltersAccordion/>
                                 {isAuthenticated ? (
                                     <Button
                                         variant="outline"
@@ -229,7 +230,8 @@ export default function HomePage() {
                                                 offer: OfferInterface,
                                                 i: number
                                             ) => (
-                                                <Card key={i} className="">
+                                                <Card key={i}
+                                                      className="">
                                                     <CardHeader>
                                                         <CardTitle>
                                                             {offer.intitule}
@@ -249,7 +251,7 @@ export default function HomePage() {
                                                                     }
                                                                 )}
                                                             </span>
-                                                            <br />
+                                                            <br/>
                                                             <span className="text-sm">
                                                                 Lieu :{" "}
                                                                 {
@@ -258,7 +260,7 @@ export default function HomePage() {
                                                                         .libelle
                                                                 }
                                                             </span>
-                                                            <br />
+                                                            <br/>
                                                             <span className="text-sm">
                                                                 Type de contrat
                                                                 :{" "}
@@ -270,7 +272,7 @@ export default function HomePage() {
                                                                     offer.dureeTravailLibelle
                                                                 }
                                                             </span>
-                                                            <br />
+                                                            <br/>
                                                             <span className="text-sm">
                                                                 Salaire :{" "}
                                                                 {
@@ -279,14 +281,14 @@ export default function HomePage() {
                                                                         .libelle
                                                                 }
                                                             </span>
-                                                            <br />
+                                                            <br/>
                                                             <span className="text-sm">
                                                                 Domaine :{" "}
                                                                 {
                                                                     offer.secteurActiviteLibelle
                                                                 }
                                                             </span>
-                                                            <br />
+                                                            <br/>
                                                             <span className="text-sm">
                                                                 Experience :{" "}
                                                                 {
@@ -311,7 +313,7 @@ export default function HomePage() {
                                                         <Button
                                                             onClick={() =>
                                                                 navigate(
-                                                                    "/offer-page"
+                                                                    `/offer/${offer.id}`
                                                                 )
                                                             }
                                                         >
@@ -325,7 +327,7 @@ export default function HomePage() {
                                 {totalPages > 1 && (
                                     <div className="flex justify-center gap-2 pt-4">
                                         {Array.from(
-                                            { length: totalPages },
+                                            {length: totalPages},
                                             (_, i) => (
                                                 <Button
                                                     key={i}

@@ -75,7 +75,7 @@ function App() {
             {/* Routes Mixtes (accessible aussi bien par connecté que non) */}
             <Route element={<AdaptiveLayout />}>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/offer-page" element={<OfferPage />} />
+                <Route path="/offer/:id" element={<OfferPage />} />
                 <Route path="/enterprise-info" element={<EnterprisePage />} />
                 <Route path="/apropos" element={<AproposPage />} />
                 <Route path="/contact" element={<ContactPage />} />
