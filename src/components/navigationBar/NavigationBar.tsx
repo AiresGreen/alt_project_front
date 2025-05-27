@@ -36,7 +36,7 @@ export default function NavigationBar() {
     };
 
     return (
-        <div className="w-full px-4 py-3 flex items-center justify-between bg-transparent">
+        <div className="w-full px-4 py-1.5 flex items-center justify-between bg-transparent">
             <Link to={"/"}>
                 <img src="/logo.png"
                      alt="BalanceTonJob"

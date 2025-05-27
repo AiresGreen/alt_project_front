@@ -83,7 +83,7 @@ export default function HomePage() {
                                     </SheetContent>
                                 </Sheet>
                             </div>
-                            <section className="w-full space-y-4">
+                            <section className="w-full space-y-2">
                                 {isLoading && <span>Loading...</span>}
                                 {isError && <span>Erreur</span>}
                                 {offers &&
@@ -220,7 +220,7 @@ export default function HomePage() {
                                 )}
                             </aside>
                             <div>
-                                <section className=" w-full space-y-8 max-h-[800px] always-show-scrollbar">
+                                <section className=" w-full space-y-6 max-h-[625px] always-show-scrollbar">
                                     {isLoading && <span>Loading...</span>}
                                     {isError && <span>Erreur</span>}
                                     {currentOffers &&
