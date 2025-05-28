@@ -14,9 +14,9 @@ export interface OfferInterface {
     typeContratLibelle: string;
     dureeTravailLibelle:string;
     secteurActiviteLibelle:string
-    formations: {domaineLibelle:string; niveauLibelle:string} ;
+    formations: [{}, {domaineLibelle:string; niveauLibelle:string}] ;
     competences: {libelle:string};
-    qualitesProfessionnelles:{libelle:string; descrition:string};
+    qualitesProfessionnelles:[{libelle:string; description:string}];
     contact: {nom: string; coordonnees1:string; urlPostulation:string};
 
 }

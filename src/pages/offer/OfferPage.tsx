@@ -100,9 +100,9 @@ export default function OfferPage() {
     ].filter(Boolean);
 
     const detailsListOfProfile = [
-        displayIfExists("Formation", `${offer?.formations?.domaineLibelle} / ${offer?.formations?.niveauLibelle}`),
+        displayIfExists("Formation", `${offer?.formations?.[1]?.domaineLibelle} / ${offer?.formations?.[1]?.niveauLibelle}`),
         displayIfExists("Compétence", offer?.competences?.libelle),
-        displayIfExists("Qualités professionnelles", `${offer?.qualitesProfessionnelles?.libelle} / ${offer?.qualitesProfessionnelles?.descrition}`),
+        displayIfExists("Qualités professionnelles", `${offer?.qualitesProfessionnelles?.[0]?.libelle} / ${offer?.qualitesProfessionnelles?.[0]?.description}`),
 
     ].filter(Boolean);
 
@@ -127,8 +127,8 @@ export default function OfferPage() {
             {offer &&
                 <Card className="max-w-4xl mx-auto shadow-lg ">
                     <CardHeader>
-                        <CardTitle className="text-xl md:text-2xl font-semibold">
-                            {displayIfExists(offer.intitule)}
+                        <CardTitle className="text-center">
+                            {offer.intitule}
                         </CardTitle>
                     </CardHeader>
 
@@ -155,7 +155,7 @@ export default function OfferPage() {
 
                             <div className="mt-4">
                                 <h3 className="font-semibold">À propos du poste {" "}: <br/></h3>
-                                <p className="text-sm md:text-base">
+                                <p className="text-sm text-justify md:text-base">
                                     {offer.description}
                                 </p>
                             </div>
