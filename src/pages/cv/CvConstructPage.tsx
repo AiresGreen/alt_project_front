@@ -32,7 +32,26 @@ import {
 } from "@/components/ui/popover";
 import { Command, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Check } from "lucide-react";
-
+import {
+    getCurrentEducation,
+    getCurrentExperience,
+    getCurrentHobbies,
+    getCurrentProfile,
+    getCurrentProjects, getCurrentSkills,
+    getCurrentUsefulInfo,
+    getCurrentUser, getLangues
+} from "@/services/api/cvConstruct.ts";
+import {IUserProfile} from "@/interface/UserInterface.ts";
+import {useQuery} from "@tanstack/react-query";
+import {ProfileInterface} from "@/interface/ProfileInterface.ts";
+import {UsefulInfoInterface} from "@/interface/UsefulInfoInterface.ts";
+import {useParams} from "react-router-dom";
+import {Hobby} from "@/interface/HobbyInterface.ts";
+import {LanguageInterface} from "@/interface/LanguageInterface.ts";
+import {SkillInterface} from "@/interface/SkillInterface.ts";
+import {ProjectInterface} from "@/interface/ProjectInterfaces.ts";
+import {EducationInterface} from "@/interface/EducationInterface.ts";
+import {ExperienceInterface} from "@/interface/ExperienceInterface.ts";
 
 type Props = {
     label: string;
@@ -47,14 +66,14 @@ export const MultiSelect = ({ label, options, value, onChange }: Props) => {
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start ">
                     {value.length ? value.join(", ") : `Sélectionner ${label}`}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-full p-0">
-                <Command>
-                    <CommandInput placeholder={`Rechercher ${label}`} />
-                    <CommandList>
+                <Command className={"bg-gray-300"}>
+                    <CommandInput className={"text-black"} placeholder={`Rechercher ${label}`} />
+                    <CommandList className={"text-black"}>
                         {options.map((opt) => (
                             <CommandItem
                                 key={opt}
@@ -81,13 +100,14 @@ export const MultiSelect = ({ label, options, value, onChange }: Props) => {
 };
 
 
-const experienceOptions = ["Miaou", "Piaou", "PitouPitou"];
+/*const experienceOptions = ["Miaou", "Piaou", "PitouPitou"];
 const educationOptions = ["Nia", "Nou", "FILOU"];
 const projects = ["CRM BalanceTonJob", "Bla-Bla Boop"];
 const interests = ["Cinéma", "Jeux vidéo", "Lecture"];
 const skillsOptions = ["Communication", "Informatique"];
 const nameOptions = ["Jean", "Marie", "Alex"];
 const lastnameOptions = ["Dupont", "Durand", "Lemoine"];
+const languagesOptions = ["Français", "Anglais"]*/
 
 
 const cvSchema = z.object({
@@ -95,13 +115,19 @@ const cvSchema = z.object({
     lastname: z.string(),
     title: z.string().nonempty("Le titre est requis"),
     summary: z.string().nonempty("Le résumé est requis"),
-    languages: z.string().nonempty("La langue est requise"),
+    languages: z.array(z.string()).nonempty("La langue est requise"),
     skills: z.array(z.string()).optional(),
     experience: z.array(z.string()).optional(),
     education: z.array(z.string()).optional(),
     project: z.array(z.string()).optional(),
     interest: z.array(z.string()).optional(),
-    avatar: z.string().optional()
+    email: z.string().nonempty("e-mail est requis"),
+    street: z.string().nonempty("La rue est requise"),
+    zip_code: z.string().nonempty("CP est requis"),
+    city: z.string().nonempty("La ville est requise"),
+    phone_number: z.string().nonempty("Le numéro de téléphone est requis"),
+    useful_info: z.array(z.string()).optional(),
+    picture: z.string().optional(),
 });
 
 type CVFormValues = z.infer<typeof cvSchema>;
@@ -110,8 +136,8 @@ export const CvConstructPage = () => {
     const { isAuthenticated } = useContext(AuthContext);
     const navigate = useNavigate();
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
     const printRef = useRef<HTMLDivElement>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
 
     const handlePrint = useReactToPrint({
         content: () => printRef.current as HTMLDivElement,
@@ -129,15 +155,114 @@ export const CvConstructPage = () => {
             lastname: "",
             title: "",
             summary: "",
-            languages: "",
+            languages: [],
             skills: [],
             experience: [],
             education: [],
             project: [],
             interest: [],
-            avatar: ""
+            picture: "",
+            email: "",
+            street: "",
+            zip_code: "",
+            city: "",
+            phone_number: "",
+            useful_info: [],
         }
     });
+
+//===Appel get current user, profile, useful-info, experience, skills, educ, projet, langues, hobbies,
+    const { phone_number, user_id, id } = useParams<{ phone_number: string; user_id: string; id: string; }>();
+
+    const {
+        data: currentUser,
+        isLoading: isLoadingUser,
+        isError: isErrorUser,
+    } = useQuery<IUserProfile[]>({
+        queryKey: ["currentUser"],
+        queryFn: getCurrentUser,
+            });
+
+    const {
+        data: currentProfile,
+        isLoading: isLoadingProfile,
+        isError: isErrorProfile,
+    } = useQuery<ProfileInterface[] >({
+        queryKey: ["currentProfile", phone_number],
+        queryFn: () => getCurrentProfile(phone_number!),
+        enabled: !!phone_number,
+    });
+    const profile = currentProfile?.[0]; // extrait le 1er profil
+
+    const {
+        data: currentUsefulInfo,
+        isLoading: isLoadingUsefulInfo,
+        isError: isErrorUsefulInfo,
+    } = useQuery<UsefulInfoInterface[]>({
+        queryKey: ["currentUsefulInfo", user_id],
+        queryFn: () => getCurrentUsefulInfo(+user_id!),
+        enabled: !!user_id,
+    });
+
+    const {
+        data: currentExperience,
+        isLoading: isLoadingExperience,
+        isError: isErrorExperience,
+    } = useQuery<ExperienceInterface[]>({
+        queryKey: ["currentExperience", id],
+        queryFn: () => getCurrentExperience(+id!),
+        enabled: !!id,
+    });
+
+    const {
+        data: langues,
+        isLoading: isLoadingLangues,
+        isError: isErrorLangues,
+    } = useQuery<LanguageInterface[]>({
+        queryKey: ["langues"],
+        queryFn: () => getLangues(),
+    });
+
+    const {
+        data: currentEducation,
+        isLoading: isLoadingEducation,
+        isError: isErrorEducation,
+    } = useQuery<EducationInterface[]>({
+        queryKey: ["currentEducation", id],
+        queryFn: () => getCurrentEducation(+id!),
+        enabled: !!id,
+    });
+
+    const {
+        data: currentProjects,
+        isLoading: isLoadingProjects,
+        isError: isErrorProjects,
+    } = useQuery<ProjectInterface[]>({
+        queryKey: ["currentProjects", id],
+        queryFn: () => getCurrentProjects(+id!),
+        enabled: !!id,
+    });
+
+    const {
+        data: currentHobbies,
+        isLoading: isLoadingHobbies,
+        isError: isErrorHobbies,
+    } = useQuery<Hobby[]>({
+        queryKey: ["currentHobbies", id],
+        queryFn: () => getCurrentHobbies(+id!),
+        enabled: !!id,
+    });
+
+    const {
+        data: currentSkills,
+        isLoading: isLoadingSkills,
+        isError: isErrorSkills,
+    } = useQuery<SkillInterface[]>({
+        queryKey: ["currentSkills", id],
+        queryFn: () => getCurrentSkills(+id!),
+        enabled: !!id,
+    });
+
 
     return (
     <Form {...form}>
@@ -151,9 +276,11 @@ export const CvConstructPage = () => {
                 {/* Colonne gauche - formulaire utilisateur */}
                 <div className="lg:col-span-4 space-y-4 pr-6 border-r">
                     {/* Avatar */}
-                    {imagePreview && (
+                    {isLoadingProfile && <span>Loading...</span>}
+                    {isErrorProfile && <span>Erreur</span>}
+                    {profile?.picture && (
                         <img
-                            src={imagePreview}
+                            src={profile.picture}
                             alt="Avatar"
                             className="w-20 h-20 object-cover rounded"
                             data-cy="avatar-preview"
@@ -216,19 +343,22 @@ export const CvConstructPage = () => {
                                             <SelectValue placeholder="Choisissez votre prénom" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {nameOptions.map((opt) => (
+                                            {isLoadingUser && <span>Loading...</span>}
+                                            {isErrorUser && <span>Erreur</span>}
+                                            {currentUser && (
                                                 <SelectItem
-                                                    key={opt}
-                                                    value={opt}
+                                                    key={currentUser.firstname}
+                                                    value={currentUser.firstname}
                                                     data-cy="firstname-option"
-                                                    data-value={opt}
+                                                    data-value={currentUser.firstname}
                                                 >
-                                                    {opt}
+                                                    {currentUser.firstname}
                                                 </SelectItem>
-                                            ))}
+                                                )}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
+
                             </FormItem>
                         )}
                     />
@@ -247,16 +377,18 @@ export const CvConstructPage = () => {
                                             <SelectValue placeholder="Choisissez votre nom" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {lastnameOptions.map((opt) => (
+                                            {isLoadingUser && <span>Loading...</span>}
+                                            {isErrorUser && <span>Erreur</span>}
+                                            {currentUser (
                                                 <SelectItem
-                                                    key={opt}
-                                                    value={opt}
+                                                    key={currentUser.lastname}
+                                                    value={currentUser.lastname}
                                                     data-cy="lastname-option"
-                                                    data-value={opt}
+                                                    data-value={currentUser.lastname}
                                                 >
-                                                    {opt}
+                                                    {currentUser.lastname}
                                                 </SelectItem>
-                                            ))}
+                                            )}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
@@ -303,7 +435,7 @@ export const CvConstructPage = () => {
                     />
 
                     {/* Champ : Langues */}
-                    <FormField
+                   {/* <FormField
                         control={form.control}
                         name="languages"
                         render={({ field }) => (
@@ -319,16 +451,43 @@ export const CvConstructPage = () => {
                                 </FormControl>
                             </FormItem>
                         )}
-                    />
+                    />*/}
 
                     {/* Autres sélections : compétences, expérience, formation, projets, centres d'intérêt */}
-                    {(["skills", "experience", "education", "project", "interest"] as const).map((field) => {
-                        const fieldOptions: Record<string, string[]> = {
-                            skills: skillsOptions,
-                            experience: experienceOptions,
-                            education: educationOptions,
-                            project: projects,
-                            interest: interests,
+                    {isLoadingLangues && <span>Loading...</span>}
+                    {isErrorLangues && <span>Erreur</span>}
+                    {isLoadingSkills && <span>Loading...</span>}
+                    {isErrorSkills && <span>Erreur</span>}
+                    {isLoadingExperience && <span>Loading...</span>}
+                    {isErrorExperience && <span>Erreur</span>}
+                    {isLoadingEducation && <span>Loading...</span>}
+                    {isErrorEducation && <span>Erreur</span>}
+                    {isLoadingProjects && <span>Loading...</span>}
+                    {isErrorProjects && <span>Erreur</span>}
+                    {isLoadingHobbies && <span>Loading...</span>}
+                    {isErrorHobbies && <span>Erreur</span>}
+                    {isLoadingUser && <span>Loading...</span>}
+                    {isErrorUser && <span>Erreur</span>}
+                    {isLoadingProfile && <span>Loading...</span>}
+                    {isErrorProfile && <span>Erreur</span>}
+                    {isLoadingUsefulInfo && <span>Loading...</span>}
+                    {isErrorUsefulInfo && <span>Erreur</span>}
+                    {(["languages", "skills", "experience", "education", "project", "interest", "email", "street", "zip_code", "city", "phone_number", "useful_info"] as const).map((field) => {
+
+                        const fieldOptions: Record <string, string> =  {
+                            languages: {langues},
+                            skills: {currentSkills},
+                            experience: {currentExperience},
+                            education: {currentEducation},
+                            project: {currentProjects},
+                            interest: {currentHobbies},
+                            email: {currentUser: email},
+                            street: {currentProfile: street},
+                            zip_code: {currentProfile: zip_code},
+                            city: {currentProfile: city},
+                            phone_number: {currentProfile: phone_number},
+                            useful_info: {currentUsefulInfo},
+
                         };
 
                         return (
@@ -341,8 +500,8 @@ export const CvConstructPage = () => {
                                         <FormLabel className="capitalize">{field}</FormLabel>
                                         <MultiSelect
                                             label={field}
-                                            options={fieldOptions[field]}
-                                            value={value ?? []}
+                                            options={fieldOptions}
+                                            value={value}
                                             onChange={(vals) => form.setValue(field, vals)}
                                         />
                                     </FormItem>
@@ -422,7 +581,7 @@ export const CvConstructPage = () => {
                         </div>
 
                         {/* Sections dynamiques */}
-                        {(["summary", "languages", "experience", "education", "skills", "project", "interest"] as const).map((field) => {
+                        {(["summary", "languages", "experience", "education", "skills", "project", "interest", "email", "street", "zip_code", "city", "phone_number", "useful_info" ] as const).map((field) => {
                             const values = form.watch(field);
                             if (!values || (Array.isArray(values) && values.length === 0)) return null;
 
@@ -434,6 +593,12 @@ export const CvConstructPage = () => {
                                 skills: "Compétences",
                                 project: "Projets réalisés",
                                 interest: "Centres d’intérêt",
+                                email: "E-mail",
+                                street: "Rue",
+                                zip_code: "CP",
+                                city: "Ville",
+                                phone_number: "Numéro de téléphone",
+                                useful_info: "Information utile"
                             };
 
                             return (
