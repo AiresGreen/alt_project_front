@@ -35,3 +35,13 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('login', () => {
+    cy.session('user-session', () => {
+        cy.visit('/login');
+        cy.get('input[name="email"]').type('admin@btj.io');
+        cy.get('input[name="password"]').type('AdminPassword123!');
+        cy.get('button[type="submit"]').click();
+        cy.url().should('include', '/dashboard');
+    });
+});

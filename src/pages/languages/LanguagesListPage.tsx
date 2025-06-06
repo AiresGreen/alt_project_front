@@ -182,7 +182,7 @@ export const LanguagesListPage = () => {
     return (
         <div className="p-6 space-y-6">
             {/* Formulaire de création / édition */}
-            <Card className="">
+            <Card className="" data-testid="language-card">
                 <CardHeader>
                     <CardTitle className="text-lg font-bold">
                         {isEditing ? "Modifier une langue" : "Ajouter une nouvelle langue"}
