@@ -18,9 +18,9 @@ import {
     FormLabel,
     Form
 } from "@/components/ui/form";
-import { useEffect, useContext, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "@/hook/contexts/auth.context";
+
 import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
 import { BackButton } from "@/components/BackButton/BackButton.tsx";
@@ -39,7 +39,7 @@ import {
     getCurrentProfile,
     getCurrentProjects, getCurrentSkills,
     getCurrentUsefulInfo,
-    getCurrentUser, getLangues
+    getCurrentUser,
 } from "@/services/api/cvConstruct.ts";
 import {userProfile} from "@/interface/UserInterface.ts";
 import {useQuery} from "@tanstack/react-query";
@@ -47,11 +47,13 @@ import {ProfileInterface} from "@/interface/ProfileInterface.ts";
 import {UsefulInfoInterface} from "@/interface/UsefulInfoInterface.ts";
 import {useParams} from "react-router-dom";
 import {Hobby} from "@/interface/HobbyInterface.ts";
-import {LanguageInterface} from "@/interface/LanguageInterface.ts";
+import {UserLanguage} from "@/interface/LanguageInterface.ts";
 import {SkillInterface} from "@/interface/SkillInterface.ts";
 import {ProjectInterface} from "@/interface/ProjectInterfaces.ts";
 import {EducationInterface} from "@/interface/EducationInterface.ts";
 import {ExperienceInterface} from "@/interface/ExperienceInterface.ts";
+import {getLanguageOfUser} from "@/services/api/languageApi.ts";
+import {useAuth} from "@/hook/useAuth.ts";
 
 type Props = {
     label: string;
@@ -133,11 +135,12 @@ const cvSchema = z.object({
 type CVFormValues = z.infer<typeof cvSchema>;
 
 export const CvConstructPage = () => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { userId, isAuthenticated } = useAuth();
     const navigate = useNavigate();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const printRef = useRef<HTMLDivElement>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const user_id = userId
 
     const handlePrint = useReactToPrint({
         content: () => printRef.current as HTMLDivElement,
@@ -172,7 +175,7 @@ export const CvConstructPage = () => {
     });
 
 //===Appel get current user, profile, useful-info, experience, skills, educ, projet, langues, hobbies,
-    const { phone_number, user_id, id } = useParams<{ phone_number: string; user_id: string; id: string; }>();
+    const { phone_number, id } = useParams<{ phone_number: string; id: string; }>();
 
     const {
         data: currentUser,
@@ -218,9 +221,10 @@ export const CvConstructPage = () => {
         data: langues,
         isLoading: isLoadingLangues,
         isError: isErrorLangues,
-    } = useQuery<LanguageInterface[]>({
-        queryKey: ["langues"],
-        queryFn: () => getLangues(),
+    } = useQuery<UserLanguage[]>({
+        queryKey: ["langues", userId],
+        queryFn: () => getLanguageOfUser(user_id!),
+        enabled: !!user_id
     });
 
     const {
@@ -475,7 +479,7 @@ export const CvConstructPage = () => {
                     {(["languages", "skills", "experience", "education", "project", "interest", "email", "street", "zip_code", "city", "phone_number", "useful_info"] as const).map((field) => {
 
                         const fieldOptions: Record <string, string[]> =  {
-                            languages: langues?.map(lang => `${lang.langEnglishName} - ${lang.level}`) || [],
+                            languages: langues?.map(lang => `${lang.language.langEnglishName} - ${lang.level}`) || [],
                             skills: currentSkills?.map(skill => skill.title) || [],
                             experience: currentExperience?.map(exp => `${exp.title} - ${exp.description}`) || [],
                             education: currentEducation?.map(edu => `${edu.title} - ${edu.begin_year}`) || [],

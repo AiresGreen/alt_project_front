@@ -25,8 +25,8 @@ export const addLangue = async (payload: {
     return data;
 };
 
-export const deleteLangue = async (id: string) => {
-    await api.delete(`/languages/${id}`);
+export const deleteLangue = async (language_id: string) => {
+    await api.delete(`/languages/${language_id}`);
 };
 
 export const updateLangue = async (

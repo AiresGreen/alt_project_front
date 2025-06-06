@@ -93,7 +93,7 @@ export const LoginPage = () => {
                   </FormItem>
                 )}
               />
-              <NavLink to="/LoginRecoveryPage">Mot de passe Oublié</NavLink>
+              <NavLink to="/loginrecovery">Mot de passe Oublié</NavLink>
             </div>
 
             <div className="flex flex-col gap-4 max-md:my-8 py-20">

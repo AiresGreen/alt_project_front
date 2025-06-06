@@ -88,6 +88,7 @@ export const LanguagesListPage = () => {
         onSuccess: () => {
             toast.success("Langue modifiée avec succès");
             queryClient.invalidateQueries({ queryKey: ["langues", userId] });
+            queryClient.invalidateQueries({ queryKey: ["usersLanguages", userId] });
             resetForm();
         },
         onError: () => toast.error("Erreur lors de la modification"),
@@ -108,6 +109,7 @@ export const LanguagesListPage = () => {
         onSuccess: ( ) => {
             toast.success("Langue ajoutée avec succès");
             queryClient.invalidateQueries({ queryKey: ["langues", userId] });
+            queryClient.invalidateQueries({ queryKey: ["usersLanguages", userId] });
             resetForm();
         },
         onError: (error: any) => {
@@ -122,6 +124,7 @@ export const LanguagesListPage = () => {
         onSuccess: () => {
             toast("Langue supprimée");
             queryClient.invalidateQueries({ queryKey: ["langues", userId] });
+            queryClient.invalidateQueries({ queryKey: ["usersLanguages", userId] });
         },
         onError: () => toast.error("Erreur lors de la suppression"),
     });
@@ -160,6 +163,7 @@ export const LanguagesListPage = () => {
     const handleDelete = (id: string) => {
         removeLangue(id);
         toast("Langue supprimée");
+
     };
 
     const resetForm = () => {
