@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import {destroyTokenUser, refreshTokens} from "@/services/api/auth.ts";
+import {destroyTokenUser, refreshTokens} from "@/services/api/authApi.ts";
 
 export function useApi() {
 

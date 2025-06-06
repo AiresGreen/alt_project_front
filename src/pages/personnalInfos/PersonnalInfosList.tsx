@@ -54,7 +54,7 @@ export default function PersonalInfosList() {
     } = useForm<InfoType>({
         resolver: zodResolver(InfoSchema),
         defaultValues: {
-            nom: "",
+            langEnglishName: "",
             prenom: "",
             linkedin: "",
             email: "",

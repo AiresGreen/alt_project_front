@@ -1,8 +1,5 @@
-import { useState } from "react";
-import { LanguageInterface } from "@/interface/LanguageInterface";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
 import {
     Card,
     CardHeader,
@@ -10,68 +7,177 @@ import {
     CardContent,
     CardFooter,
 } from "@/components/ui/card";
-import { toast } from "sonner";
+import {Form, FormControl, FormField, FormItem, FormLabel} from "@/components/ui/form.tsx";
 import {BackButton} from "@/components/BackButton/BackButton.tsx";
+import {z} from "zod";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {LanguageInterface, UserLanguage} from "@/interface/LanguageInterface";
+import {addLangue, deleteLangue, getLanguageOfUser, getLangues, getLevels, updateLangue} from "@/services/api/languageApi.ts";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {toast} from "sonner";
+import  {useState} from "react";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
+//import {useParams} from "react-router-dom";
+import { useAuth } from "@/hook/useAuth";
+
+
+
+
+
+const langueSchema = z.object({
+    langEnglishName: z.string(),
+    level: z.string(),
+})
+
+type LanguesFromValues = z.infer<typeof langueSchema>;
+
 
 export const LanguagesListPage = () => {
-    // State pour la liste des langues
-    const [langues, setLangues] = useState<LanguageInterface[]>([]);
-
-    // States pour le formulaire
-    const [nom, setNom] = useState("");
-    const [niveau, setNiveau] = useState("");
-
-    // States pour l’édition
+    //const [showLanguages, setShowLanguages] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [editId, setEditId] = useState<number | null>(null);
+    //const [addedIds, setAddedIds] = useState<string[]>([]);
+    const [editId, setEditId] = useState<any | null>(null);
+    const { userId, isAuthenticated } = useAuth();
+    const form = useForm<LanguesFromValues>(
+        {
+            resolver: zodResolver(langueSchema),
+            defaultValues:
+                {
+                    langEnglishName: "",
+                    level: "",
+                }
+        }
+    )
 
-    // Soumission du formulaire (création ou édition)
-    const handleSubmit = (e: any) => {
+    //==Appel api get
+
+    const {
+        data: apiLanguages = [],
+        isLoading,
+        isError,
+    } = useQuery<LanguageInterface[]>(
+        {
+            queryKey: ["langues"],
+            queryFn: () => getLangues()
+        }
+    );
+
+    const apiLevels = useQuery<string[]>(
+        {
+            queryKey: ["levelsFromApi"],
+            queryFn: () => getLevels()
+        }
+    );
+
+
+    const {
+        data: getUserLanguages = [],
+        isLoading: isLoadingUserLanguages,
+        isError: isErrorUserLanguages,
+    } = useQuery<UserLanguage[]>({
+        queryKey: ["usersLanguages", userId],
+        queryFn:  () => {
+            if (!userId) throw new Error("user_id is undefined");
+            return getLanguageOfUser(userId);
+        },
+        enabled: !!userId,
+
+        });
+
+    //==Appel API Put
+    const { mutate: editLangue } = useMutation({
+        mutationFn: ({ id, ...payload }: { id: string } & Omit<LanguesFromValues, "">) =>
+            updateLangue(id, payload),
+        onSuccess: () => {
+            toast.success("Langue modifiée avec succès");
+            queryClient.invalidateQueries({ queryKey: ["langues"] });
+            resetForm();
+        },
+        onError: () => toast.error("Erreur lors de la modification"),
+    });
+
+
+
+    //==Appel api post
+
+    const queryClient = useQueryClient();
+
+    const { mutate: createLangue, isPending: isAdding } = useMutation<
+        void, // retour
+        unknown, // erreur
+        {  langEnglishName: string; level: string } // type d'entrée attendu
+    >({
+        mutationFn: addLangue,
+        onSuccess: ( ) => {
+            toast.success("Langue ajoutée avec succès");
+            queryClient.invalidateQueries({ queryKey: ["langues"] });
+            //setAddedIds((prev) => [...prev, newLanguage.language.id]);
+            //setShowLanguages(true);
+            resetForm();
+        },
+        onError: (error: any) => {
+            toast.error(error.message || "Erreur lors de l’ajout");
+        },
+    });
+
+    //==Appel API delete
+
+    const { mutate: removeLangue } = useMutation({
+        mutationFn: deleteLangue,
+        onSuccess: () => {
+            toast("Langue supprimée");
+            queryClient.invalidateQueries({ queryKey: ["langues"] });
+        },
+        onError: () => toast.error("Erreur lors de la suppression"),
+    });
+
+
+
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
+        const { langEnglishName, level } = form.getValues();
+
+        if (!langEnglishName.trim() || !level.trim()) {
+            toast.error("Veuillez remplir tous les champs.");
+            return;
+        }
 
         if (isEditing && editId !== null) {
-            // Mode édition : mise à jour de la langue ciblée
-            setLangues((prevLangues) =>
-                prevLangues.map((langue) =>
-                    langue.id === editId ? { ...langue, nom, niveau } : langue
-                )
-            );
-            toast.success("Langue modifiée avec succès");
+            editLangue({ id: editId, langEnglishName, level });
         } else {
-            // Mode création : ajout d'une nouvelle langue
-            const newId = new Date().getTime(); // Génère un id unique
-            const nouvelleLangue: LanguageInterface = {
-                id: newId,
-                nom,
-                niveau,
-            };
-            setLangues((prevLangues) => [...prevLangues, nouvelleLangue]);
-            toast.success("Langue ajoutée avec succès");
+            createLangue({ langEnglishName, level });
+            toast.success("Votre langue est ajoutée dans votre profil")
         }
         resetForm();
     };
 
-    // Lance l’édition d’une langue existante
-    const handleEdit = (langue: LanguageInterface) => {
+
+    const handleEdit = (langue: UserLanguage) => {
         setIsEditing(true);
-        setEditId(langue.id);
-        setNom(langue.nom);
-        setNiveau(langue.niveau);
+        setEditId(langue.language_id);
+        form.setValue("langEnglishName", langue.language.langEnglishName);
+        form.setValue("level", langue.level);
     };
 
-    // Supprime une langue
-    const handleDelete = (id: number) => {
-        setLangues((prevLangues) => prevLangues.filter((l) => l.id !== id));
+    const handleDelete = (id: string) => {
+        removeLangue(id);
         toast("Langue supprimée");
     };
 
-    // Réinitialise le formulaire et repasse en mode création
     const resetForm = () => {
         setIsEditing(false);
         setEditId(null);
-        setNom("");
-        setNiveau("");
+        form.reset();
+        form.setFocus("langEnglishName")
+
     };
+
+
+    if (!isAuthenticated || !userId) {
+        return <div>Chargement…</div>;
+    }
 
     return (
         <div className="p-6 space-y-6">
@@ -82,75 +188,130 @@ export const LanguagesListPage = () => {
                         {isEditing ? "Modifier une langue" : "Ajouter une nouvelle langue"}
                     </CardTitle>
                 </CardHeader>
-                <form onSubmit={handleSubmit} >
-                    <CardContent className="space-y-4 text-black">
-                        <div>
-                            <Label htmlFor="nom" className="block mb-1">
-                                Nom de la langue
-                            </Label>
-                            <Input
-                                id="nom"
-                                type="text"
-                                value={nom}
-                                onChange={(e) => setNom(e.target.value)}
-                                placeholder="Ex : Français"
-                                required
+                <Form {...form}>
+                    <form onSubmit={handleSubmit}>
+                        <CardContent className="space-y-4 text-black">
+                            {isLoading && <span>Loading...</span>}
+                            {isError && <span>Erreur</span>}
+                            {isAdding && <span>Adding...</span>}
+                            {apiLanguages && (
+                                <div>
+                                    <FormField
+                                        control={form.control}
+                                        name="langEnglishName"
+                                        render={({field}) => (
+                                            <FormItem>
+                                                <FormLabel>Langues :</FormLabel>
+                                                <FormControl>
+                                                    <div>
+                                                        <Input
+                                                            {...field}
+                                                            list="langues-list"
+                                                            placeholder="Commencez à taper une langue"
+                                                            className="border rounded p-2 w-full"
+                                                        />
+                                                        <datalist id="langues-list">
+                                                            {apiLanguages.map((langue) => (
+                                                                <option key={langue.id}
+                                                                        value={langue.langEnglishName}
+                                                                />
+                                                            ))}
+                                                        </datalist>
+                                                    </div>
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                            )}
+                            <FormField
+                                control={form.control}
+                                name="level"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        {isLoading && <span>Loading...</span>}
+                                        {isError && <span>Erreur</span>}
+                                        <FormLabel>Niveau :</FormLabel>
+                                        <FormControl>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                                value={field.value}
+                                            >
+                                                <SelectTrigger data-cy="levelsFormTrigger">
+                                                    <SelectValue placeholder="Choisissez votre niveau de langue" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {apiLevels.data?.map((level) => (
+                                                        <SelectItem
+                                                            key={level}
+                                                            value={level}
+                                                            data-cy={`level-option-${level}`}
+                                                            data-value={level}
+                                                        >
+                                                            {level}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </FormControl>
+
+                                    </FormItem>
+                                )}
                             />
-                        </div>
-                        <div>
-                            <Label htmlFor="niveau" className="block mb-1">
-                                Niveau
-                            </Label>
-                            <Input
-                                id="niveau"
-                                type="text"
-                                value={niveau}
-                                onChange={(e) => setNiveau(e.target.value)}
-                                placeholder="Ex : C1"
-                                required
-                            />
-                        </div>
-                    </CardContent>
-                    <CardFooter className="flex items-center space-x-4">
-                        <Button type="submit" variant="default">
-                            {isEditing ? "Enregistrer" : "Ajouter"}
-                        </Button>
-                        {isEditing && (
-                            <Button type="button" variant="outline" onClick={resetForm}>
-                                Annuler
+                        </CardContent>
+                        <CardFooter className="flex items-center space-x-4">
+                            <Button type="submit"
+                                    variant="default"
+                                    disabled={isAdding}>
+                                {isEditing ? "Enregistrer" : isAdding ? "Ajout en cours..." : "Ajouter"}
                             </Button>
-                        )}
-                    </CardFooter>
-                </form>
+                            {isEditing && (
+                                <Button type="button"
+                                        variant="outline"
+                                        onClick={resetForm}>
+                                    Annuler
+                                </Button>
+                            )}
+                        </CardFooter>
+                    </form>
+                </Form>
             </Card>
 
             {/* Liste des langues */}
             <div className={""}>
                 <h2 className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
-                {langues.length === 0 ? (
+                {isLoadingUserLanguages && <span>Loading...</span>}
+                {isErrorUserLanguages && <span>Erreur</span>}
+                {getUserLanguages.length === 0 ? (
                     <p>Aucune langue pour le moment.</p>
                 ) : (
                     <div className="grid gap-4">
-                        {langues.map((langue) => (
-                            <Card key={langue.id} className="border ">
+                        {getUserLanguages.map((usersLanguages)=> {
+                            const reactKey = `${usersLanguages.language.langEnglishName}-${usersLanguages.level}`;
+                            return (
+                            <Card key={reactKey}
+                                  className="border ">
                                 <CardHeader>
-                                    <CardTitle>{langue.nom}</CardTitle>
+                                    <CardTitle>
+                                        {usersLanguages.language.langEnglishName}
+                                    </CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <p>
-                                        <strong>Niveau :</strong> {langue.niveau}
+                                        <strong>Niveau :</strong> {usersLanguages.level}
                                     </p>
                                 </CardContent>
                                 <CardFooter className="flex space-x-2">
                                     <Button
-                                        onClick={() => handleEdit(langue)}
+                                        onClick={() => handleEdit(usersLanguages)}
                                         variant="secondary"
                                         size="sm"
                                     >
                                         Modifier
                                     </Button>
                                     <Button
-                                        onClick={() => handleDelete(langue.id)}
+                                        onClick={() => handleDelete(String(usersLanguages.language_id))}
                                         variant="destructive"
                                         size="sm"
                                     >
@@ -158,7 +319,7 @@ export const LanguagesListPage = () => {
                                     </Button>
                                 </CardFooter>
                             </Card>
-                        ))}
+                        )})}
                     </div>
                 )}
             </div>

@@ -224,26 +224,16 @@ export default function HomePage() {
                                 <section className=" w-full space-y-6 max-h-[625px] always-show-scrollbar">
                                     {isLoading && <span>Loading...</span>}
                                     {isError && <span>Erreur</span>}
-                                    {currentOffers &&
-                                        currentOffers.map(
-                                            (
-                                                offer: OfferInterface,
-                                                i: number
-                                            ) => (
-                                                <Card key={i}
-                                                      className="">
+                                    {currentOffers && currentOffers.map((offer: OfferInterface, i: number) => (
+                                                <Card key={i} className="">
                                                     <CardHeader>
                                                         <CardTitle>
                                                             {offer.intitule}
                                                         </CardTitle>
                                                         <CardDescription className="gap-4">
                                                             <span className="text-sm ">
-                                                                Date de
-                                                                publication :{" "}
-                                                                {new Date(
-                                                                    offer.dateCreation
-                                                                ).toLocaleString(
-                                                                    "fr-FR",
+                                                                Date de publication :{" "}
+                                                                {new Date(offer.dateCreation).toLocaleString("fr-FR",
                                                                     {
                                                                         day: "2-digit",
                                                                         month: "2-digit",

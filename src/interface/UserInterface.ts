@@ -1,10 +1,11 @@
-export interface IUserProfile {
+export interface userProfile {
     avatarUrl?: string;
     initials?: string;
-    [key: string]: any;
     id: number;
     email: string;
     firstname: string;
     lastname: string;
     emailVerified: boolean;
+    [key: string]: any;
+
 }

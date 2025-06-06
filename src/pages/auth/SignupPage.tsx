@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {signup} from "@/services/api/auth.ts";
+import {signup} from "@/services/api/authApi.ts";
 import {useNavigate} from "react-router-dom";
 
 

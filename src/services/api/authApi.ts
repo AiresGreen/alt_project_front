@@ -18,7 +18,15 @@ export const signin = async (payload: { email: string; password: string }) => {
     throw error.response?.data?.message || "Erreur lors de la connexion";
   }
 };
-
+/**
+ * getMe : récupère le profil complet de l'utilisateur actuellement authentifié
+ * Cette fonction doit être appelée après avoir stocké l’access-token en localStorage,
+ * afin que l’intercepteur ajoute le header Authorization automatiquement.
+ */
+export const getMe = async () => {
+  const { data } = await api.get("/auth/me");
+  return data; // par exemple { id: 42, email: "...", firstname: "...", lastname: "..." }
+};
 
 export const signup = async (payload:
                              { email: string; firstname: string; lastname: string; password: string }) => {

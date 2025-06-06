@@ -41,7 +41,7 @@ import {
     getCurrentUsefulInfo,
     getCurrentUser, getLangues
 } from "@/services/api/cvConstruct.ts";
-import {IUserProfile} from "@/interface/UserInterface.ts";
+import {userProfile} from "@/interface/UserInterface.ts";
 import {useQuery} from "@tanstack/react-query";
 import {ProfileInterface} from "@/interface/ProfileInterface.ts";
 import {UsefulInfoInterface} from "@/interface/UsefulInfoInterface.ts";
@@ -178,7 +178,7 @@ export const CvConstructPage = () => {
         data: currentUser,
         isLoading: isLoadingUser,
         isError: isErrorUser,
-    } = useQuery<IUserProfile[]>({
+    } = useQuery<userProfile>({
         queryKey: ["currentUser"],
         queryFn: getCurrentUser,
             });
@@ -187,7 +187,7 @@ export const CvConstructPage = () => {
         data: currentProfile,
         isLoading: isLoadingProfile,
         isError: isErrorProfile,
-    } = useQuery<ProfileInterface[] >({
+    } = useQuery<ProfileInterface[]>({
         queryKey: ["currentProfile", phone_number],
         queryFn: () => getCurrentProfile(phone_number!),
         enabled: !!phone_number,
@@ -306,7 +306,7 @@ export const CvConstructPage = () => {
                                 const reader = new FileReader();
                                 reader.onloadend = () => {
                                     if (typeof reader.result === "string") {
-                                        form.setValue("avatar", reader.result);
+                                        form.setValue("picture", reader.result);
                                         setImagePreview(reader.result);
                                     }
                                 };
@@ -319,7 +319,7 @@ export const CvConstructPage = () => {
                         variant="ghost"
                         className="w-full text-destructive"
                         onClick={() => {
-                            form.setValue("avatar", "");
+                            form.setValue("picture", "");
                             setImagePreview(null);
                         }}
                         data-cy="delete-avatar"
@@ -379,7 +379,7 @@ export const CvConstructPage = () => {
                                         <SelectContent>
                                             {isLoadingUser && <span>Loading...</span>}
                                             {isErrorUser && <span>Erreur</span>}
-                                            {currentUser (
+                                            {currentUser && (
                                                 <SelectItem
                                                     key={currentUser.lastname}
                                                     value={currentUser.lastname}
@@ -474,19 +474,19 @@ export const CvConstructPage = () => {
                     {isErrorUsefulInfo && <span>Erreur</span>}
                     {(["languages", "skills", "experience", "education", "project", "interest", "email", "street", "zip_code", "city", "phone_number", "useful_info"] as const).map((field) => {
 
-                        const fieldOptions: Record <string, string> =  {
-                            languages: {langues},
-                            skills: {currentSkills},
-                            experience: {currentExperience},
-                            education: {currentEducation},
-                            project: {currentProjects},
-                            interest: {currentHobbies},
-                            email: {currentUser: email},
-                            street: {currentProfile: street},
-                            zip_code: {currentProfile: zip_code},
-                            city: {currentProfile: city},
-                            phone_number: {currentProfile: phone_number},
-                            useful_info: {currentUsefulInfo},
+                        const fieldOptions: Record <string, string[]> =  {
+                            languages: langues?.map(lang => `${lang.langEnglishName} - ${lang.level}`) || [],
+                            skills: currentSkills?.map(skill => skill.title) || [],
+                            experience: currentExperience?.map(exp => `${exp.title} - ${exp.description}`) || [],
+                            education: currentEducation?.map(edu => `${edu.title} - ${edu.begin_year}`) || [],
+                            project: currentProjects?.map(p => p.title) || [],
+                            interest: currentHobbies?.map(h => h.title) || [],
+                            email: currentUser ? [currentUser.email] : [],
+                            street: profile ? [profile.street] : [],
+                            zip_code: profile ? [profile.zip_code] : [],
+                            city: profile ? [profile.city] : [],
+                            phone_number: profile ? [profile.phone_number] : [],
+                            useful_info: currentUsefulInfo?.map(info => info.name) || [],
 
                         };
 
@@ -498,12 +498,21 @@ export const CvConstructPage = () => {
                                 render={({ field: { value } }) => (
                                     <FormItem>
                                         <FormLabel className="capitalize">{field}</FormLabel>
-                                        <MultiSelect
-                                            label={field}
-                                            options={fieldOptions}
-                                            value={value}
-                                            onChange={(vals) => form.setValue(field, vals)}
-                                        />
+                                        {Array.isArray(value) ? (
+                                            <MultiSelect
+                                                label={field}
+                                                options={fieldOptions[field]}
+                                                value={value}
+                                                onChange={(vals) => form.setValue(field, vals)}
+                                            />
+                                        ) : (
+                                            <input
+                                                className="border rounded p-2 w-full"
+                                                value={value ?? ""}
+                                                onChange={(e) => form.setValue(field, e.target.value)}
+                                                placeholder={field}
+                                            />
+                                        )}
                                     </FormItem>
                                 )}
                             />

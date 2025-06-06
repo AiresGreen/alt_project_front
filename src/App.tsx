@@ -106,10 +106,10 @@ function App() {
                     <Route path="/personal-infos" element={<PersonalInfosList />} />
                     <Route path="/info-zutile" element={<UsefulInfosList />} />
                     <Route path="/hobbies" element={<HobbiesListPage />} />
-                    <Route path="/languages" element={<LanguagesListPage />} />
+                    <Route path="/languages/" element={<LanguagesListPage />} />
                     <Route path="/projects" element={<ProjectsListPage />} />
                     <Route path="/skills" element={<SkillsListPage />} />
-                    <Route path="/profile-page" element={<ProfileDetailsPage />} />
+                    <Route path="/profile-page/" element={<ProfileDetailsPage />} />
                 </Route>
             </Route>
 

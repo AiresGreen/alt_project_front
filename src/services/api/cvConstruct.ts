@@ -83,7 +83,7 @@ export const getCurrentSkills = async (id:number) => {
 
 export const getLangues = async () => {
     try {
-        const {data} = await api.get(`/langues`);
+        const {data} = await api.get(`/languages`);
         return data;
     } catch (error:any) {
         throw error("not found current langues");

@@ -1,15 +1,16 @@
-import {useContext, useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+//import {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useMediaQuery } from "react-responsive";
 
 // Contexte d'authentification
-import { AuthContext } from "@/hook/contexts/auth.context";
+//import { AuthContext } from "@/hook/contexts/auth.context";
+import {useAuth} from "@/hook/useAuth.ts";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import {generateFakeUser} from "@/utils/generateFakeUser .tsx";
+//import {generateFakeUser} from "@/utils/generateFakeUser .tsx";
 import {BackButton} from "@/components/BackButton/BackButton.tsx";
 
 type ProfileFormData = {
@@ -19,8 +20,18 @@ type ProfileFormData = {
 
 export const ProfileDetailsPage = () => {
     const navigate = useNavigate();
-    const { userProfile } = useContext(AuthContext); // ou { isAuthenticated, user } selon votre structure
-    const { register, handleSubmit } = useForm<ProfileFormData>();
+    const { userId, userProfile, isAuthenticated } = useAuth();
+        if (!isAuthenticated || !userId ||!userProfile) {
+            return <div>Chargement…</div>;
+        }
+
+    const { register, handleSubmit } = useForm<ProfileFormData>({
+        defaultValues: {
+            name: userProfile.firstname + " " + userProfile.lastname,
+            phone: userProfile.phone ?? "",
+        },
+    });
+
 
     //React-responsive
     const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -30,7 +41,7 @@ export const ProfileDetailsPage = () => {
         toast.success("Profil mis à jour !");
         console.log("Données du formulaire :", data);
     };
-    const [testUser, setTestUser] = useState<any>(generateFakeUser);
+/*    const [testUser, setTestUser] = useState<any>(generateFakeUser);
 
     // Utiliser directement la fonction utilitaire pour obtenir un faux utilisateur
     useEffect(() => {
@@ -42,7 +53,7 @@ export const ProfileDetailsPage = () => {
 
     if (!testUser) {
         return <div>Chargement...</div>;
-    }
+    }*/
 
     return (
         <div className="container mx-auto p-4">
@@ -59,7 +70,7 @@ export const ProfileDetailsPage = () => {
                         type="text"
                         className="border p-2 w-full rounded"
                         {...register("name")}
-                        defaultValue={testUser.name || ""}
+                        //defaultValue={testUser.name || ""}
                     />
                 </div>
                 <div>
@@ -68,7 +79,7 @@ export const ProfileDetailsPage = () => {
                         type="text"
                         className="border p-2 w-full rounded"
                         {...register("phone")}
-                        defaultValue={testUser.telephone || ""}
+                        //defaultValue={testUser.telephone || ""}
                     />
                 </div>
                 <Button type="submit">Enregistrer</Button>
@@ -82,7 +93,7 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Infos Zutiles</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.infosUtiles}</p>
+                        <p>{userProfile.infosUtiles}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/info-zutile")}>
@@ -106,7 +117,7 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Expériences Professionnelles</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.experiences}</p>
+                        <p>{userProfile.experiences}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/experience")}>
@@ -131,7 +142,7 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Formation / Éducation</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.formations}</p>
+                        <p>{userProfile.formations}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/education")}>
@@ -157,7 +168,7 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Compétences</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.competences}</p>
+                        <p>{userProfile.competences}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/skills")}>
@@ -183,7 +194,7 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Projets de Folie</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.projetFolie}</p>
+                        <p>{userProfile.projetFolie}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/projects")}>
@@ -209,10 +220,10 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Langues Parlées</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.langues}</p>
+                        <p>{userProfile.langues}</p>
                     </CardContent>
                     <CardFooter>
-                        <Button variant="outline" onClick={() => navigate("/languages")}>
+                        <Button variant="outline" onClick={() => navigate(`/languages/${userId}`)}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5 mr-2"
@@ -235,7 +246,7 @@ export const ProfileDetailsPage = () => {
                         <CardTitle>Loisirs</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>{testUser.loisirs}</p>
+                        <p>{userProfile.loisirs}</p>
                     </CardContent>
                     <CardFooter>
                         <Button variant="outline" onClick={() => navigate("/hobbies")}>
