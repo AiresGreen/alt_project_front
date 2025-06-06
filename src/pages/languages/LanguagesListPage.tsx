@@ -24,7 +24,6 @@ import { useAuth } from "@/hook/useAuth";
 
 
 
-
 const langueSchema = z.object({
     langEnglishName: z.string(),
     level: z.string(),
@@ -34,11 +33,9 @@ type LanguesFromValues = z.infer<typeof langueSchema>;
 
 
 export const LanguagesListPage = () => {
-    //const [showLanguages, setShowLanguages] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    //const [addedIds, setAddedIds] = useState<string[]>([]);
-    const [editId, setEditId] = useState<any | null>(null);
     const { userId, isAuthenticated } = useAuth();
+
+
     const form = useForm<LanguesFromValues>(
         {
             resolver: zodResolver(langueSchema),
@@ -51,7 +48,7 @@ export const LanguagesListPage = () => {
     )
 
     //==Appel api get
-
+    // 1) Charger la liste complète des langues
     const {
         data: apiLanguages = [],
         isLoading,
@@ -62,7 +59,7 @@ export const LanguagesListPage = () => {
             queryFn: () => getLangues()
         }
     );
-
+    // 2) Charger les niveaux (levels)
     const apiLevels = useQuery<string[]>(
         {
             queryKey: ["levelsFromApi"],
@@ -70,28 +67,27 @@ export const LanguagesListPage = () => {
         }
     );
 
-
+    // 3) Charger les langues déjà associées à l’utilisateur
     const {
         data: getUserLanguages = [],
         isLoading: isLoadingUserLanguages,
         isError: isErrorUserLanguages,
     } = useQuery<UserLanguage[]>({
         queryKey: ["usersLanguages", userId],
-        queryFn:  () => {
-            if (!userId) throw new Error("user_id is undefined");
-            return getLanguageOfUser(userId);
-        },
-        enabled: !!userId,
+        queryFn: () => getLanguageOfUser(userId),
+        enabled: Boolean(userId),
 
         });
 
-    //==Appel API Put
+
+    // =============== MUTATIONS (POST, PUT, DELETE) ===============
+    //==Appel API Put /languages/:id pour éditer une langue
     const { mutate: editLangue } = useMutation({
-        mutationFn: ({ id, ...payload }: { id: string } & Omit<LanguesFromValues, "">) =>
+        mutationFn: ({ id, ...payload }: { id: string } & LanguesFromValues) =>
             updateLangue(id, payload),
         onSuccess: () => {
             toast.success("Langue modifiée avec succès");
-            queryClient.invalidateQueries({ queryKey: ["langues"] });
+            queryClient.invalidateQueries({ queryKey: ["langues", userId] });
             resetForm();
         },
         onError: () => toast.error("Erreur lors de la modification"),
@@ -99,21 +95,19 @@ export const LanguagesListPage = () => {
 
 
 
-    //==Appel api post
+    //==Appel api post /languages pour ajouter une nouvelle langue
 
     const queryClient = useQueryClient();
 
     const { mutate: createLangue, isPending: isAdding } = useMutation<
         void, // retour
         unknown, // erreur
-        {  langEnglishName: string; level: string } // type d'entrée attendu
+        LanguesFromValues
     >({
         mutationFn: addLangue,
         onSuccess: ( ) => {
             toast.success("Langue ajoutée avec succès");
-            queryClient.invalidateQueries({ queryKey: ["langues"] });
-            //setAddedIds((prev) => [...prev, newLanguage.language.id]);
-            //setShowLanguages(true);
+            queryClient.invalidateQueries({ queryKey: ["langues", userId] });
             resetForm();
         },
         onError: (error: any) => {
@@ -121,19 +115,23 @@ export const LanguagesListPage = () => {
         },
     });
 
-    //==Appel API delete
+    //==Appel API delete /languages/:id pour supprimer une langue
 
     const { mutate: removeLangue } = useMutation({
         mutationFn: deleteLangue,
         onSuccess: () => {
             toast("Langue supprimée");
-            queryClient.invalidateQueries({ queryKey: ["langues"] });
+            queryClient.invalidateQueries({ queryKey: ["langues", userId] });
         },
         onError: () => toast.error("Erreur lors de la suppression"),
     });
 
 
 
+    //==== Gestion de l’état
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [editId, setEditId] = useState<any | null>(null);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
@@ -148,15 +146,13 @@ export const LanguagesListPage = () => {
             editLangue({ id: editId, langEnglishName, level });
         } else {
             createLangue({ langEnglishName, level });
-            toast.success("Votre langue est ajoutée dans votre profil")
         }
-        resetForm();
     };
 
 
     const handleEdit = (langue: UserLanguage) => {
         setIsEditing(true);
-        setEditId(langue.language_id);
+        setEditId(langue.language_id.toString());
         form.setValue("langEnglishName", langue.language.langEnglishName);
         form.setValue("level", langue.level);
     };
@@ -194,7 +190,7 @@ export const LanguagesListPage = () => {
                             {isLoading && <span>Loading...</span>}
                             {isError && <span>Erreur</span>}
                             {isAdding && <span>Adding...</span>}
-                            {apiLanguages && (
+                            {apiLanguages.length> 0 && (
                                 <div>
                                     <FormField
                                         control={form.control}
@@ -311,7 +307,7 @@ export const LanguagesListPage = () => {
                                         Modifier
                                     </Button>
                                     <Button
-                                        onClick={() => handleDelete(String(usersLanguages.language_id))}
+                                        onClick={() => handleDelete(usersLanguages.language_id.toString())}
                                         variant="destructive"
                                         size="sm"
                                     >

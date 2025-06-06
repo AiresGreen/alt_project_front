@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
-  Form,
+    Form,
   FormControl,
   FormField,
   FormItem,
@@ -10,48 +10,39 @@ import {
 import { Input } from "@/components/ui/input";
 import { AuthContext } from "@/hook/contexts/auth.context";
 import { signin } from "@/services/api/authApi.ts";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import {NavLink, useNavigate} from "react-router-dom";
-import { z } from "zod";
+import {toast} from "sonner";
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string()
-});
+
+type LoginForm = { email: string; password: string };
 
 export const LoginPage = () => {
-  const { updateAuthentication } = useContext(AuthContext);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: ""
-    }
-  });
+    const form = useForm<LoginForm>();
+    const {  handleSubmit } = form;
     const navigate = useNavigate();
-  function onSubmit(values: z.infer<typeof formSchema>) {
+    const { updateAuthentication } = useContext(AuthContext);
 
-    console.log(values);
-      signin(values)
-          .then((response) => {
-              console.log(response);
-              if (response.user.emailVerified) {
-                  localStorage.setItem("access-token", response.accessToken);
-                  localStorage.setItem("refresh-token", response.refreshToken);
-                  console.log("🚀 les tokens dans localstorage");
-                  updateAuthentication(true, response.user);
-              } else {
-                  updateAuthentication(false, response.user);
-                  navigate("/verification-en-attente");
-              }
-          })
-          .catch((err) =>
-              form.setError("email", { message: err || "Identifiants invalides" })
-          );
-  }
+
+    const onSubmit = async (values: LoginForm) => {
+        try {
+            const data = await signin(values);
+            // data = { accessToken, refreshToken, user: { id, email, firstname, lastname } }
+
+            // 1) Sauvegarder les tokens
+            localStorage.setItem('access-token', data.accessToken);
+            localStorage.setItem('refresh-token', data.refreshToken);
+
+            // 2) Mettre à jour le contexte (qui va aussi écrire ‘user’ dans localStorage)
+            updateAuthentication(true, data.user);
+
+            // 3) Rediriger l’utilisateur vers la page Profil
+            navigate('/profile');
+        } catch (err: any) {
+            toast.error(typeof err === 'string' ? err : 'Erreur de connexion');
+        }
+    };
 
   return (
     <>
@@ -62,13 +53,13 @@ export const LoginPage = () => {
         </h1>
       </div>
       <div className="rounded-xl">
-        <Form {...form}>
+          <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="md:space-y-8 flex flex-col p-4 md:p-12 md:gap-12 gap-8 py-12"
           >
             <FormField
-              control={form.control}
+                control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -77,7 +68,7 @@ export const LoginPage = () => {
                     <Input
                       type="email"
                       placeholder="john@malkovitch.com"
-                      {...field}
+                      {...field }
                     />
                   </FormControl>
                   <FormMessage />
@@ -86,16 +77,16 @@ export const LoginPage = () => {
             />
             <div className="flex flex-col gap-4">
               <FormField
-                control={form.control}
+                  control={form.control}
                 name="password"
-                render={({ field }) => (
+                render={({ field  }) => (
                   <FormItem>
                     <FormLabel>Mot de Passe</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
                         placeholder="Mot de Passe"
-                        {...field}
+                        {...field }
                       />
                     </FormControl>
                     <FormMessage />
@@ -116,7 +107,7 @@ export const LoginPage = () => {
               </Button>
             </div>
           </form>
-        </Form>
+          </Form>
       </div>
     </>
   );

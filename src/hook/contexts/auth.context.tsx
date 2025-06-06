@@ -1,16 +1,10 @@
-import { userProfile } from "@/interface/UserInterface.ts";
-import { createContext, useState, ReactNode } from "react";
-
-
+import { createContext, useState, ReactNode } from 'react';
+import type { userProfile } from '@/interface/UserInterface';
 
 interface AuthContextType {
     isAuthenticated: boolean;
     userProfile: userProfile | null;
     updateAuthentication: (status: boolean, profile?: userProfile | null) => void;
-}
-
-interface AuthProviderType {
-    children: ReactNode;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -19,30 +13,39 @@ export const AuthContext = createContext<AuthContextType>({
     updateAuthentication: () => {},
 });
 
-export function AuthProvider({ children }: AuthProviderType) {
-    // 1) Savoir si on a déjà un token stocké au moment du premier rendu
+export function AuthProvider({ children }: { children: ReactNode }) {
+    // 1) Initialiser isAuthenticated selon la présence d’un token
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-        localStorage.getItem("access-token") ? true : false
+        !!localStorage.getItem('access-token')
     );
-    // 2) Tenter de recharger le profil utilisateur depuis localStorage si présent
+
+    // 2) Initialiser userProfile depuis localStorage (s’il y a un objet “user” enregistré)
     const [userProfile, setUserProfile] = useState<userProfile | null>(() => {
-        const stored = localStorage.getItem("user");
-        return stored ? JSON.parse(stored) : null;
+        const stored = localStorage.getItem('user');
+        return stored ? (JSON.parse(stored) as userProfile) : null;
     });
-    function updateAuthentication(status: boolean, profile: userProfile | null = null) {
+
+    function updateAuthentication(
+        status: boolean,
+        profile: userProfile | null = null
+    ) {
         setIsAuthenticated(status);
         setUserProfile(profile);
 
         if (status && profile) {
-            // on stocke aussi en localStorage pour recharger ensuite
-            localStorage.setItem("user", JSON.stringify(profile));
+            localStorage.setItem('user', JSON.stringify(profile));
         } else {
-            localStorage.removeItem("user");
+            // Déconnexion : on efface tout
+            localStorage.removeItem('user');
+            localStorage.removeItem('access-token');
+            localStorage.removeItem('refresh-token');
         }
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, userProfile, updateAuthentication }}>
+        <AuthContext.Provider
+            value={{ isAuthenticated, userProfile, updateAuthentication }}
+        >
             {children}
         </AuthContext.Provider>
     );

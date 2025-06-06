@@ -12,7 +12,7 @@ export const getLevels = async () => {
     return data;
 };
 
-export const getLanguageOfUser = async (user_id: string) => {
+export const getLanguageOfUser = async (user_id: any) => {
     const { data } = await api.get(`/languages/${user_id}`);
     return data;
 };

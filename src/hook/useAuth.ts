@@ -1,6 +1,6 @@
-// src/hook/useAuth.ts
-import { useContext } from "react";
-import { AuthContext } from "@/hook/contexts/auth.context";
+
+import { useContext } from 'react';
+import { AuthContext } from '@/hook/contexts/auth.context';
 
 
 export function useAuth() {
@@ -12,7 +12,7 @@ export function useAuth() {
 
     return {
         userId: userProfile.id.toString(),
-        userProfile,           // on renvoie l’objet complet
+        userProfile,
         isAuthenticated: true,
     };
 }

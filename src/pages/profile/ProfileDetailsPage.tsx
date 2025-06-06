@@ -7,7 +7,6 @@ import { useMediaQuery } from "react-responsive";
 // Contexte d'authentification
 //import { AuthContext } from "@/hook/contexts/auth.context";
 import {useAuth} from "@/hook/useAuth.ts";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 //import {generateFakeUser} from "@/utils/generateFakeUser .tsx";
@@ -25,10 +24,11 @@ export const ProfileDetailsPage = () => {
             return <div>Chargement…</div>;
         }
 
+    // Pré‐remplir le formulaire avec userProfile.firstname + lastname, userProfile.phone, etc.
     const { register, handleSubmit } = useForm<ProfileFormData>({
         defaultValues: {
-            name: userProfile.firstname + " " + userProfile.lastname,
-            phone: userProfile.phone ?? "",
+            name: `${userProfile.firstname} ${userProfile.lastname}`,
+            phone: userProfile.phone || '',
         },
     });
 
@@ -37,7 +37,6 @@ export const ProfileDetailsPage = () => {
     const isMobile = useMediaQuery({ maxWidth: 767 });
 
     const onSubmit = (data: ProfileFormData) => {
-        // Faites quelque chose avec les données du formulaire
         toast.success("Profil mis à jour !");
         console.log("Données du formulaire :", data);
     };
@@ -223,7 +222,7 @@ export const ProfileDetailsPage = () => {
                         <p>{userProfile.langues}</p>
                     </CardContent>
                     <CardFooter>
-                        <Button variant="outline" onClick={() => navigate(`/languages/${userId}`)}>
+                        <Button variant="outline" onClick={() => navigate(`/languages`)}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5 mr-2"
