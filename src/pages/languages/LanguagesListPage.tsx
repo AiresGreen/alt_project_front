@@ -287,7 +287,7 @@ export const LanguagesListPage = () => {
 
             {/* Liste des langues */}
             <div className={""}>
-                <h2 data-cy={"card-title-safed"} className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
+                <h2 data-cy={"h-safed"} className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
                 {isLoadingUserLanguages && <span>Loading...</span>}
                 {isErrorUserLanguages && <span>Erreur</span>}
                 {getUserLanguages.length === 0 ? (
@@ -300,7 +300,7 @@ export const LanguagesListPage = () => {
                             <Card data-testid="language-card" key={reactKey}
                                   className="border ">
                                 <CardHeader>
-                                    <CardTitle>
+                                    <CardTitle data-cy="card-title-safed">
                                         {usersLanguages.language.langEnglishName}
                                     </CardTitle>
                                 </CardHeader>

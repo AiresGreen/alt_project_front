@@ -7,10 +7,11 @@ const selectors = {
     niveauTrigger: '[data-cy="levelsFormTrigger"]',
     niveauOption: (level) => `[data-cy="level-option-${level}"]`,
     cardTitleLangue: '[data-cy="card-title-langue"]',
-    cardTitleSafed: '[data-cy="card-title-safed"]',
+    hSafed: '[data-cy="h-safed"]',
     confirmButton: '[data-cy="confirm-button"]',
     changeButton: '[data-cy="change-button"]',
     deleteButton: '[data-cy="delete-button"]',
+    safedLanguage: '[data-cy="card-title-safed"]',
 };
 
 describe('Page LanguesListPage', () => {
