@@ -17,7 +17,7 @@ const selectors = {
 Cypress.Commands.add('login', () => {
         cy.visit('/login');
 
-        // Remplit le formulaire
+        // Remplir le formulaire
         cy.get('input[type="email"]').type('admin@btj.io');
         cy.get('input[type="password"]').type('AdminPassword123!');
 
