@@ -3,7 +3,7 @@ const selectors = {
     langueCard: '[data-testid="language-card"]',
     langueTrigger: '[data-cy="langueFormTrigger"]',
     langueInput: 'input[list="langues-list"]',
-    langueOption: (langue) => 'data-cy={`langue-option-${langue.langEnglishName}`}',
+    langueOption: (langue) => `[data-cy="langue-option-${langue.langEnglishName}"]`,
     niveauTrigger: '[data-cy="levelsFormTrigger"]',
     niveauOption: (level) => `[data-cy="level-option-${level}"]`,
     cardTitleLangue: '[data-cy="card-title-langue"]',
@@ -25,7 +25,10 @@ Cypress.Commands.add('login', () => {
         cy.get('[data-cy="connecter"]').click();
         // Vérifie qu’on est redirigé vers l’accueil
         cy.url().should('match', /localhost:5173\/?$/);
+        cy.wait(1000);
+});
 
+Cypress.Commands.add('goToLanguages', () => {
     // Clique sur l’avatar du profil (navbar)
     cy.get('[data-cy="avatar"]', { timeout: 10000 }).click();
 
@@ -39,44 +42,48 @@ Cypress.Commands.add('login', () => {
 
     //ouvrir la page des langues parlées
     cy.get('[data-cy="voir"]').click();
-    cy.wait(3000);
-});
+    cy.wait(2000);
 
-Cypress.Commands.add('goToLanguages', () => {
-    // Avatar
-    cy.get('[data-cy="avatar"]').click();
+//==verifier affichage correct de la page d'ajout + Interaction avec "langue" et le selecteur
 
-    // Lien vers "Voir mon profil"
-    cy.get('[data-cy="voir-profil"]').click();
+    cy.get(selectors.cardTitleLangue, ).should('contain.text', 'Ajouter une nouvelle langue');
+    cy.get(selectors.cardTitleSafed).should('contain.text', 'Langues enregistrées');
 
-    // Bouton "Voir" pour langues
-    cy.get('[data-cy="voir"]').click();
-
-    // Vérifie qu’on est bien sur la page
-    cy.contains('Langues enregistrées').should('exist');
 });
 
 Cypress.Commands.add('selectLevel', (level) => {
-    cy.get('[data-cy="levelsFormTrigger"]').click();
-    cy.wait(300);
-    cy.get(`[data-cy="level-option-${level}"]`).click({ force: true });
-    cy.get('[data-cy="levelsFormTrigger"]').should('contain.text', level);
-});
-
-Cypress.Commands.add('selectLangue', (langue) => {
-    cy.get('[data-cy="langueFormTrigger"]').click();
-    cy.get('[data-cy="langue-option-Russian"]', { timeout: 3000 })
-        .should('exist')
-        .click({ force: true });
-
-});
-
-Cypress.Commands.add('changeLevel', (level) => {
-    cy.get(selectors.langueCard).should('contain.text', 'Russian')
-    cy.get(selectors.changeButton).click().wait(300);
     cy.get(selectors.niveauTrigger).click().wait(300);
     cy.get(selectors.niveauOption(level)).click({ force: true });
     cy.get(selectors.niveauTrigger).should('contain.text', level);
+
+});
+
+Cypress.Commands.add('selectLangue', (langue) => {
+    cy.get(selectors.langueOption({ langEnglishName: langue }), { timeout: 2000 })
+        .should('contain.text', langue)
+        .click({ force: true });
+
+    cy.get(selectors.langueTrigger).should('contain.text', langue);
+});
+
+
+Cypress.Commands.add('changeLevel', (level) => {
+    cy.get(selectors.langueCard).should('contain.text', 'Russian')
+    cy.get(selectors.changeButton).should('contain.text', 'Modifier').click().wait(300);
+    cy.get(selectors.niveauTrigger).click().wait(300);
+    cy.get(selectors.niveauOption(level)).click({ force: true });
+    cy.get(selectors.niveauTrigger).should('contain.text', level);
+
+})
+
+Cypress.Commands.add('changeLanguage', (langue) =>{
+    cy.get(selectors.langueCard).should('contain.text', 'Russian')
+    cy.get(selectors.changeButton).should('contain.text', 'Modifier').click().wait(300);
+    cy.get(selectors.langueTrigger).type(langue);
+    cy.get(selectors.langueOption({ langEnglishName: langue }), { timeout: 2000 })
+        .should('contain.text', langue)
+        .click({ force: true });
+    cy.get(selectors.langueTrigger).should('contain.text', langue);
 })
 
 

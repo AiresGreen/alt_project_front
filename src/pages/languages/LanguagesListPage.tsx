@@ -253,8 +253,6 @@ export const LanguagesListPage = () => {
                                                             value={level}
                                                             data-cy={`level-option-${level}`}
                                                             data-value={level}
-
-
                                                         >
                                                             {level}
                                                         </SelectItem>
