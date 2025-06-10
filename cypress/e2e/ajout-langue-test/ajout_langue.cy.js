@@ -14,7 +14,6 @@ const selectors = {
 describe('Page LanguesListPage', () => {
     beforeEach(() => {
         cy.login();
-        cy.wait(1000);
     });
 
 //==verifier affichage correct de la page d'ajout + Interaction avec "langue" et le selecteur
