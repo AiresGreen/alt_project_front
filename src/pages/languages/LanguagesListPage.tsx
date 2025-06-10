@@ -1,4 +1,3 @@
-import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {
     Card,
@@ -183,8 +182,8 @@ export const LanguagesListPage = () => {
         <div className="p-6 space-y-6">
             {/* Formulaire de création / édition */}
             <Card className="" data-testid="language-card">
-                <CardHeader>
-                    <CardTitle className="text-lg font-bold">
+                <CardHeader data-cy={"card-title-langue"}>
+                    <CardTitle  className="text-lg font-bold">
                         {isEditing ? "Modifier une langue" : "Ajouter une nouvelle langue"}
                     </CardTitle>
                 </CardHeader>
@@ -203,21 +202,27 @@ export const LanguagesListPage = () => {
                                             <FormItem>
                                                 <FormLabel>Langues :</FormLabel>
                                                 <FormControl>
-                                                    <div>
-                                                        <Input
-                                                            {...field}
-                                                            list="langues-list"
-                                                            placeholder="Commencez à taper une langue"
-                                                            className="border rounded p-2 w-full"
-                                                        />
-                                                        <datalist id="langues-list">
+                                                    <Select
+                                                        onValueChange={field.onChange}
+                                                        defaultValue={field.value}
+                                                        value={field.value}
+                                                    >
+                                                        <SelectTrigger data-cy="langueFormTrigger">
+                                                            <SelectValue placeholder="Choisissez votre niveau de langue" />
+                                                        </SelectTrigger>
+                                                        <SelectContent className={'bg-white text-black border rounded p-2 w-2/5' }>
                                                             {apiLanguages.map((langue) => (
-                                                                <option key={langue.id}
-                                                                        value={langue.langEnglishName}
-                                                                />
+                                                                <SelectItem
+                                                                    key={langue.id}
+                                                                    value={langue.langEnglishName}
+                                                                    data-cy={`langue-option-${langue.langEnglishName}`}
+                                                                    data-value={langue.langEnglishName}
+                                                                >
+                                                                    {langue.langEnglishName}
+                                                                </SelectItem>
                                                             ))}
-                                                        </datalist>
-                                                    </div>
+                                                        </SelectContent>
+                                                    </Select>
                                                 </FormControl>
                                             </FormItem>
                                         )}
@@ -241,13 +246,15 @@ export const LanguagesListPage = () => {
                                                 <SelectTrigger data-cy="levelsFormTrigger">
                                                     <SelectValue placeholder="Choisissez votre niveau de langue" />
                                                 </SelectTrigger>
-                                                <SelectContent>
+                                                <SelectContent className={'bg-white text-black border rounded p-2 w-2' }>
                                                     {apiLevels.data?.map((level) => (
                                                         <SelectItem
                                                             key={level}
                                                             value={level}
                                                             data-cy={`level-option-${level}`}
                                                             data-value={level}
+
+
                                                         >
                                                             {level}
                                                         </SelectItem>
@@ -263,13 +270,15 @@ export const LanguagesListPage = () => {
                         <CardFooter className="flex items-center space-x-4">
                             <Button type="submit"
                                     variant="default"
-                                    disabled={isAdding}>
+                                    disabled={isAdding}
+                                    data-cy={"confirm-button"}>
                                 {isEditing ? "Enregistrer" : isAdding ? "Ajout en cours..." : "Ajouter"}
                             </Button>
                             {isEditing && (
                                 <Button type="button"
                                         variant="outline"
-                                        onClick={resetForm}>
+                                        onClick={resetForm}
+                                        className={'text-black'}>
                                     Annuler
                                 </Button>
                             )}
@@ -280,7 +289,7 @@ export const LanguagesListPage = () => {
 
             {/* Liste des langues */}
             <div className={""}>
-                <h2 className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
+                <h2 data-cy={"card-title-safed"} className="text-xl font-semibold mb-4 text-black">Langues enregistrées</h2>
                 {isLoadingUserLanguages && <span>Loading...</span>}
                 {isErrorUserLanguages && <span>Erreur</span>}
                 {getUserLanguages.length === 0 ? (
@@ -290,7 +299,7 @@ export const LanguagesListPage = () => {
                         {getUserLanguages.map((usersLanguages)=> {
                             const reactKey = `${usersLanguages.language.langEnglishName}-${usersLanguages.level}`;
                             return (
-                            <Card key={reactKey}
+                            <Card data-testid="language-card" key={reactKey}
                                   className="border ">
                                 <CardHeader>
                                     <CardTitle>
@@ -304,6 +313,7 @@ export const LanguagesListPage = () => {
                                 </CardContent>
                                 <CardFooter className="flex space-x-2">
                                     <Button
+                                        data-cy="change-button"
                                         onClick={() => handleEdit(usersLanguages)}
                                         variant="secondary"
                                         size="sm"
@@ -311,6 +321,7 @@ export const LanguagesListPage = () => {
                                         Modifier
                                     </Button>
                                     <Button
+                                        data-cy="delete-botton"
                                         onClick={() => handleDelete(usersLanguages.language_id.toString())}
                                         variant="destructive"
                                         size="sm"

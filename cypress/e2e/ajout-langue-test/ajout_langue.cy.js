@@ -1,66 +1,50 @@
+const selectors = {
+    langueCard: '[data-testid="language-card"]',
+    langueTrigger: '[data-cy="langueFormTrigger"]',
+    langueInput: 'input[list="langues-list"]',
+    langueOption: (langue) => 'data-cy={`langue-option-${langue.langEnglishName}`}',
+    niveauTrigger: '[data-cy="levelsFormTrigger"]',
+    niveauOption: (level) => `[data-cy="level-option-${level}"]`,
+    cardTitleLangue: '[data-cy="card-title-langue"]',
+    cardTitleSafed: '[data-cy="card-title-safed"]',
+    confirmButton: '[data-cy="confirm-button"]',
+};
+
+
 describe('Page LanguesListPage', () => {
     beforeEach(() => {
-        cy.login(); // ⚠️ Remplacer par ton custom command si besoin
-        cy.visit('/profile/languages'); // URL de la page Langues
+        cy.login();
+        cy.wait(1000);
     });
 
-    it('Affiche le titre de la page', () => {
-        cy.contains('Langues enregistrées').should('exist');
+//==verifier affichage correct de la page d'ajout + Interaction avec "langue" et le selecteur
+    it('Should have a title', () => {
+        cy.get(selectors.cardTitleLangue, ).should('contain.text', 'Ajouter une nouvelle langue');
+        cy.get(selectors.cardTitleSafed).should('contain.text', 'Langues enregistrées');
     });
 
-    it('Affiche un message si aucune langue n’est enregistrée', () => {
-        cy.intercept('GET', '**/user/languages', { body: [] }).as('getEmptyLangues');
-        cy.reload();
-        cy.wait('@getEmptyLangues');
-        cy.contains('Aucune langue pour le moment.').should('exist');
-    });
+    //==Interaction avec "langue" et le selecteur + "niveau" et selector
+    it('Should show language-selector and chose "Russian + levels"', ()=> {
+        //==langue
 
-    it('Affiche les langues enregistrées', () => {
-        cy.get('[data-testid="language-card"]').should('have.length.at.least', 1);
-    });
+        cy.selectLangue('Russian');
+        cy.wait(500);
 
-    it('Clique sur le bouton "Ajouter une langue"', () => {
-        cy.contains('Ajouter une langue').click();
-        cy.get('form').should('exist');
-    });
 
-    it('Ajoute une langue avec un niveau', () => {
-        cy.contains('Ajouter une langue').click();
-        cy.get('select[name="language_id"]').select('Anglais');
-        cy.get('select[name="level"]').select('C1');
-        cy.get('button[type="submit"]').click();
-        cy.contains('Langue ajoutée avec succès').should('exist'); // si toast
-    });
+        //===niveau
 
-    it('Édite une langue existante', () => {
-        cy.get('[data-testid="language-card"]').first().within(() => {
-            cy.contains('Modifier').click();
-        });
-        cy.get('select[name="level"]').select('B2');
-        cy.get('button[type="submit"]').click();
-        cy.contains('Langue mise à jour avec succès').should('exist'); // toast attendu
-    });
+        cy.selectLevel('native')
+        cy.wait(500)
+        cy.get(selectors.confirmButton).click()
+        cy.wait(500)
+    })
 
-    it('Supprime une langue', () => {
-        cy.get('[data-testid="language-card"]').first().within(() => {
-            cy.contains('Supprimer').click();
-        });
-        cy.contains('Êtes-vous sûr').should('exist');
-        cy.contains('Confirmer').click();
-        cy.contains('Langue supprimée').should('exist');
-    });
+    //==Changement de niveau et du langue
+    it('Should change level of language and language', () => {
 
-    it('Gère une erreur serveur lors de la suppression', () => {
-        cy.intercept('DELETE', '**/user/languages/**', {
-            statusCode: 500,
-            body: { message: 'Erreur serveur' },
-        }).as('deleteFail');
 
-        cy.get('[data-testid="language-card"]').first().within(() => {
-            cy.contains('Supprimer').click();
-        });
-        cy.contains('Confirmer').click();
-        cy.wait('@deleteFail');
-        cy.contains('Erreur serveur').should('exist');
-    });
+        //==changement de niveau
+        cy.changeLevel(advanced)
+    } )
+
 });

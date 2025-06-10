@@ -181,14 +181,15 @@ export default function NavigationBar() {
                                 <AvatarImage
                                     src={userProfile?.avatarUrl || "https://github.com/shadcn.png"}
                                     alt="Profil"
+                                    data-cy="avatar"
                                 />
                                 <AvatarFallback>{userProfile?.initials || "BTJ"}</AvatarFallback>
                             </Avatar>
                             <p className="text-black">{userProfile?.initials || "BTJ"}</p>
                         </MenubarTrigger>
                         <MenubarContent>
-                            <MenubarItem onClick={() => navigate("/profile-page")}>
-                                <User className="h-4 w-4 mr-2"/>
+                            <MenubarItem data-cy="voir-profil" onClick={() => navigate("/profile-page")}>
+                                <User className="h-4 w-4 mr-2" />
                                 Voir mon profil
                             </MenubarItem>
                             <MenubarItem onClick={() => navigate("/cv")}>

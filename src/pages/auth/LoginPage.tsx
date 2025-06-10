@@ -97,10 +97,8 @@ export const LoginPage = () => {
             </div>
 
             <div className="flex flex-col gap-4 max-md:my-8 py-20">
-              <Button>
-                {" "}
-                {/* a modifier */}
-                Connexion
+              <Button data-cy="connecter">
+                Connecter
               </Button>
               <Button variant="outline" className="w-{200.1px}">
                 Annuler

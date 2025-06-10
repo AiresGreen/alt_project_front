@@ -6,7 +6,7 @@ export default defineConfig({
     specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}", // 📝 Emplacement des tests
     viewportWidth: 1280, // 📏 Taille écran (modifiable)
     viewportHeight: 720,
-    defaultCommandTimeout: 8000, // ⏳ Timeout pour les commandes Cypress
+    defaultCommandTimeout: 3000, // ⏳ Timeout pour les commandes Cypress
     requestTimeout: 10000, // ⏳ Timeout pour les requêtes HTTP
     retries: 3, // 🔄 Nombre de tentatives en cas d'échec
     video: false, // 🎥 Désactiver l'enregistrement des vidéos (activer si besoin)
